@@ -778,7 +778,7 @@ export const GachaPoolZod = z.strictObject({
 });
 export const GameEventZod = z.strictObject({
     id: z.string(),
-    type: z.string(),
+    type: z.union([z.string(), z.number()]),
     displayType: z.string(),
     name: z.string(),
     startTime: z.number(),

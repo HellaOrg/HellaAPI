@@ -46518,7 +46518,7 @@ export declare const GachaPoolZod: z.ZodObject<{
 }>;
 export declare const GameEventZod: z.ZodObject<{
     id: z.ZodString;
-    type: z.ZodString;
+    type: z.ZodUnion<[z.ZodString, z.ZodNumber]>;
     displayType: z.ZodString;
     name: z.ZodString;
     startTime: z.ZodNumber;
@@ -46536,7 +46536,7 @@ export declare const GameEventZod: z.ZodObject<{
     isPageEntry: z.ZodBoolean;
 }, "strict", z.ZodTypeAny, {
     name: string;
-    type: string;
+    type: string | number;
     endTime: number;
     startTime: number;
     id: string;
@@ -46554,7 +46554,7 @@ export declare const GameEventZod: z.ZodObject<{
     isPageEntry: boolean;
 }, {
     name: string;
-    type: string;
+    type: string | number;
     endTime: number;
     startTime: number;
     id: string;
