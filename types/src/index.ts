@@ -794,6 +794,7 @@ export const GameEventZod = z.strictObject({
     trapDomainId: z.string().nullable(),
     recType: z.string().nullable(),
     isPageEntry: z.boolean(),
+    isMagnify: z.boolean(),
 });
 export const GridRangeZod = z.strictObject({
     id: z.string(),
@@ -867,11 +868,13 @@ export const ModuleZod = z.strictObject({
         itemCost: z.record(z.string(), z.array(LevelUpCostZod)).nullable(),
         type: z.string(),
         uniEquipGetTime: z.number(),
+        uniEquipShowEnd: z.number(),
         charEquipOrder: z.number(),
         hasUnlockMission: z.boolean(),
         isSpecialEquip: z.boolean(),
         specialEquipDesc: z.string().nullable(),
         specialEquipColor: z.string().nullable(),
+        charColor: z.string().nullable(),
     }),
     data: z.strictObject({
         phases: z.array(
@@ -882,6 +885,7 @@ export const ModuleZod = z.strictObject({
                         resKey: z.string().nullable(),
                         target: z.string(),
                         isToken: z.boolean(),
+                        validInGameTag: z.null(),
                         addOrOverrideTalentDataBundle: z.strictObject({
                             candidates: z.array(
                                 z.strictObject({

@@ -46534,6 +46534,7 @@ export declare const GameEventZod: z.ZodObject<{
     trapDomainId: z.ZodNullable<z.ZodString>;
     recType: z.ZodNullable<z.ZodString>;
     isPageEntry: z.ZodBoolean;
+    isMagnify: z.ZodBoolean;
 }, "strict", z.ZodTypeAny, {
     name: string;
     type: string | number;
@@ -46552,6 +46553,7 @@ export declare const GameEventZod: z.ZodObject<{
     trapDomainId: string | null;
     recType: string | null;
     isPageEntry: boolean;
+    isMagnify: boolean;
 }, {
     name: string;
     type: string | number;
@@ -46570,6 +46572,7 @@ export declare const GameEventZod: z.ZodObject<{
     trapDomainId: string | null;
     recType: string | null;
     isPageEntry: boolean;
+    isMagnify: boolean;
 }>;
 export declare const GridRangeZod: z.ZodObject<{
     id: z.ZodString;
@@ -47219,11 +47222,13 @@ export declare const ModuleZod: z.ZodObject<{
         }>, "many">>>;
         type: z.ZodString;
         uniEquipGetTime: z.ZodNumber;
+        uniEquipShowEnd: z.ZodNumber;
         charEquipOrder: z.ZodNumber;
         hasUnlockMission: z.ZodBoolean;
         isSpecialEquip: z.ZodBoolean;
         specialEquipDesc: z.ZodNullable<z.ZodString>;
         specialEquipColor: z.ZodNullable<z.ZodString>;
+        charColor: z.ZodNullable<z.ZodString>;
     }, "strict", z.ZodTypeAny, {
         type: string;
         tmplId: string | null;
@@ -47252,11 +47257,13 @@ export declare const ModuleZod: z.ZodObject<{
             count: number;
         }[]> | null;
         uniEquipGetTime: number;
+        uniEquipShowEnd: number;
         charEquipOrder: number;
         hasUnlockMission: boolean;
         isSpecialEquip: boolean;
         specialEquipDesc: string | null;
         specialEquipColor: string | null;
+        charColor: string | null;
         unlockFavorPoint?: number | undefined;
     }, {
         type: string;
@@ -47286,11 +47293,13 @@ export declare const ModuleZod: z.ZodObject<{
             count: number;
         }[]> | null;
         uniEquipGetTime: number;
+        uniEquipShowEnd: number;
         charEquipOrder: number;
         hasUnlockMission: boolean;
         isSpecialEquip: boolean;
         specialEquipDesc: string | null;
         specialEquipColor: string | null;
+        charColor: string | null;
         unlockFavorPoint?: number | undefined;
     }>;
     data: z.ZodNullable<z.ZodObject<{
@@ -47300,6 +47309,7 @@ export declare const ModuleZod: z.ZodObject<{
                 resKey: z.ZodNullable<z.ZodString>;
                 target: z.ZodString;
                 isToken: z.ZodBoolean;
+                validInGameTag: z.ZodNull;
                 addOrOverrideTalentDataBundle: z.ZodObject<{
                     candidates: z.ZodNullable<z.ZodArray<z.ZodObject<{
                         displayRangeId: z.ZodBoolean;
@@ -47521,6 +47531,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47566,6 +47577,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47640,6 +47652,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47698,6 +47711,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47758,6 +47772,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47818,6 +47833,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47880,6 +47896,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47962,11 +47979,13 @@ export declare const ModuleZod: z.ZodObject<{
             count: number;
         }[]> | null;
         uniEquipGetTime: number;
+        uniEquipShowEnd: number;
         charEquipOrder: number;
         hasUnlockMission: boolean;
         isSpecialEquip: boolean;
         specialEquipDesc: string | null;
         specialEquipColor: string | null;
+        charColor: string | null;
         unlockFavorPoint?: number | undefined;
     };
 }, {
@@ -47977,6 +47996,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
+                validInGameTag: null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -48059,11 +48079,13 @@ export declare const ModuleZod: z.ZodObject<{
             count: number;
         }[]> | null;
         uniEquipGetTime: number;
+        uniEquipShowEnd: number;
         charEquipOrder: number;
         hasUnlockMission: boolean;
         isSpecialEquip: boolean;
         specialEquipDesc: string | null;
         specialEquipColor: string | null;
+        charColor: string | null;
         unlockFavorPoint?: number | undefined;
     };
 }>;
@@ -94252,11 +94274,13 @@ export declare const OperatorZod: z.ZodObject<{
             }>, "many">>>;
             type: z.ZodString;
             uniEquipGetTime: z.ZodNumber;
+            uniEquipShowEnd: z.ZodNumber;
             charEquipOrder: z.ZodNumber;
             hasUnlockMission: z.ZodBoolean;
             isSpecialEquip: z.ZodBoolean;
             specialEquipDesc: z.ZodNullable<z.ZodString>;
             specialEquipColor: z.ZodNullable<z.ZodString>;
+            charColor: z.ZodNullable<z.ZodString>;
         }, "strict", z.ZodTypeAny, {
             type: string;
             tmplId: string | null;
@@ -94285,11 +94309,13 @@ export declare const OperatorZod: z.ZodObject<{
                 count: number;
             }[]> | null;
             uniEquipGetTime: number;
+            uniEquipShowEnd: number;
             charEquipOrder: number;
             hasUnlockMission: boolean;
             isSpecialEquip: boolean;
             specialEquipDesc: string | null;
             specialEquipColor: string | null;
+            charColor: string | null;
             unlockFavorPoint?: number | undefined;
         }, {
             type: string;
@@ -94319,11 +94345,13 @@ export declare const OperatorZod: z.ZodObject<{
                 count: number;
             }[]> | null;
             uniEquipGetTime: number;
+            uniEquipShowEnd: number;
             charEquipOrder: number;
             hasUnlockMission: boolean;
             isSpecialEquip: boolean;
             specialEquipDesc: string | null;
             specialEquipColor: string | null;
+            charColor: string | null;
             unlockFavorPoint?: number | undefined;
         }>;
         data: z.ZodNullable<z.ZodObject<{
@@ -94333,6 +94361,7 @@ export declare const OperatorZod: z.ZodObject<{
                     resKey: z.ZodNullable<z.ZodString>;
                     target: z.ZodString;
                     isToken: z.ZodBoolean;
+                    validInGameTag: z.ZodNull;
                     addOrOverrideTalentDataBundle: z.ZodObject<{
                         candidates: z.ZodNullable<z.ZodArray<z.ZodObject<{
                             displayRangeId: z.ZodBoolean;
@@ -94554,6 +94583,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94599,6 +94629,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94673,6 +94704,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94731,6 +94763,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94791,6 +94824,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94851,6 +94885,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94913,6 +94948,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94995,11 +95031,13 @@ export declare const OperatorZod: z.ZodObject<{
                 count: number;
             }[]> | null;
             uniEquipGetTime: number;
+            uniEquipShowEnd: number;
             charEquipOrder: number;
             hasUnlockMission: boolean;
             isSpecialEquip: boolean;
             specialEquipDesc: string | null;
             specialEquipColor: string | null;
+            charColor: string | null;
             unlockFavorPoint?: number | undefined;
         };
     }, {
@@ -95010,6 +95048,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -95092,11 +95131,13 @@ export declare const OperatorZod: z.ZodObject<{
                 count: number;
             }[]> | null;
             uniEquipGetTime: number;
+            uniEquipShowEnd: number;
             charEquipOrder: number;
             hasUnlockMission: boolean;
             isSpecialEquip: boolean;
             specialEquipDesc: string | null;
             specialEquipColor: string | null;
+            charColor: string | null;
             unlockFavorPoint?: number | undefined;
         };
     }>, "many">;
@@ -102637,6 +102678,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -102719,11 +102761,13 @@ export declare const OperatorZod: z.ZodObject<{
                 count: number;
             }[]> | null;
             uniEquipGetTime: number;
+            uniEquipShowEnd: number;
             charEquipOrder: number;
             hasUnlockMission: boolean;
             isSpecialEquip: boolean;
             specialEquipDesc: string | null;
             specialEquipColor: string | null;
+            charColor: string | null;
             unlockFavorPoint?: number | undefined;
         };
     }[];
@@ -103790,6 +103834,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
+                    validInGameTag: null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -103872,11 +103917,13 @@ export declare const OperatorZod: z.ZodObject<{
                 count: number;
             }[]> | null;
             uniEquipGetTime: number;
+            uniEquipShowEnd: number;
             charEquipOrder: number;
             hasUnlockMission: boolean;
             isSpecialEquip: boolean;
             specialEquipDesc: string | null;
             specialEquipColor: string | null;
+            charColor: string | null;
             unlockFavorPoint?: number | undefined;
         };
     }[];
