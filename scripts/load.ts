@@ -71,6 +71,7 @@ class G {
     static fetchLocal = true;
     static writeToDb = true;
     static updateAbout = true;
+    static allGacha = false;
 
     static db: Db;
     static gameConsts: any;
@@ -94,6 +95,10 @@ async function main() {
                 }
             }
         }
+    }
+    if (args.includes('allgacha')){
+        G.allGacha = true;
+        G.collectionsToLoad.gacha = true;
     }
 
     G.db = await getDb();
@@ -892,15 +897,30 @@ async function loadGacha() {
             const oldDocuments = await getCollectionMetaInfo(collection);
 
             const gachaTable = await fetchData('excel/gacha_table.json');
-            const gachaPoolClient: any[] = gachaTable.gachaPoolClient;
-            // only get 12 most recent pools to minimize official api calls
-            const gachaPools = gachaPoolClient.sort((a, b) => b.openTime - a.openTime).slice(0, 12);
-            const poolDetails: any[] = JSON.parse((await G.execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
+            const gachaPoolClient: any[] = gachaTable.gachaPoolClient.sort((a, b) => b.openTime - a.openTime);
 
             const dataArr: Doc[] = [];
-            gachaPools.forEach((pool, i) => {
-                dataArr.push(createDoc(oldDocuments, [pool.gachaPoolId], { client: pool, details: poolDetails[i] }));
-            })
+
+            if (G.allGacha) {
+                for (let i = 0; i < Math.ceil(gachaPoolClient.length / 50); i++) {
+                    const gachaPools = gachaPoolClient.slice(i * 50, (i + 1) * 50);
+                    const poolDetails: any[] = JSON.parse((await G.execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
+
+                    gachaPools.forEach((pool, i) => {
+                        dataArr.push(createDoc(oldDocuments, [pool.gachaPoolId], { client: pool, details: poolDetails[i] }));
+                    })
+                }
+            }
+            else {
+                // only get 12 most recent pools to minimize official api calls
+                const gachaPools = gachaPoolClient.slice(0, 12);
+                const poolDetails: any[] = JSON.parse((await G.execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
+
+                gachaPools.forEach((pool, i) => {
+                    dataArr.push(createDoc(oldDocuments, [pool.gachaPoolId], { client: pool, details: poolDetails[i] }));
+                })
+            }
+
             const filteredArr = filterDocuments(oldDocuments, dataArr);
 
             for (const datum of filteredArr) {
