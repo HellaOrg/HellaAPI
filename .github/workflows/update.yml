@@ -12,7 +12,7 @@ concurrency:
 jobs:
   update:
     name: Update database
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       condition: ${{ steps.update.outputs.condition }}
     steps:
