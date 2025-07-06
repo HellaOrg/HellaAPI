@@ -3,12 +3,16 @@ name: Update database
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "0 * * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   update:
     name: Update database
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       condition: ${{ steps.update.outputs.condition }}
     steps:
