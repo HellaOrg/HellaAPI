@@ -885,7 +885,7 @@ export const ModuleZod = z.strictObject({
                         resKey: z.string().nullable(),
                         target: z.string(),
                         isToken: z.boolean(),
-                        validInGameTag: z.null(),
+                        validInGameTag: z.string().nullable(),
                         addOrOverrideTalentDataBundle: z.strictObject({
                             candidates: z.array(
                                 z.strictObject({

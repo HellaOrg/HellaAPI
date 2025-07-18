@@ -47309,7 +47309,7 @@ export declare const ModuleZod: z.ZodObject<{
                 resKey: z.ZodNullable<z.ZodString>;
                 target: z.ZodString;
                 isToken: z.ZodBoolean;
-                validInGameTag: z.ZodNull;
+                validInGameTag: z.ZodNullable<z.ZodString>;
                 addOrOverrideTalentDataBundle: z.ZodObject<{
                     candidates: z.ZodNullable<z.ZodArray<z.ZodObject<{
                         displayRangeId: z.ZodBoolean;
@@ -47531,7 +47531,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47577,7 +47577,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47652,7 +47652,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47711,7 +47711,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47772,7 +47772,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47833,7 +47833,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47896,7 +47896,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -47996,7 +47996,7 @@ export declare const ModuleZod: z.ZodObject<{
                 target: string;
                 resKey: string | null;
                 isToken: boolean;
-                validInGameTag: null;
+                validInGameTag: string | null;
                 addOrOverrideTalentDataBundle: {
                     candidates: {
                         name: string | null;
@@ -94361,7 +94361,7 @@ export declare const OperatorZod: z.ZodObject<{
                     resKey: z.ZodNullable<z.ZodString>;
                     target: z.ZodString;
                     isToken: z.ZodBoolean;
-                    validInGameTag: z.ZodNull;
+                    validInGameTag: z.ZodNullable<z.ZodString>;
                     addOrOverrideTalentDataBundle: z.ZodObject<{
                         candidates: z.ZodNullable<z.ZodArray<z.ZodObject<{
                             displayRangeId: z.ZodBoolean;
@@ -94583,7 +94583,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94629,7 +94629,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94704,7 +94704,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94763,7 +94763,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94824,7 +94824,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94885,7 +94885,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -94948,7 +94948,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -95048,7 +95048,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -102678,7 +102678,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
@@ -103834,7 +103834,7 @@ export declare const OperatorZod: z.ZodObject<{
                     target: string;
                     resKey: string | null;
                     isToken: boolean;
-                    validInGameTag: null;
+                    validInGameTag: string | null;
                     addOrOverrideTalentDataBundle: {
                         candidates: {
                             name: string | null;
