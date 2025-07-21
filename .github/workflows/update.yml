@@ -21,14 +21,16 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Install dependencies
         run: |
-          sudo apt update && sudo apt install -y python3-pip git
+          sudo apt update && sudo apt install -y python3-pip python3-venv git
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
           nvm install node
           npm install
-          pip install -r scripts/requirements.txt
+          python3 -m venv venv \
+            && source venv/bin/activate \
+            && pip install -r scripts/requirements.txt
           git clone https://github.com/Kengxxiao/ArknightsGameData_YoStar.git --depth=1
       - name: ArkPRTS auth cache fix
         run: mkdir -p ~/.local/share/arkprts && echo "{}" | tee ~/.local/share/arkprts/arkprts_auth_cache.json
@@ -42,6 +44,8 @@ jobs:
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+          source venv/bin/activate
 
           npm run load | tee load.out
 
