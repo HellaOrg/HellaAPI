@@ -30,7 +30,7 @@ class G {
         skin: true,
         deployable: true,
         operator: true,
-        cc: false,
+        cc: true,
         ccb: false,
         ccblegacy: false,
         define: true,
