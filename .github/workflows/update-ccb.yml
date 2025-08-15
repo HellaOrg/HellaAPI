@@ -1,9 +1,7 @@
-name: Update database
+name: Update CCB
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 * * * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -11,7 +9,7 @@ concurrency:
 
 jobs:
   update:
-    name: Update database
+    name: Update CCB
     runs-on: self-hosted
     outputs:
       condition: ${{ steps.update.outputs.condition }}
@@ -34,7 +32,7 @@ jobs:
           git clone https://github.com/Kengxxiao/ArknightsGameData_YoStar.git --depth=1
       - name: ArkPRTS auth cache fix
         run: mkdir -p ~/.local/share/arkprts && echo "{}" | tee ~/.local/share/arkprts/arkprts_auth_cache.json
-      - name: Update database
+      - name: Update CCB
         id: update
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
@@ -47,7 +45,7 @@ jobs:
 
           source venv/bin/activate
 
-          npm run load | tee load.out
+          npm run load ccb | tee load.out
 
           if [[ "${PIPESTATUS[0]}" -ne 0 ]]; then
             exit 1

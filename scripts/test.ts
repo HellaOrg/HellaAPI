@@ -17,6 +17,14 @@ const collections = [
         schema: T.CCSeasonZod,
     },
     {
+        name: 'ccb/legacy',
+        schema: T.CCStageLegacyZod,
+    },
+    {
+        name: 'ccb/stage',
+        schema: T.CCStageZod,
+    },
+    {
         name: 'define',
         schema: T.DefinitionZod,
     },

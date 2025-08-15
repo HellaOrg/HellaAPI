@@ -13,7 +13,7 @@ async def main() -> None:
     try:
         load_dotenv()
         auth = arkprts.YostarAuth("en")
-        await auth.login_with_token(os.getenv('CHANNEL_UID'), os.getenv('YOSTAR_TOKEN'))
+        await auth.login_with_token(os.getenv('YOSTAR_UID'), os.getenv('YOSTAR_TOKEN'))
         client = arkprts.Client(auth=auth, assets=False)
 
         payload = f'{{}}'
