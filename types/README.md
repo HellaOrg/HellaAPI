@@ -1,6 +1,6 @@
 # HellaTypes
 
-> Formerly located at https://github.com/Awedtan/HellaTypes
+Formerly located at https://github.com/Awedtan/HellaTypes
 
 A types library for data returned by HellaAPI. Provides native TS types as well as [Zod schema objects](https://github.com/colinhacks/zod).
 
