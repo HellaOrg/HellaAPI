@@ -45745,7 +45745,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         CDPrimColor: z.ZodNullable<z.ZodString>;
         CDSecColor: z.ZodNullable<z.ZodString>;
         freeBackColor: z.ZodOptional<z.ZodNullable<z.ZodString>>;
-        gachaRuleType: z.ZodString;
+        gachaRuleType: z.ZodEnum<["ATTAIN", "CLASSIC", "CLASSIC_ATTAIN", "CLASSIC_DOUBLE", "DOUBLE", "FESCLASSIC", "LIMITED", "LINKAGE", "NORMAL", "SINGLE", "SPECIAL"]>;
         dynMeta: z.ZodNullable<z.ZodUnion<[z.ZodObject<{
             chooseRuleConst: z.ZodString;
             homeDescConst: z.ZodString;
@@ -45868,7 +45868,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: string;
+        gachaRuleType: "NORMAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE" | "SPECIAL";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -45948,7 +45948,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: string;
+        gachaRuleType: "NORMAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE" | "SPECIAL";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -46394,7 +46394,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: string;
+        gachaRuleType: "NORMAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE" | "SPECIAL";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -46524,7 +46524,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: string;
+        gachaRuleType: "NORMAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE" | "SPECIAL";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;

@@ -647,7 +647,7 @@ exports.GachaPoolZod = z.strictObject({
         CDPrimColor: z.string().nullable(),
         CDSecColor: z.string().nullable(),
         freeBackColor: z.string().nullable().optional(),
-        gachaRuleType: z.string(),
+        gachaRuleType: z.enum(['ATTAIN', 'CLASSIC', 'CLASSIC_ATTAIN', 'CLASSIC_DOUBLE', 'DOUBLE', 'FESCLASSIC', 'LIMITED', 'LINKAGE', 'NORMAL', 'SINGLE', 'SPECIAL']),
         dynMeta: z.union([
             z.strictObject({
                 chooseRuleConst: z.string(),
