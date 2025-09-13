@@ -382,6 +382,7 @@ declare const StageDataZod: z.ZodObject<{
         buildableMask: string | number;
         professionMask?: string | number | undefined;
     }>, "many">>;
+    optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
     globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
         prefabKey: z.ZodString;
         blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -400,6 +401,7 @@ declare const StageDataZod: z.ZodObject<{
         overrideCameraEffect: z.ZodNull;
         passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
         professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+        playerSideMask: z.ZodOptional<z.ZodString>;
         useExtraData: z.ZodOptional<z.ZodBoolean>;
     }, "strict", z.ZodTypeAny, {
         prefabKey: string;
@@ -411,6 +413,7 @@ declare const StageDataZod: z.ZodObject<{
         overrideCameraEffect: null;
         passProfessionMaskFlag?: boolean | undefined;
         professionMask?: string | number | undefined;
+        playerSideMask?: string | undefined;
         useExtraData?: boolean | undefined;
     }, {
         prefabKey: string;
@@ -422,6 +425,7 @@ declare const StageDataZod: z.ZodObject<{
         overrideCameraEffect: null;
         passProfessionMaskFlag?: boolean | undefined;
         professionMask?: string | number | undefined;
+        playerSideMask?: string | undefined;
         useExtraData?: boolean | undefined;
     }>, "many">>;
     routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -927,7 +931,7 @@ declare const StageDataZod: z.ZodObject<{
             initSp: number;
             increment: number;
         }>>;
-        m_runtimeData: z.ZodNull;
+        m_runtimeData: z.ZodOptional<z.ZodNull>;
     }, "strict", z.ZodTypeAny, {
         name: null;
         key: string;
@@ -991,7 +995,7 @@ declare const StageDataZod: z.ZodObject<{
             increment: number;
         } | null;
         alias: null;
-        m_runtimeData: null;
+        m_runtimeData?: null | undefined;
     }, {
         name: null;
         key: string;
@@ -1055,7 +1059,7 @@ declare const StageDataZod: z.ZodObject<{
             increment: number;
         } | null;
         alias: null;
-        m_runtimeData: null;
+        m_runtimeData?: null | undefined;
     }>, "many">;
     enemyDbRefs: z.ZodArray<z.ZodObject<{
         useDb: z.ZodBoolean;
@@ -4325,6 +4329,7 @@ declare const StageDataZod: z.ZodObject<{
         overrideCameraEffect: null;
         passProfessionMaskFlag?: boolean | undefined;
         professionMask?: string | number | undefined;
+        playerSideMask?: string | undefined;
         useExtraData?: boolean | undefined;
     }[] | null;
     routes: ({
@@ -4427,7 +4432,7 @@ declare const StageDataZod: z.ZodObject<{
             increment: number;
         } | null;
         alias: null;
-        m_runtimeData: null;
+        m_runtimeData?: null | undefined;
     }[];
     enemyDbRefs: {
         id: string;
@@ -4801,6 +4806,7 @@ declare const StageDataZod: z.ZodObject<{
     } | null;
     excludeCharIdList: null;
     randomSeed: number;
+    optionalRunes?: null[] | null | undefined;
     extraRoutes?: ({
         motionMode: string | number;
         startPosition: {
@@ -5044,6 +5050,7 @@ declare const StageDataZod: z.ZodObject<{
         overrideCameraEffect: null;
         passProfessionMaskFlag?: boolean | undefined;
         professionMask?: string | number | undefined;
+        playerSideMask?: string | undefined;
         useExtraData?: boolean | undefined;
     }[] | null;
     routes: ({
@@ -5146,7 +5153,7 @@ declare const StageDataZod: z.ZodObject<{
             increment: number;
         } | null;
         alias: null;
-        m_runtimeData: null;
+        m_runtimeData?: null | undefined;
     }[];
     enemyDbRefs: {
         id: string;
@@ -5520,6 +5527,7 @@ declare const StageDataZod: z.ZodObject<{
     } | null;
     excludeCharIdList: null;
     randomSeed: number;
+    optionalRunes?: null[] | null | undefined;
     extraRoutes?: ({
         motionMode: string | number;
         startPosition: {
@@ -6129,6 +6137,7 @@ declare const RogueStageZod: z.ZodObject<{
             buildableMask: string | number;
             professionMask?: string | number | undefined;
         }>, "many">>;
+        optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
         globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
             prefabKey: z.ZodString;
             blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -6147,6 +6156,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: z.ZodNull;
             passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
             professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+            playerSideMask: z.ZodOptional<z.ZodString>;
             useExtraData: z.ZodOptional<z.ZodBoolean>;
         }, "strict", z.ZodTypeAny, {
             prefabKey: string;
@@ -6158,6 +6168,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }, {
             prefabKey: string;
@@ -6169,6 +6180,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }>, "many">>;
         routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -6674,7 +6686,7 @@ declare const RogueStageZod: z.ZodObject<{
                 initSp: number;
                 increment: number;
             }>>;
-            m_runtimeData: z.ZodNull;
+            m_runtimeData: z.ZodOptional<z.ZodNull>;
         }, "strict", z.ZodTypeAny, {
             name: null;
             key: string;
@@ -6738,7 +6750,7 @@ declare const RogueStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }, {
             name: null;
             key: string;
@@ -6802,7 +6814,7 @@ declare const RogueStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }>, "many">;
         enemyDbRefs: z.ZodArray<z.ZodObject<{
             useDb: z.ZodBoolean;
@@ -10072,6 +10084,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -10174,7 +10187,7 @@ declare const RogueStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -10548,6 +10561,7 @@ declare const RogueStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -10791,6 +10805,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -10893,7 +10908,7 @@ declare const RogueStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -11267,6 +11282,7 @@ declare const RogueStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -11531,6 +11547,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -11633,7 +11650,7 @@ declare const RogueStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -12007,6 +12024,7 @@ declare const RogueStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -12271,6 +12289,7 @@ declare const RogueStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -12373,7 +12392,7 @@ declare const RogueStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -12747,6 +12766,7 @@ declare const RogueStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -13580,6 +13600,7 @@ declare const SandboxStageZod: z.ZodObject<{
             buildableMask: string | number;
             professionMask?: string | number | undefined;
         }>, "many">>;
+        optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
         globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
             prefabKey: z.ZodString;
             blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -13598,6 +13619,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: z.ZodNull;
             passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
             professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+            playerSideMask: z.ZodOptional<z.ZodString>;
             useExtraData: z.ZodOptional<z.ZodBoolean>;
         }, "strict", z.ZodTypeAny, {
             prefabKey: string;
@@ -13609,6 +13631,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }, {
             prefabKey: string;
@@ -13620,6 +13643,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }>, "many">>;
         routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -14125,7 +14149,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 initSp: number;
                 increment: number;
             }>>;
-            m_runtimeData: z.ZodNull;
+            m_runtimeData: z.ZodOptional<z.ZodNull>;
         }, "strict", z.ZodTypeAny, {
             name: null;
             key: string;
@@ -14189,7 +14213,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }, {
             name: null;
             key: string;
@@ -14253,7 +14277,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }>, "many">;
         enemyDbRefs: z.ZodArray<z.ZodObject<{
             useDb: z.ZodBoolean;
@@ -17523,6 +17547,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -17625,7 +17650,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -17999,6 +18024,7 @@ declare const SandboxStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -18242,6 +18268,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -18344,7 +18371,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -18718,6 +18745,7 @@ declare const SandboxStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -18972,6 +19000,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -19074,7 +19103,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -19448,6 +19477,7 @@ declare const SandboxStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -19702,6 +19732,7 @@ declare const SandboxStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -19804,7 +19835,7 @@ declare const SandboxStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -20178,6 +20209,7 @@ declare const SandboxStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -20771,6 +20803,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             buildableMask: string | number;
             professionMask?: string | number | undefined;
         }>, "many">>;
+        optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
         globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
             prefabKey: z.ZodString;
             blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -20789,6 +20822,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: z.ZodNull;
             passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
             professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+            playerSideMask: z.ZodOptional<z.ZodString>;
             useExtraData: z.ZodOptional<z.ZodBoolean>;
         }, "strict", z.ZodTypeAny, {
             prefabKey: string;
@@ -20800,6 +20834,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }, {
             prefabKey: string;
@@ -20811,6 +20846,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }>, "many">>;
         routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -21316,7 +21352,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 initSp: number;
                 increment: number;
             }>>;
-            m_runtimeData: z.ZodNull;
+            m_runtimeData: z.ZodOptional<z.ZodNull>;
         }, "strict", z.ZodTypeAny, {
             name: null;
             key: string;
@@ -21380,7 +21416,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }, {
             name: null;
             key: string;
@@ -21444,7 +21480,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }>, "many">;
         enemyDbRefs: z.ZodArray<z.ZodObject<{
             useDb: z.ZodBoolean;
@@ -24714,6 +24750,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -24816,7 +24853,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -25190,6 +25227,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -25433,6 +25471,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -25535,7 +25574,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -25909,6 +25948,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -26154,6 +26194,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -26256,7 +26297,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -26630,6 +26671,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -26881,6 +26923,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -26983,7 +27026,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -27357,6 +27400,7 @@ export declare const CCStageLegacyZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -27915,6 +27959,7 @@ export declare const CCStageZod: z.ZodObject<{
             buildableMask: string | number;
             professionMask?: string | number | undefined;
         }>, "many">>;
+        optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
         globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
             prefabKey: z.ZodString;
             blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -27933,6 +27978,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: z.ZodNull;
             passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
             professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+            playerSideMask: z.ZodOptional<z.ZodString>;
             useExtraData: z.ZodOptional<z.ZodBoolean>;
         }, "strict", z.ZodTypeAny, {
             prefabKey: string;
@@ -27944,6 +27990,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }, {
             prefabKey: string;
@@ -27955,6 +28002,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }>, "many">>;
         routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -28460,7 +28508,7 @@ export declare const CCStageZod: z.ZodObject<{
                 initSp: number;
                 increment: number;
             }>>;
-            m_runtimeData: z.ZodNull;
+            m_runtimeData: z.ZodOptional<z.ZodNull>;
         }, "strict", z.ZodTypeAny, {
             name: null;
             key: string;
@@ -28524,7 +28572,7 @@ export declare const CCStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }, {
             name: null;
             key: string;
@@ -28588,7 +28636,7 @@ export declare const CCStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }>, "many">;
         enemyDbRefs: z.ZodArray<z.ZodObject<{
             useDb: z.ZodBoolean;
@@ -31858,6 +31906,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -31960,7 +32009,7 @@ export declare const CCStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -32334,6 +32383,7 @@ export declare const CCStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -32577,6 +32627,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -32679,7 +32730,7 @@ export declare const CCStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -33053,6 +33104,7 @@ export declare const CCStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -33312,6 +33364,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -33414,7 +33467,7 @@ export declare const CCStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -33788,6 +33841,7 @@ export declare const CCStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -34047,6 +34101,7 @@ export declare const CCStageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -34149,7 +34204,7 @@ export declare const CCStageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -34523,6 +34578,7 @@ export declare const CCStageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -35077,6 +35133,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 buildableMask: string | number;
                 professionMask?: string | number | undefined;
             }>, "many">>;
+            optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
             globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
                 prefabKey: z.ZodString;
                 blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -35095,6 +35152,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: z.ZodNull;
                 passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
                 professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+                playerSideMask: z.ZodOptional<z.ZodString>;
                 useExtraData: z.ZodOptional<z.ZodBoolean>;
             }, "strict", z.ZodTypeAny, {
                 prefabKey: string;
@@ -35106,6 +35164,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }, {
                 prefabKey: string;
@@ -35117,6 +35176,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }>, "many">>;
             routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -35622,7 +35682,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     initSp: number;
                     increment: number;
                 }>>;
-                m_runtimeData: z.ZodNull;
+                m_runtimeData: z.ZodOptional<z.ZodNull>;
             }, "strict", z.ZodTypeAny, {
                 name: null;
                 key: string;
@@ -35686,7 +35746,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }, {
                 name: null;
                 key: string;
@@ -35750,7 +35810,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }>, "many">;
             enemyDbRefs: z.ZodArray<z.ZodObject<{
                 useDb: z.ZodBoolean;
@@ -39020,6 +39080,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -39122,7 +39183,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -39496,6 +39557,7 @@ export declare const CCSeasonZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -39739,6 +39801,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -39841,7 +39904,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -40215,6 +40278,7 @@ export declare const CCSeasonZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -40474,6 +40538,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -40576,7 +40641,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -40950,6 +41015,7 @@ export declare const CCSeasonZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -41209,6 +41275,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -41311,7 +41378,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -41685,6 +41752,7 @@ export declare const CCSeasonZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -41947,6 +42015,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -42049,7 +42118,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -42423,6 +42492,7 @@ export declare const CCSeasonZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -42685,6 +42755,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -42787,7 +42858,7 @@ export declare const CCSeasonZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -43161,6 +43232,7 @@ export declare const CCSeasonZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -45666,6 +45738,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         gachaPoolName: z.ZodString;
         gachaPoolSummary: z.ZodString;
         gachaPoolDetail: z.ZodNullable<z.ZodString>;
+        guaranteeName: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         guarantee5Avail: z.ZodNumber;
         guarantee5Count: z.ZodNumber;
         LMTGSID: z.ZodNullable<z.ZodString>;
@@ -45855,6 +45928,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         linkageParam: {
             guaranteeTarget6Count: number;
         } | null;
+        guaranteeName?: string | null | undefined;
         freeBackColor?: string | null | undefined;
         limitParam?: {
             freeCount: number;
@@ -45934,6 +46008,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         linkageParam: {
             guaranteeTarget6Count: number;
         } | null;
+        guaranteeName?: string | null | undefined;
         freeBackColor?: string | null | undefined;
         limitParam?: {
             freeCount: number;
@@ -46379,6 +46454,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         linkageParam: {
             guaranteeTarget6Count: number;
         } | null;
+        guaranteeName?: string | null | undefined;
         freeBackColor?: string | null | undefined;
         limitParam?: {
             freeCount: number;
@@ -46508,6 +46584,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         linkageParam: {
             guaranteeTarget6Count: number;
         } | null;
+        guaranteeName?: string | null | undefined;
         freeBackColor?: string | null | undefined;
         limitParam?: {
             freeCount: number;
@@ -46535,6 +46612,8 @@ export declare const GameEventZod: z.ZodObject<{
     recType: z.ZodNullable<z.ZodString>;
     isPageEntry: z.ZodBoolean;
     isMagnify: z.ZodBoolean;
+    picGroup: z.ZodArray<z.ZodNull, "many">;
+    usePicGroup: z.ZodBoolean;
 }, "strict", z.ZodTypeAny, {
     name: string;
     type: string | number;
@@ -46554,6 +46633,8 @@ export declare const GameEventZod: z.ZodObject<{
     recType: string | null;
     isPageEntry: boolean;
     isMagnify: boolean;
+    picGroup: null[];
+    usePicGroup: boolean;
 }, {
     name: string;
     type: string | number;
@@ -46573,6 +46654,8 @@ export declare const GameEventZod: z.ZodObject<{
     recType: string | null;
     isPageEntry: boolean;
     isMagnify: boolean;
+    picGroup: null[];
+    usePicGroup: boolean;
 }>;
 export declare const GridRangeZod: z.ZodObject<{
     id: z.ZodString;
@@ -48529,6 +48612,7 @@ export declare const ParadoxZod: z.ZodObject<{
             buildableMask: string | number;
             professionMask?: string | number | undefined;
         }>, "many">>;
+        optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
         globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
             prefabKey: z.ZodString;
             blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -48547,6 +48631,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: z.ZodNull;
             passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
             professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+            playerSideMask: z.ZodOptional<z.ZodString>;
             useExtraData: z.ZodOptional<z.ZodBoolean>;
         }, "strict", z.ZodTypeAny, {
             prefabKey: string;
@@ -48558,6 +48643,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }, {
             prefabKey: string;
@@ -48569,6 +48655,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }>, "many">>;
         routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -49074,7 +49161,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 initSp: number;
                 increment: number;
             }>>;
-            m_runtimeData: z.ZodNull;
+            m_runtimeData: z.ZodOptional<z.ZodNull>;
         }, "strict", z.ZodTypeAny, {
             name: null;
             key: string;
@@ -49138,7 +49225,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }, {
             name: null;
             key: string;
@@ -49202,7 +49289,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }>, "many">;
         enemyDbRefs: z.ZodArray<z.ZodObject<{
             useDb: z.ZodBoolean;
@@ -52472,6 +52559,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -52574,7 +52662,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -52948,6 +53036,7 @@ export declare const ParadoxZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -53191,6 +53280,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -53293,7 +53383,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -53667,6 +53757,7 @@ export declare const ParadoxZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -53934,6 +54025,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -54036,7 +54128,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -54410,6 +54502,7 @@ export declare const ParadoxZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -54677,6 +54770,7 @@ export declare const ParadoxZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -54779,7 +54873,7 @@ export declare const ParadoxZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -55153,6 +55247,7 @@ export declare const ParadoxZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -55722,6 +55817,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 buildableMask: string | number;
                 professionMask?: string | number | undefined;
             }>, "many">>;
+            optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
             globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
                 prefabKey: z.ZodString;
                 blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -55740,6 +55836,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: z.ZodNull;
                 passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
                 professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+                playerSideMask: z.ZodOptional<z.ZodString>;
                 useExtraData: z.ZodOptional<z.ZodBoolean>;
             }, "strict", z.ZodTypeAny, {
                 prefabKey: string;
@@ -55751,6 +55848,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }, {
                 prefabKey: string;
@@ -55762,6 +55860,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }>, "many">>;
             routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -56267,7 +56366,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     initSp: number;
                     increment: number;
                 }>>;
-                m_runtimeData: z.ZodNull;
+                m_runtimeData: z.ZodOptional<z.ZodNull>;
             }, "strict", z.ZodTypeAny, {
                 name: null;
                 key: string;
@@ -56331,7 +56430,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }, {
                 name: null;
                 key: string;
@@ -56395,7 +56494,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }>, "many">;
             enemyDbRefs: z.ZodArray<z.ZodObject<{
                 useDb: z.ZodBoolean;
@@ -59665,6 +59764,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -59767,7 +59867,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -60141,6 +60241,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -60384,6 +60485,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -60486,7 +60588,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -60860,6 +60962,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -61124,6 +61227,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -61226,7 +61330,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -61600,6 +61704,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -61864,6 +61969,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -61966,7 +62072,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -62340,6 +62446,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -62907,6 +63014,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 buildableMask: string | number;
                 professionMask?: string | number | undefined;
             }>, "many">>;
+            optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
             globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
                 prefabKey: z.ZodString;
                 blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -62925,6 +63033,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: z.ZodNull;
                 passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
                 professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+                playerSideMask: z.ZodOptional<z.ZodString>;
                 useExtraData: z.ZodOptional<z.ZodBoolean>;
             }, "strict", z.ZodTypeAny, {
                 prefabKey: string;
@@ -62936,6 +63045,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }, {
                 prefabKey: string;
@@ -62947,6 +63057,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }>, "many">>;
             routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -63452,7 +63563,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     initSp: number;
                     increment: number;
                 }>>;
-                m_runtimeData: z.ZodNull;
+                m_runtimeData: z.ZodOptional<z.ZodNull>;
             }, "strict", z.ZodTypeAny, {
                 name: null;
                 key: string;
@@ -63516,7 +63627,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }, {
                 name: null;
                 key: string;
@@ -63580,7 +63691,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }>, "many">;
             enemyDbRefs: z.ZodArray<z.ZodObject<{
                 useDb: z.ZodBoolean;
@@ -66850,6 +66961,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -66952,7 +67064,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -67326,6 +67438,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -67569,6 +67682,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -67671,7 +67785,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -68045,6 +68159,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -68309,6 +68424,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -68411,7 +68527,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -68785,6 +68901,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -69049,6 +69166,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -69151,7 +69269,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -69525,6 +69643,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -69863,6 +69982,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -69965,7 +70085,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -70339,6 +70459,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -70604,6 +70725,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -70706,7 +70828,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -71080,6 +71202,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -71372,6 +71495,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -71474,7 +71598,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -71848,6 +71972,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -72113,6 +72238,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -72215,7 +72341,7 @@ export declare const RogueThemeZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -72589,6 +72715,7 @@ export declare const RogueThemeZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -73453,6 +73580,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 buildableMask: string | number;
                 professionMask?: string | number | undefined;
             }>, "many">>;
+            optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
             globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
                 prefabKey: z.ZodString;
                 blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -73471,6 +73599,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: z.ZodNull;
                 passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
                 professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+                playerSideMask: z.ZodOptional<z.ZodString>;
                 useExtraData: z.ZodOptional<z.ZodBoolean>;
             }, "strict", z.ZodTypeAny, {
                 prefabKey: string;
@@ -73482,6 +73611,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }, {
                 prefabKey: string;
@@ -73493,6 +73623,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }>, "many">>;
             routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -73998,7 +74129,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     initSp: number;
                     increment: number;
                 }>>;
-                m_runtimeData: z.ZodNull;
+                m_runtimeData: z.ZodOptional<z.ZodNull>;
             }, "strict", z.ZodTypeAny, {
                 name: null;
                 key: string;
@@ -74062,7 +74193,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }, {
                 name: null;
                 key: string;
@@ -74126,7 +74257,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }>, "many">;
             enemyDbRefs: z.ZodArray<z.ZodObject<{
                 useDb: z.ZodBoolean;
@@ -77396,6 +77527,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -77498,7 +77630,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -77872,6 +78004,7 @@ export declare const SandboxActZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -78115,6 +78248,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -78217,7 +78351,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -78591,6 +78725,7 @@ export declare const SandboxActZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -78845,6 +78980,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -78947,7 +79083,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -79321,6 +79457,7 @@ export declare const SandboxActZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -79575,6 +79712,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -79677,7 +79815,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -80051,6 +80189,7 @@ export declare const SandboxActZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -80308,6 +80447,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -80410,7 +80550,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -80784,6 +80924,7 @@ export declare const SandboxActZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -81106,6 +81247,7 @@ export declare const SandboxActZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -81208,7 +81350,7 @@ export declare const SandboxActZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -81582,6 +81724,7 @@ export declare const SandboxActZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -82353,6 +82496,7 @@ export declare const StageZod: z.ZodObject<{
         name: z.ZodString;
         description: z.ZodNullable<z.ZodString>;
         hardStagedId: z.ZodNullable<z.ZodString>;
+        sixStarStageId: z.ZodOptional<z.ZodNullable<z.ZodString>>;
         dangerLevel: z.ZodNullable<z.ZodString>;
         dangerPoint: z.ZodNumber;
         loadingPicId: z.ZodString;
@@ -82520,6 +82664,10 @@ export declare const StageZod: z.ZodObject<{
                 descList: Record<string, string>;
             };
         }>, "many">>;
+        sixStarBaseDesc: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+        sixStarDisplayRewardList: z.ZodOptional<z.ZodNull>;
+        advancedRuneIdList1: z.ZodOptional<z.ZodArray<z.ZodNull, "many">>;
+        advancedRuneIdList2: z.ZodOptional<z.ZodArray<z.ZodNull, "many">>;
     }, "strict", z.ZodTypeAny, {
         code: string;
         name: string;
@@ -82608,7 +82756,12 @@ export declare const StageZod: z.ZodObject<{
                 descList: Record<string, string>;
             };
         }[] | null;
+        sixStarStageId?: string | null | undefined;
         canUseFirework?: boolean | undefined;
+        sixStarBaseDesc?: string | null | undefined;
+        sixStarDisplayRewardList?: null | undefined;
+        advancedRuneIdList1?: null[] | undefined;
+        advancedRuneIdList2?: null[] | undefined;
     }, {
         code: string;
         name: string;
@@ -82697,7 +82850,12 @@ export declare const StageZod: z.ZodObject<{
                 descList: Record<string, string>;
             };
         }[] | null;
+        sixStarStageId?: string | null | undefined;
         canUseFirework?: boolean | undefined;
+        sixStarBaseDesc?: string | null | undefined;
+        sixStarDisplayRewardList?: null | undefined;
+        advancedRuneIdList1?: null[] | undefined;
+        advancedRuneIdList2?: null[] | undefined;
     }>;
     levels: z.ZodObject<{
         options: z.ZodObject<{
@@ -83056,6 +83214,7 @@ export declare const StageZod: z.ZodObject<{
             buildableMask: string | number;
             professionMask?: string | number | undefined;
         }>, "many">>;
+        optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
         globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
             prefabKey: z.ZodString;
             blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -83074,6 +83233,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: z.ZodNull;
             passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
             professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+            playerSideMask: z.ZodOptional<z.ZodString>;
             useExtraData: z.ZodOptional<z.ZodBoolean>;
         }, "strict", z.ZodTypeAny, {
             prefabKey: string;
@@ -83085,6 +83245,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }, {
             prefabKey: string;
@@ -83096,6 +83257,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }>, "many">>;
         routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -83601,7 +83763,7 @@ export declare const StageZod: z.ZodObject<{
                 initSp: number;
                 increment: number;
             }>>;
-            m_runtimeData: z.ZodNull;
+            m_runtimeData: z.ZodOptional<z.ZodNull>;
         }, "strict", z.ZodTypeAny, {
             name: null;
             key: string;
@@ -83665,7 +83827,7 @@ export declare const StageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }, {
             name: null;
             key: string;
@@ -83729,7 +83891,7 @@ export declare const StageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }>, "many">;
         enemyDbRefs: z.ZodArray<z.ZodObject<{
             useDb: z.ZodBoolean;
@@ -86999,6 +87161,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -87101,7 +87264,7 @@ export declare const StageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -87475,6 +87638,7 @@ export declare const StageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -87718,6 +87882,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -87820,7 +87985,7 @@ export declare const StageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -88194,6 +88359,7 @@ export declare const StageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -88436,7 +88602,12 @@ export declare const StageZod: z.ZodObject<{
                 descList: Record<string, string>;
             };
         }[] | null;
+        sixStarStageId?: string | null | undefined;
         canUseFirework?: boolean | undefined;
+        sixStarBaseDesc?: string | null | undefined;
+        sixStarDisplayRewardList?: null | undefined;
+        advancedRuneIdList1?: null[] | undefined;
+        advancedRuneIdList2?: null[] | undefined;
     };
     levels: {
         options: {
@@ -88529,6 +88700,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -88631,7 +88803,7 @@ export declare const StageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -89005,6 +89177,7 @@ export declare const StageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -89247,7 +89420,12 @@ export declare const StageZod: z.ZodObject<{
                 descList: Record<string, string>;
             };
         }[] | null;
+        sixStarStageId?: string | null | undefined;
         canUseFirework?: boolean | undefined;
+        sixStarBaseDesc?: string | null | undefined;
+        sixStarDisplayRewardList?: null | undefined;
+        advancedRuneIdList1?: null[] | undefined;
+        advancedRuneIdList2?: null[] | undefined;
     };
     levels: {
         options: {
@@ -89340,6 +89518,7 @@ export declare const StageZod: z.ZodObject<{
             overrideCameraEffect: null;
             passProfessionMaskFlag?: boolean | undefined;
             professionMask?: string | number | undefined;
+            playerSideMask?: string | undefined;
             useExtraData?: boolean | undefined;
         }[] | null;
         routes: ({
@@ -89442,7 +89621,7 @@ export declare const StageZod: z.ZodObject<{
                 increment: number;
             } | null;
             alias: null;
-            m_runtimeData: null;
+            m_runtimeData?: null | undefined;
         }[];
         enemyDbRefs: {
             id: string;
@@ -89816,6 +89995,7 @@ export declare const StageZod: z.ZodObject<{
         } | null;
         excludeCharIdList: null;
         randomSeed: number;
+        optionalRunes?: null[] | null | undefined;
         extraRoutes?: ({
             motionMode: string | number;
             startPosition: {
@@ -95581,6 +95761,7 @@ export declare const OperatorZod: z.ZodObject<{
                 buildableMask: string | number;
                 professionMask?: string | number | undefined;
             }>, "many">>;
+            optionalRunes: z.ZodOptional<z.ZodNullable<z.ZodArray<z.ZodNull, "many">>>;
             globalBuffs: z.ZodNullable<z.ZodArray<z.ZodObject<{
                 prefabKey: z.ZodString;
                 blackboard: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -95599,6 +95780,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: z.ZodNull;
                 passProfessionMaskFlag: z.ZodOptional<z.ZodBoolean>;
                 professionMask: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber]>>;
+                playerSideMask: z.ZodOptional<z.ZodString>;
                 useExtraData: z.ZodOptional<z.ZodBoolean>;
             }, "strict", z.ZodTypeAny, {
                 prefabKey: string;
@@ -95610,6 +95792,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }, {
                 prefabKey: string;
@@ -95621,6 +95804,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }>, "many">>;
             routes: z.ZodArray<z.ZodNullable<z.ZodObject<{
@@ -96126,7 +96310,7 @@ export declare const OperatorZod: z.ZodObject<{
                     initSp: number;
                     increment: number;
                 }>>;
-                m_runtimeData: z.ZodNull;
+                m_runtimeData: z.ZodOptional<z.ZodNull>;
             }, "strict", z.ZodTypeAny, {
                 name: null;
                 key: string;
@@ -96190,7 +96374,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }, {
                 name: null;
                 key: string;
@@ -96254,7 +96438,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }>, "many">;
             enemyDbRefs: z.ZodArray<z.ZodObject<{
                 useDb: z.ZodBoolean;
@@ -99524,6 +99708,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -99626,7 +99811,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -100000,6 +100185,7 @@ export declare const OperatorZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -100243,6 +100429,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -100345,7 +100532,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -100719,6 +100906,7 @@ export declare const OperatorZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -100986,6 +101174,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -101088,7 +101277,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -101462,6 +101651,7 @@ export declare const OperatorZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -101729,6 +101919,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -101831,7 +102022,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -102205,6 +102396,7 @@ export declare const OperatorZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -102885,6 +103077,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -102987,7 +103180,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -103361,6 +103554,7 @@ export declare const OperatorZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {
@@ -104041,6 +104235,7 @@ export declare const OperatorZod: z.ZodObject<{
                 overrideCameraEffect: null;
                 passProfessionMaskFlag?: boolean | undefined;
                 professionMask?: string | number | undefined;
+                playerSideMask?: string | undefined;
                 useExtraData?: boolean | undefined;
             }[] | null;
             routes: ({
@@ -104143,7 +104338,7 @@ export declare const OperatorZod: z.ZodObject<{
                     increment: number;
                 } | null;
                 alias: null;
-                m_runtimeData: null;
+                m_runtimeData?: null | undefined;
             }[];
             enemyDbRefs: {
                 id: string;
@@ -104517,6 +104712,7 @@ export declare const OperatorZod: z.ZodObject<{
             } | null;
             excludeCharIdList: null;
             randomSeed: number;
+            optionalRunes?: null[] | null | undefined;
             extraRoutes?: ({
                 motionMode: string | number;
                 startPosition: {

@@ -337,12 +337,14 @@ var StageDataZod = z.strictObject({
         buildableMask: z.union([z.string(), z.number()]),
         blackboard: z.array(BlackboardZod),
     })).nullable(),
+    optionalRunes: z.array(z.null()).nullable().optional(),
     globalBuffs: z.array(z.strictObject({
         prefabKey: z.string(),
         blackboard: z.array(BlackboardZod).nullable(),
         overrideCameraEffect: z.null(),
         passProfessionMaskFlag: z.boolean().optional(),
         professionMask: z.union([z.string(), z.number()]).optional(),
+        playerSideMask: z.string().optional(),
         useExtraData: z.boolean().optional(),
     })).nullable(),
     routes: z.array(StageRouteZod.nullable()),
@@ -390,7 +392,7 @@ var StageDataZod = z.strictObject({
         talentBlackboard: z.array(BlackboardZod).nullable(),
         skills: z.array(EnemySkillsZod).nullable(),
         spData: EnemySpDataZod.nullable(),
-        m_runtimeData: z.null(),
+        m_runtimeData: z.null().optional(),
     })),
     enemyDbRefs: z.array(z.strictObject({
         useDb: z.boolean(),
@@ -638,6 +640,7 @@ exports.GachaPoolZod = z.strictObject({
         gachaPoolName: z.string(),
         gachaPoolSummary: z.string(),
         gachaPoolDetail: z.string().nullable(),
+        guaranteeName: z.string().nullable().optional(),
         guarantee5Avail: z.number(),
         guarantee5Count: z.number(),
         LMTGSID: z.string().nullable(),
@@ -756,6 +759,8 @@ exports.GameEventZod = z.strictObject({
     recType: z.string().nullable(),
     isPageEntry: z.boolean(),
     isMagnify: z.boolean(),
+    picGroup: z.array(z.null()),
+    usePicGroup: z.boolean(),
 });
 exports.GridRangeZod = z.strictObject({
     id: z.string(),
@@ -995,6 +1000,7 @@ exports.StageZod = z.strictObject({
         name: z.string(),
         description: z.string().nullable(),
         hardStagedId: z.string().nullable(),
+        sixStarStageId: z.string().nullable().optional(),
         dangerLevel: z.string().nullable(),
         dangerPoint: z.number(),
         loadingPicId: z.string(),
@@ -1068,6 +1074,10 @@ exports.StageZod = z.strictObject({
                 descList: z.record(z.string(), z.string()),
             })
         })).nullable(),
+        sixStarBaseDesc: z.string().nullable().optional(),
+        sixStarDisplayRewardList: z.null().optional(),
+        advancedRuneIdList1: z.array(z.null()).optional(),
+        advancedRuneIdList2: z.array(z.null()).optional(),
     }),
     levels: StageDataZod,
 });
