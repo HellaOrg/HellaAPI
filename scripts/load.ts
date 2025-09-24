@@ -6,8 +6,8 @@ import { Db, ObjectId } from 'mongodb';
 import { normalize } from 'path';
 import simpleGit from 'simple-git';
 import { promisify } from 'util';
+import * as zod from 'zod';
 import getDb from "../src/db";
-import * as Zod from 'zod';
 const objectHash = require('object-hash');
 
 const logDate = (msg: string) => console.log(`[${new Date().toLocaleString()}] ${msg}`);
@@ -77,6 +77,23 @@ class G {
     static gameConsts = (require('../src/constants.json')).gameConsts;
     static commit: any;
     static date: number;
+}
+
+type PreDoc = {
+    keys: string[],
+    value: any
+};
+type Doc = {
+    _id?: ObjectId,
+    meta: {
+        hash: string,
+        created: string,
+        updated: string,
+        date: number,
+    },
+    canon: string,
+    keys: string[],
+    value: any
 }
 
 async function main() {
@@ -175,20 +192,6 @@ async function main() {
     process.exit(0);
 }
 
-type PreDoc = [string[], any];
-type Doc = {
-    _id?: ObjectId,
-    meta: {
-        hash: string,
-        created: string,
-        updated: string,
-        date: number,
-    },
-    canon: string,
-    keys: string[],
-    value: any
-}
-
 async function fetchCnData(path: string): Promise<any> {
     const retries = 3;
     let attempt = 0;
@@ -241,19 +244,8 @@ async function fetchData(path: string): Promise<any> {
     }
     throw new Error(`Failed to load data for ${path} after ${retries} attempts`);
 }
-
-const getCollectionMetaInfo = async (collection: string) => await G.db.collection(collection).find({}, { projection: { 'value': 0 } }).toArray();
-
-async function processArrayInParallel(items, limit, handler) {
-    let index = 0;
-    while (index < items.length) {
-        const batch = items.slice(index, index + limit);
-        await Promise.allSettled(batch.map(item => handler(item)));
-        index += limit;
-    }
-}
 function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
-    const arr = [];
+    const arr: PreDoc[] = [];
 
     if (['char_512_aprot'].includes(opId)) return []; // why are there two shalems???
     if (!opId.startsWith('char_')) return [];
@@ -337,9 +329,9 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     }
     if (hardcodeOpId[opId]) keyArr.push(...hardcodeOpId[opId]);
 
-    arr.push([
-        keyArr,
-        {
+    arr.push({
+        keys: keyArr,
+        value: {
             id: opId,
             archetype: opArchetype,
             bases: opBases,
@@ -351,17 +343,12 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
             skills: opSkills,
             skins: opSkins,
         }
-    ]);
+    });
 
     return arr;
 }
 
-/**
- * @param collection MongoDB collection name
- * @param dataArr Array of [[keys], value] pairs
- * @param schema Zod schema to validate against, or null to skip validation
- */
-async function loadGeneric2(collection: string, dataArr: PreDoc[], schema: Zod.ZodObject<any> | Zod.ZodArray<any> | null) {
+async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod.ZodObject<any> | zod.ZodArray<any> | null) {
     const createDoc = (oldDocuments: any[], keys: string[], value: any): Doc => {
         const createdHash = oldDocuments.find(doc => doc.canon === keys[0])?.meta?.created;
         return {
@@ -382,12 +369,17 @@ async function loadGeneric2(collection: string, dataArr: PreDoc[], schema: Zod.Z
             value: value
         }
     }
+    const filterDocs = (oldDocs: any[], newDoc: Doc) => {
+        const oldDoc = oldDocs.find(old => old.canon === newDoc.canon);
+        const docsAreEqual = oldDoc && oldDoc.meta.hash === newDoc.meta.hash;
+        return !docsAreEqual;
+    }
 
-    const oldDocs = await getCollectionMetaInfo(collection);
+    const oldDocs = await G.db.collection(collection).find({}, { projection: { 'value': 0 } }).toArray();
     logTime(`${collection}: found ${dataArr.length}/${oldDocs.length}`);
     const newDocs = dataArr
-        .map(newDoc => createDoc(oldDocs, newDoc[0], newDoc[1]))
-        .filter(doc => filterDocuments2(oldDocs, doc));
+        .map(newDoc => createDoc(oldDocs, newDoc.keys, newDoc.value))
+        .filter(doc => filterDocs(oldDocs, doc));
 
     if (newDocs.length !== 0) {
         let validate = true;
@@ -431,11 +423,6 @@ async function loadGeneric2(collection: string, dataArr: PreDoc[], schema: Zod.Z
 
     logTime(`${collection}: finished`);
 }
-function filterDocuments2(oldDocs: any[], newDoc: Doc) {
-    const oldDoc = oldDocs.find(old => old.canon === newDoc.canon);
-    const docsAreEqual = oldDoc && oldDoc.meta.hash === newDoc.meta.hash;
-    return !docsAreEqual;
-}
 
 async function loadArchetypes() {
     const collection = 'archetype';
@@ -447,10 +434,10 @@ async function loadArchetypes() {
     const dataArr: PreDoc[] = Object.values(subProfDict)
         .map(subProf => {
             G.archetypeDict[subProf.subProfessionId] = subProf.subProfessionName;
-            return [[subProf.subProfessionId], subProf.subProfessionName];
+            return { keys: [subProf.subProfessionId], value: subProf.subProfessionName };
         })
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadBases() {
     const collection = 'base';
@@ -462,10 +449,10 @@ async function loadBases() {
     const dataArr: PreDoc[] = Object.values(buffs)
         .map(buff => {
             G.baseDict[buff.buffId] = buff;
-            return [[buff.buffId], buff];
+            return { keys: [buff.buffId], value: buff };
         });
 
-    await loadGeneric2(collection, dataArr, T.BaseZod);
+    await loadCollection(collection, dataArr, T.BaseZod);
 }
 async function loadCC() {
     const collection = 'cc';
@@ -473,12 +460,12 @@ async function loadCC() {
 
     const ccStages = G.gameConsts.ccStages;
 
-    const dataArr = await Promise.all(ccStages.map(async stage => {
+    const dataArr: PreDoc[] = await Promise.all(ccStages.map(async stage => {
         const levels = await fetchData(`levels/${stage.levelId}.json`);
-        return [[stage.levelId.split('/')[stage.levelId.split('/').length - 1], stage.name], { const: stage, levels: levels }];
+        return { keys: [stage.levelId.split('/')[stage.levelId.split('/').length - 1], stage.name], value: { const: stage, levels: levels } };
     }));
 
-    await loadGeneric2(collection, dataArr, T.CCStageZod);
+    await loadCollection(collection, dataArr, T.CCStageZod);
 }
 async function loadCCB() {
     const collection = ["ccb", "ccb/stage"];
@@ -498,11 +485,11 @@ async function loadCCB() {
         stageDict[stage.stageId] = { excel: stage, levels: levels };
     }
 
-    const dataArr: PreDoc[] = [[[crisisDetails.info.seasonId], { seasonId: crisisDetails.info.seasonId, stageDict: stageDict }]];
-    const stageArr: PreDoc[] = Object.values(stageDict).map(stage => [[stage.excel.stageId, stage.excel.name, stage.excel.code], stage]);
+    const dataArr: PreDoc[] = [{ keys: [crisisDetails.info.seasonId], value: { seasonId: crisisDetails.info.seasonId, stageDict: stageDict } }];
+    const stageArr: PreDoc[] = Object.values(stageDict).map(stage => { return { keys: [stage.excel.stageId, stage.excel.name, stage.excel.code], value: stage } });
 
-    await loadGeneric2(collection[0], dataArr, T.CCSeasonZod);
-    await loadGeneric2(collection[1], stageArr, T.CCStageZod);
+    await loadCollection(collection[0], dataArr, T.CCSeasonZod);
+    await loadCollection(collection[1], stageArr, T.CCStageZod);
 }
 async function loadCCBLegacy() {
     const collection = 'ccb/legacy';
@@ -510,12 +497,12 @@ async function loadCCBLegacy() {
 
     const ccbStages = G.gameConsts.ccbStages; // legacy, manually collected data
 
-    const dataArr = await Promise.all(ccbStages.map(async stage => {
+    const dataArr: PreDoc[] = await Promise.all(ccbStages.map(async stage => {
         const levels = await fetchData(`levels/${stage.levelId}.json`);
-        return [[stage.levelId.split('/')[stage.levelId.split('/').length - 1], stage.name], { const: stage, levels: levels }];
+        return { keys: [stage.levelId.split('/')[stage.levelId.split('/').length - 1], stage.name], value: { const: stage, levels: levels } };
     }));
 
-    await loadGeneric2(collection, dataArr, T.CCStageLegacyZod);
+    await loadCollection(collection, dataArr, T.CCStageLegacyZod);
 }
 async function loadDefinitions() {
     const collection = 'define';
@@ -524,11 +511,11 @@ async function loadDefinitions() {
     const gamedataConst = await fetchData('excel/gamedata_const.json');
     const termDescriptionDict: { [key: string]: any } = gamedataConst.termDescriptionDict;
 
-    const dataArr: PreDoc[] = Object.values(termDescriptionDict).map(definition =>
-        [[definition.termId, definition.termName], definition]
-    );
+    const dataArr: PreDoc[] = Object.values(termDescriptionDict).map(definition => {
+        return { keys: [definition.termId, definition.termName], value: definition }
+    });
 
-    await loadGeneric2(collection, dataArr, T.DefinitionZod);
+    await loadCollection(collection, dataArr, T.DefinitionZod);
 }
 async function loadDeployables() {
     const collection = 'deployable';
@@ -540,19 +527,22 @@ async function loadDeployables() {
         .filter(key => ['notchar1', 'notchar2'].includes(characterTable[key].subProfessionId))
         .map(key => {
             const data = characterTable[key];
-            return [[key, data.name, data.name.replace(/['-]/g, '')], {
-                id: key,
-                archetype: G.archetypeDict[data.subProfessionId] ?? G.cnarchetypeDict[data.subProfessionId],
-                data: data,
-                range: G.rangeDict[data.phases[data.phases.length - 1].rangeId]
-                    ?? G.cnrangeDict[data.phases[data.phases.length - 1]]
-                    ?? null,
-                skills: data.skills.map(s => G.skillDict[s.skillId] ?? G.cnskillDict[s.skillId] ?? null),
-                skins: G.skinArrDict[key] ?? G.cnskinArrDict[key] ?? []
-            }]
+            return {
+                keys: [key, data.name, data.name.replace(/['-]/g, '')],
+                value: {
+                    id: key,
+                    archetype: G.archetypeDict[data.subProfessionId] ?? G.cnarchetypeDict[data.subProfessionId],
+                    data: data,
+                    range: G.rangeDict[data.phases[data.phases.length - 1].rangeId]
+                        ?? G.cnrangeDict[data.phases[data.phases.length - 1]]
+                        ?? null,
+                    skills: data.skills.map(s => G.skillDict[s.skillId] ?? G.cnskillDict[s.skillId] ?? null),
+                    skins: G.skinArrDict[key] ?? G.cnskinArrDict[key] ?? []
+                }
+            }
         });
 
-    await loadGeneric2(collection, dataArr, T.DeployableZod);
+    await loadCollection(collection, dataArr, T.DeployableZod);
 }
 async function loadEnemies() {
     const collection = 'enemy';
@@ -575,11 +565,11 @@ async function loadEnemies() {
         levelsLookup[levels.Key] = levels;
     }
 
-    const dataArr: PreDoc[] = Object.values(enemyData).map(excel =>
-        [[excel.enemyId, excel.name, excel.name.split('\'').join(''), excel.enemyIndex], { excel: excel, levels: levelsLookup[excel.enemyId] }]
-    );
+    const dataArr: PreDoc[] = Object.values(enemyData).map(excel => {
+        return { keys: [excel.enemyId, excel.name, excel.name.split('\'').join(''), excel.enemyIndex], value: { excel: excel, levels: levelsLookup[excel.enemyId] } }
+    });
 
-    await loadGeneric2(collection, dataArr, T.EnemyZod);
+    await loadCollection(collection, dataArr, T.EnemyZod);
 
 }
 async function loadEvents() {
@@ -589,10 +579,42 @@ async function loadEvents() {
     const activityTable = await fetchData('excel/activity_table.json');
     const basicInfo: { [key: string]: any } = activityTable.basicInfo;
 
-    const dataArr: PreDoc[] = Object.values(basicInfo).map(event =>
-        [[event.id], event]);
+    const dataArr: PreDoc[] = Object.values(basicInfo).map(event => {
+        return { keys: [event.id], value: event }
+    });
 
-    await loadGeneric2(collection, dataArr, T.GameEventZod);
+    await loadCollection(collection, dataArr, T.GameEventZod);
+}
+async function loadGacha() {
+    const collection = "gacha";
+    logTime(`${collection}: starting`);
+
+    const gachaTable = await fetchData('excel/gacha_table.json');
+    const gachaPoolClient: any[] = gachaTable.gachaPoolClient.sort((a, b) => b.openTime - a.openTime);
+
+    const dataArr: PreDoc[] = [];
+    if (G.allGacha) {
+        // batch into groups of 50 to avoid hitting shell length limit
+        for (let i = 0; i < Math.ceil(gachaPoolClient.length / 50); i++) {
+            const gachaPools = gachaPoolClient.slice(i * 50, (i + 1) * 50);
+            const poolDetails: any[] = JSON.parse((await execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
+
+            gachaPools.forEach((pool, i) => {
+                dataArr.push({ keys: [pool.gachaPoolId], value: { client: pool, details: poolDetails[i] } });
+            })
+        }
+    }
+    else {
+        // only get 12 most recent pools to minimize official api calls
+        const gachaPools = gachaPoolClient.slice(0, 12);
+        const poolDetails: any[] = JSON.parse((await execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
+
+        gachaPools.forEach((pool, i) => {
+            dataArr.push({ keys: [pool.gachaPoolId], value: { client: pool, details: poolDetails[i] } });
+        })
+    }
+
+    await loadCollection(collection, dataArr, T.GachaPoolZod);
 }
 async function loadItems() {
     const collection = 'item';
@@ -615,10 +637,10 @@ async function loadItems() {
             }
         }
 
-        return [[data.itemId, data.name, data.name.split('\'').join('')], { data: data, formula: formula }];
+        return { keys: [data.itemId, data.name, data.name.split('\'').join('')], value: { data: data, formula: formula } };
     });
 
-    await loadGeneric2(collection, dataArr, T.ItemZod);
+    await loadCollection(collection, dataArr, T.ItemZod);
 }
 async function loadModules() {
     const collection = 'module';
@@ -630,10 +652,10 @@ async function loadModules() {
 
     const dataArr: PreDoc[] = Object.values(equipDict).map(module => {
         G.moduleDict[module.uniEquipId] = { info: module, data: battleDict[module.uniEquipId] ?? null };
-        return [[module.uniEquipId], { info: module, data: battleDict[module.uniEquipId] ?? null }];
+        return { keys: [module.uniEquipId], value: { info: module, data: battleDict[module.uniEquipId] ?? null } };
     });
 
-    await loadGeneric2(collection, dataArr, T.ModuleZod);
+    await loadCollection(collection, dataArr, T.ModuleZod);
 }
 async function loadOperators() {
     const collection = "operator";
@@ -652,12 +674,12 @@ async function loadOperators() {
         opArr.push(...readOperatorIntoArr(opId, patchChars, charEquip, charBaseBuffs));
     }
     for (const op of opArr) {
-        for (const key of op[0]) {
-            G.operatorDict[key] = op[1];
+        for (const key of op.keys) {
+            G.operatorDict[key] = op.value;
         }
     }
 
-    await loadGeneric2(collection, opArr, T.OperatorZod);
+    await loadCollection(collection, opArr, T.OperatorZod);
 }
 async function loadParadoxes() {
     const collection = 'paradox';
@@ -669,10 +691,10 @@ async function loadParadoxes() {
     const dataArr: PreDoc[] = await Promise.all(Object.values(stages).map(async excel => {
         const levels = await fetchData(`levels/${excel.levelId.toLowerCase()}.json`);
         G.paradoxDict[excel.charId] = { excel: excel, levels: levels };
-        return [[excel.charId, excel.stageId], { excel: excel, levels: levels }];
+        return { keys: [excel.charId, excel.stageId], value: { excel: excel, levels: levels } };
     }));
 
-    await loadGeneric2(collection, dataArr, T.ParadoxZod);
+    await loadCollection(collection, dataArr, T.ParadoxZod);
 }
 async function loadRanges() {
     const collection = 'range';
@@ -682,41 +704,10 @@ async function loadRanges() {
 
     const dataArr: PreDoc[] = Object.values(rangeTable).map(range => {
         G.rangeDict[range.id] = range;
-        return [[range.id], range];
+        return { keys: [range.id], value: range };
     });
 
-    await loadGeneric2(collection, dataArr, T.GridRangeZod);
-}
-async function loadGacha() {
-    const collection = "gacha";
-    logTime(`${collection}: starting`);
-
-    const gachaTable = await fetchData('excel/gacha_table.json');
-    const gachaPoolClient: any[] = gachaTable.gachaPoolClient.sort((a, b) => b.openTime - a.openTime);
-
-    const dataArr = [];
-    if (G.allGacha) {
-        // batch into groups of 50 to avoid hitting shell length limit
-        for (let i = 0; i < Math.ceil(gachaPoolClient.length / 50); i++) {
-            const gachaPools = gachaPoolClient.slice(i * 50, (i + 1) * 50);
-            const poolDetails: any[] = JSON.parse((await execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
-
-            gachaPools.forEach((pool, i) => {
-                dataArr.push([[pool.gachaPoolId], { client: pool, details: poolDetails[i] }]);
-            })
-        }
-    }
-    else {
-        // only get 12 most recent pools to minimize official api calls
-        const gachaPools = gachaPoolClient.slice(0, 12);
-        const poolDetails: any[] = JSON.parse((await execWait(`python3 scripts/gacha.py ${gachaPools.map(pool => pool.gachaPoolId).join(' ')}`)).stdout);
-
-        gachaPools.forEach((pool, i) => {
-            dataArr.push([[pool.gachaPoolId], { client: pool, details: poolDetails[i] }]);
-        })
-    }
-
-    await loadGeneric2(collection, dataArr, T.GachaPoolZod);
+    await loadCollection(collection, dataArr, T.GridRangeZod);
 }
 async function loadRecruit() {
     const collection = 'recruitpool';
@@ -731,42 +722,19 @@ async function loadRecruit() {
     const recruitables = `${lines[7]}/${lines[10]}/${lines[13]}/${lines[16]}/${lines[19]}/${lines[22]}`
         .split('/').map(line => G.operatorDict[line.trim().toLowerCase()].id);
 
-    const dataArr: PreDoc[] = [[[collection], recruitables]];
+    const dataArr: PreDoc[] = [{ keys: [collection], value: recruitables }];
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadRogueThemes() {
-    /*
-    Theme:
-        Canonical key: index
-        Additional keys: none
-    Stages:
-        Canonical key: id
-        Additional keys: name, code
-    */
-
-    const start = Date.now();
     const collection = ["rogue", "rogue/stage", "rogue/toughstage", "rogue/relic", "rogue/variation"];
     logTime(`${collection.join(', ')}: starting`);
-
-    const oldDocuments = await getCollectionMetaInfo(collection[0]);
-    const oldStageDocs: any[] = [];
-    const oldToughDocs: any[] = [];
-    const oldRelicDocs: any[] = [];
-    const oldVariationDocs: any[] = [];
 
     const rogueTable = await fetchData('excel/roguelike_topic_table.json');
     const rogueDetails: { [key: string]: any } = rogueTable.details;
     const rogueTopics: { [key: string]: any } = rogueTable.topics;
 
     const numOfThemes = Object.keys(rogueDetails).length;
-
-    for (let i = 0; i < Object.keys(rogueDetails).length; i++) {
-        oldStageDocs.push(await getCollectionMetaInfo(`${collection[1]}/${i}`));
-        oldToughDocs.push(await getCollectionMetaInfo(`${collection[2]}/${i}`));
-        oldRelicDocs.push(await getCollectionMetaInfo(`${collection[3]}/${i}`));
-        oldVariationDocs.push(await getCollectionMetaInfo(`${collection[4]}/${i}`));
-    }
 
     const rogueArr: PreDoc[] = [];
     const rogueStageArr: PreDoc[][] = [];
@@ -806,41 +774,36 @@ async function loadRogueThemes() {
             variationDict[variation.id.toLowerCase()] = variation;
         }
 
-        rogueArr[i] = [[i.toString()], { name: rogueName, stageDict, toughStageDict, relicDict, variationDict }];
+        rogueArr[i] = { keys: [i.toString()], value: { name: rogueName, stageDict, toughStageDict, relicDict, variationDict } };
     }
     rogueArr.forEach((theme, i) => {
-        rogueStageArr[i] = Object.keys(theme[1].stageDict).map(key => {
-            const stage = theme[1].stageDict[key];
-            return [[stage.excel.id, stage.excel.name, stage.excel.code], stage];
+        rogueStageArr[i] = Object.keys(theme.value.stageDict).map(key => {
+            const stage = theme.value.stageDict[key];
+            return { keys: [stage.excel.id, stage.excel.name, stage.excel.code], value: stage };
         });
-        rogueToughArr[i] = Object.keys(theme[1].toughStageDict).map(key => {
-            const stage = theme[1].toughStageDict[key];
-            return [[stage.excel.id, stage.excel.name, stage.excel.code], stage];
+        rogueToughArr[i] = Object.keys(theme.value.toughStageDict).map(key => {
+            const stage = theme.value.toughStageDict[key];
+            return { keys: [stage.excel.id, stage.excel.name, stage.excel.code], value: stage };
         });
-        rogueRelicArr[i] = Object.keys(theme[1].relicDict).map(key => {
-            const relic = theme[1].relicDict[key];
-            return [[relic.id, relic.name], relic];
+        rogueRelicArr[i] = Object.keys(theme.value.relicDict).map(key => {
+            const relic = theme.value.relicDict[key];
+            return { keys: [relic.id, relic.name], value: relic };
         });
-        rogueVariationArr[i] = Object.keys(theme[1].variationDict).map(key => {
-            const variation = theme[1].variationDict[key];
-            return [[variation.id, variation.outerName], variation];
+        rogueVariationArr[i] = Object.keys(theme.value.variationDict).map(key => {
+            const variation = theme.value.variationDict[key];
+            return { keys: [variation.id, variation.outerName], value: variation };
         });
     });
 
-    await loadGeneric2(collection[0], rogueArr, T.RogueThemeZod);
+    await loadCollection(collection[0], rogueArr, T.RogueThemeZod);
     for (let i = 0; i < numOfThemes; i++) {
-        await loadGeneric2(`${collection[1]}/${i}`, rogueStageArr[i], T.RogueStageZod);
-        await loadGeneric2(`${collection[2]}/${i}`, rogueToughArr[i], T.RogueStageZod);
-        await loadGeneric2(`${collection[3]}/${i}`, rogueRelicArr[i], T.RogueRelicZod);
-        await loadGeneric2(`${collection[4]}/${i}`, rogueVariationArr[i], T.RogueVariationZod);
+        await loadCollection(`${collection[1]}/${i}`, rogueStageArr[i], T.RogueStageZod);
+        await loadCollection(`${collection[2]}/${i}`, rogueToughArr[i], T.RogueStageZod);
+        await loadCollection(`${collection[3]}/${i}`, rogueRelicArr[i], T.RogueRelicZod);
+        await loadCollection(`${collection[4]}/${i}`, rogueVariationArr[i], T.RogueVariationZod);
     }
 }
 async function loadSandboxes() {
-    /*
-    Canonical key: index
-    Additional keys: none
-    */
-
     const collection = ["sandbox", "sandbox/stage", "sandbox/item", "sandbox/weather"];
     logTime(`${collection.join(', ')}: starting`);
 
@@ -880,28 +843,28 @@ async function loadSandboxes() {
         }
         const weatherDict: { [key: string]: any } = sandbox.weatherData;
 
-        sandArr[i] = [[i.toString()], { name, stageDict, itemDict, weatherDict }];
+        sandArr[i] = { keys: [i.toString()], value: { name, stageDict, itemDict, weatherDict } };
     }
     sandArr.forEach((theme, i) => {
-        sandStageArr[i] = Object.keys(theme[1].stageDict).map(key => {
-            const stage = theme[1].stageDict[key];
-            return [[stage.excel.stageId, stage.excel.name, stage.excel.code], stage];
+        sandStageArr[i] = Object.keys(theme.value.stageDict).map(key => {
+            const stage = theme.value.stageDict[key];
+            return { keys: [stage.excel.stageId, stage.excel.name, stage.excel.code], value: stage };
         });
-        sandItemArr[i] = Object.keys(theme[1].itemDict).map(key => {
-            const item = theme[1].itemDict[key];
-            return [[item.data.itemId, item.data.itemName], item];
+        sandItemArr[i] = Object.keys(theme.value.itemDict).map(key => {
+            const item = theme.value.itemDict[key];
+            return { keys: [item.data.itemId, item.data.itemName], value: item };
         });
-        sandWeatherArr[i] = Object.keys(theme[1].weatherDict).map(key => {
-            const weather = theme[1].weatherDict[key];
-            return [[weather.weatherId, weather.name], weather];
+        sandWeatherArr[i] = Object.keys(theme.value.weatherDict).map(key => {
+            const weather = theme.value.weatherDict[key];
+            return { keys: [weather.weatherId, weather.name], value: weather };
         });
     });
 
-    await loadGeneric2(collection[0], sandArr, T.SandboxActZod);
+    await loadCollection(collection[0], sandArr, T.SandboxActZod);
     for (let i = 0; i < numOfThemes; i++) {
-        await loadGeneric2(`${collection[1]}/${i}`, sandStageArr[i], T.SandboxStageZod);
-        await loadGeneric2(`${collection[2]}/${i}`, sandItemArr[i], T.SandboxItemZod);
-        await loadGeneric2(`${collection[3]}/${i}`, sandWeatherArr[i], T.SandboxWeatherZod);
+        await loadCollection(`${collection[1]}/${i}`, sandStageArr[i], T.SandboxStageZod);
+        await loadCollection(`${collection[2]}/${i}`, sandItemArr[i], T.SandboxItemZod);
+        await loadCollection(`${collection[3]}/${i}`, sandWeatherArr[i], T.SandboxWeatherZod);
     }
 }
 async function loadSkills() {
@@ -917,10 +880,10 @@ async function loadSkills() {
             .find(skill => skill?.skillId === excel.skillId) ?? null;
         const skill = { deploy: deploySkill, excel: excel };
         G.skillDict[excel.skillId.toLowerCase()] = skill;
-        return [[excel.skillId], skill];
+        return { keys: [excel.skillId], value: skill };
     });
 
-    await loadGeneric2(collection, dataArr, T.SkillZod);
+    await loadCollection(collection, dataArr, T.SkillZod);
 }
 async function loadSkins() {
     const collection = "skin";
@@ -929,7 +892,7 @@ async function loadSkins() {
     const skinTable = await fetchData('excel/skin_table.json');
     const charSkins: { [key: string]: any } = skinTable.charSkins;
 
-    const skinArr = [];
+    const skinArr: PreDoc[] = [];
     for (const skin of Object.values(charSkins)) {
         const charId = skin.tmplId ?? skin.charId
         if (!G.skinArrDict.hasOwnProperty(charId)) {
@@ -938,20 +901,20 @@ async function loadSkins() {
         G.skinArrDict[charId].push(skin);
         G.skinDict[skin.skinId] = skin;
 
-        skinArr.push([[skin.skinId], skin]);
+        skinArr.push({ keys: [skin.skinId], value: skin });
     }
 
-    await loadGeneric2(collection, skinArr, T.SkinZod);
+    await loadCollection(collection, skinArr, T.SkinZod);
 }
 async function loadStages() {
-    /*
-    Single stage:
-        Canonical key: stageId
-        Additional keys: code, name
-    Stage array:
-        Canonical key: code
-        Additional keys: none
-    */
+    const processArrayInParallel = async (items: any[], limit: number, handler) => {
+        let index = 0;
+        while (index < items.length) {
+            const batch = items.slice(index, index + limit);
+            await Promise.allSettled(batch.map(item => handler(item)));
+            index += limit;
+        }
+    }
 
     const collection = ["stage", "toughstage"];
     logTime(`${collection[0]}, ${collection[1]}: starting`);
@@ -986,49 +949,49 @@ async function loadStages() {
         const code = excel.code.toLowerCase();
 
         if (excel.diffGroup === 'TOUGH' || excel.difficulty === 'FOUR_STAR') {
-            if (!toughArr.find(data => data[0].includes(code))) {
-                toughArr.push([[code], []]); // Multiple stages can have the same code, so each code maps to an array
+            if (!toughArr.find(data => data.keys.includes(code))) {
+                toughArr.push({ keys: [code], value: [] }); // Multiple stages can have the same code, so each code maps to an array
             }
 
             try {
                 const levels = await fetchData(`levels/${levelId}.json`);
                 const stage = { excel: excel, levels: levels };
 
-                toughArr.push([[excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], [stage]]);
-                toughArr.find(data => data[0].includes(code))?.at(1).push(stage); // Stage code
+                toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
+                toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
             }
             catch (e) {
                 const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
                 const stage = { excel: excel, levels: levels };
 
-                toughArr.push([[excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], [stage]]);
-                toughArr.find(data => data[0].includes(code))?.at(1).push(stage); // Stage code
+                toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
+                toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
             }
         }
         else if (excel.difficulty === 'NORMAL') {
-            if (!stageArr.find(data => data[0].includes(code))) {
-                stageArr.push([[code], []]); // Multiple stages can have the same code, so each code maps to an array
+            if (!stageArr.find(data => data.keys.includes(code))) {
+                stageArr.push({ keys: [code], value: [] }); // Multiple stages can have the same code, so each code maps to an array
             }
 
             try {
                 const levels = await fetchData(`levels/${levelId}.json`);
                 const stage = { excel: excel, levels: levels };
 
-                stageArr.push([[excel.stageId, excel.code, excel.name], [stage]]);
-                stageArr.find(data => data[0].includes(code))?.at(1).push(stage); // Stage code
+                stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
+                stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
             }
             catch (e) {
                 const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
                 const stage = { excel: excel, levels: levels };
 
-                stageArr.push([[excel.stageId, excel.code, excel.name], [stage]]);
-                stageArr.find(data => data[0].includes(code))?.at(1).push(stage); // Stage code
+                stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
+                stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
             }
         }
     });
 
-    await loadGeneric2(collection[0], stageArr, Zod.array(T.StageZod));
-    await loadGeneric2(collection[1], toughArr, Zod.array(T.StageZod));
+    await loadCollection(collection[0], stageArr, zod.array(T.StageZod));
+    await loadCollection(collection[1], toughArr, zod.array(T.StageZod));
 }
 
 async function loadCnArchetypes() {
@@ -1042,10 +1005,10 @@ async function loadCnArchetypes() {
         .filter(subProf => !G.archetypeDict.hasOwnProperty(subProf.subProfessionId))
         .map(subProf => {
             G.cnarchetypeDict[subProf.subProfessionId] = subProf.subProfessionName;
-            return [[subProf.subProfessionId], subProf.subProfessionName];
+            return { keys: [subProf.subProfessionId], value: subProf.subProfessionName };
         });
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadCnBases() {
     const collection = 'cn/base';
@@ -1058,10 +1021,10 @@ async function loadCnBases() {
         .filter(buff => !G.baseDict.hasOwnProperty(buff.buffId))
         .map(buff => {
             G.cnbaseDict[buff.buffId] = buff;
-            return [[buff.buffId], buff];
+            return { keys: [buff.buffId], value: buff };
         });
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadCnModules() {
     const collection = 'cn/module';
@@ -1075,10 +1038,10 @@ async function loadCnModules() {
         .filter(module => !G.moduleDict.hasOwnProperty(module.uniEquipId))
         .map(module => {
             G.cnmoduleDict[module.uniEquipId] = { info: module, data: battleDict[module.uniEquipId] ?? null };
-            return [[module.uniEquipId], { info: module, data: battleDict[module.uniEquipId] ?? null }];
+            return { keys: [module.uniEquipId], value: { info: module, data: battleDict[module.uniEquipId] ?? null } };
         });
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadCnOperators() {
     const collection = "cn/operator";
@@ -1099,7 +1062,7 @@ async function loadCnOperators() {
         opArr.push(...readOperatorIntoArr(opId, patchChars, charEquip, charBaseBuffs));
     }
 
-    loadGeneric2(collection, opArr, null);
+    loadCollection(collection, opArr, null);
 }
 async function loadCnParadoxes() {
     const collection = 'cn/paradox';
@@ -1113,11 +1076,11 @@ async function loadCnParadoxes() {
         .map(async excel => {
             const levels = await fetchCnData(`levels/${excel.levelId.toLowerCase()}.json`);
             G.cnparadoxDict[excel.charId] = { excel: excel, levels: levels };
-            return [[excel.charId, excel.stageId], { excel: excel, levels: levels }];
+            return { keys: [excel.charId, excel.stageId], value: { excel: excel, levels: levels } };
         })
     );
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadCnRanges() {
     const collection = 'cn/range';
@@ -1129,10 +1092,10 @@ async function loadCnRanges() {
         .filter(range => !G.rangeDict.hasOwnProperty(range.id))
         .map(range => {
             G.cnrangeDict[range.id] = range;
-            return [[range.id], range];
+            return { keys: [range.id], value: range };
         });
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadCnSkills() {
     const collection = 'cn/skill';
@@ -1144,10 +1107,10 @@ async function loadCnSkills() {
         .filter(skill => !G.skillDict.hasOwnProperty(skill.skillId.toLowerCase()))
         .map(skill => {
             G.cnskillDict[skill.skillId.toLowerCase()] = skill;
-            return [[skill.skillId], skill];
+            return { keys: [skill.skillId], value: skill };
         });
 
-    await loadGeneric2(collection, dataArr, null);
+    await loadCollection(collection, dataArr, null);
 }
 async function loadCnSkins() {
     const collection = "cn/skin";
@@ -1156,7 +1119,7 @@ async function loadCnSkins() {
     const skinTable = await fetchCnData('excel/skin_table.json');
     const charSkins: { [key: string]: any } = skinTable.charSkins;
 
-    const skinArr = [];
+    const skinArr: PreDoc[] = [];
     for (const skin of Object.values(charSkins)) {
         if (G.skinDict.hasOwnProperty(skin.skinId)) continue;
 
@@ -1165,10 +1128,10 @@ async function loadCnSkins() {
         }
         G.cnskinArrDict[skin.charId].push(skin);
 
-        skinArr.push([[skin.skinId], skin]);
+        skinArr.push({ keys: [skin.skinId], value: skin });
     }
 
-    await loadGeneric2(collection, skinArr, null);
+    await loadCollection(collection, skinArr, null);
 }
 
 main();
