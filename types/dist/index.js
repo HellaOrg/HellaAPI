@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OperatorZod = exports.DeployableZod = exports.StageZod = exports.SkinZod = exports.SkillZod = exports.SandboxActZod = exports.RogueThemeZod = exports.ParadoxZod = exports.ModuleZod = exports.ItemZod = exports.GridRangeZod = exports.GameEventZod = exports.GachaPoolZod = exports.EnemyZod = exports.DefinitionZod = exports.CCSeasonZod = exports.CCStageZod = exports.CCStageLegacyZod = exports.BaseZod = void 0;
+exports.OperatorZod = exports.DeployableZod = exports.StageZod = exports.SkinZod = exports.SkillZod = exports.SandboxActZod = exports.SandboxWeatherZod = exports.SandboxStageZod = exports.SandboxItemZod = exports.RogueThemeZod = exports.RogueVariationZod = exports.RogueStageZod = exports.RogueRelicZod = exports.ParadoxZod = exports.ModuleZod = exports.ItemZod = exports.GridRangeZod = exports.GameEventZod = exports.GachaPoolZod = exports.EnemyZod = exports.DefinitionZod = exports.CCSeasonZod = exports.CCStageZod = exports.CCStageLegacyZod = exports.BaseZod = void 0;
 var z = require("zod");
 var BlackboardZod = z.strictObject({
     key: z.string(),
@@ -429,130 +429,6 @@ var StageDataZod = z.strictObject({
     runtimeData: z.null().optional(),
     cameraPlugin: z.string().nullable().optional(),
 });
-var RogueRelicZod = z.strictObject({
-    id: z.string(),
-    name: z.string(),
-    description: z.string().nullable(),
-    usage: z.string(),
-    obtainApproach: z.string(),
-    iconId: z.string(),
-    type: z.string(),
-    subType: z.string(),
-    rarity: z.string(),
-    value: z.number(),
-    sortId: z.number(),
-    canSacrifice: z.boolean(),
-    unlockCondDesc: z.string().nullable(),
-});
-var RogueStageZod = z.strictObject({
-    excel: z.strictObject({
-        id: z.string(),
-        linkedStageId: z.string(),
-        levelId: z.string(),
-        levelReplaceIds: z.array(z.string()),
-        code: z.string(),
-        name: z.string(),
-        loadingPicId: z.string(),
-        description: z.string(),
-        eliteDesc: z.string().nullable(),
-        isBoss: z.number(),
-        isElite: z.number(),
-        difficulty: z.string(),
-        capsulePool: z.string().nullable(),
-        capsuleProb: z.number(),
-        vutresProb: z.array(z.number()),
-        boxProb: z.array(z.number()),
-        specialNodeId: z.string().nullable(),
-    }),
-    levels: StageDataZod,
-});
-var RogueVariationZod = z.strictObject({
-    id: z.string(),
-    type: z.string(),
-    outerName: z.string(),
-    innerName: z.string(),
-    functionDesc: z.string(),
-    desc: z.string(),
-    iconId: z.string().nullable(),
-    sound: z.string().nullable(),
-});
-var SandboxItemZod = z.strictObject({
-    craft: z.strictObject({
-        itemId: z.string(),
-        type: z.string(),
-        buildingUnlockDesc: z.string(),
-        materialItems: z.record(z.string(), z.number()),
-        upgradeItems: z.record(z.string(), z.number()).nullable(),
-        outputRatio: z.number(),
-        withdrawRatio: z.number(),
-        repairCost: z.number(),
-        isHidden: z.boolean(),
-        craftGroupId: z.string(),
-        recipeLevel: z.number(),
-    }).nullable(),
-    drink: z.strictObject({
-        id: z.string(),
-        type: z.string(),
-        count: z.number(),
-    }).nullable(),
-    foodMat: z.strictObject({
-        id: z.string(),
-        type: z.string(),
-        attribute: z.string(),
-        variantType: z.string(),
-        bonusDuration: z.number(),
-        buffDesc: z.string().nullable(),
-        sortId: z.number(),
-    }).nullable(),
-    food: z.strictObject({
-        id: z.string(),
-        attributes: z.array(z.string()),
-        recipes: z.array(z.strictObject({
-            foodId: z.string(),
-            mats: z.array(z.string()),
-        })).nullable(),
-        variants: z.array(z.strictObject({
-            type: z.string(),
-            name: z.string(),
-            usage: z.string(),
-        })),
-        duration: z.number(),
-        sortId: z.number(),
-    }).nullable(),
-    data: z.strictObject({
-        itemId: z.string(),
-        itemType: z.string(),
-        itemName: z.string(),
-        itemUsage: z.string(),
-        itemDesc: z.string(),
-        itemRarity: z.number(),
-        sortId: z.number(),
-        obtainApproach: z.string(),
-    })
-});
-var SandboxStageZod = z.strictObject({
-    excel: z.strictObject({
-        stageId: z.string(),
-        levelId: z.string(),
-        code: z.string(),
-        name: z.string(),
-        description: z.string(),
-        actionCost: z.number(),
-        actionCostEnemyRush: z.number(),
-    }),
-    levels: StageDataZod,
-});
-var SandboxWeatherZod = z.strictObject({
-    weatherId: z.string(),
-    name: z.string(),
-    weatherLevel: z.number(),
-    weatherType: z.string(),
-    weatherTypeName: z.string(),
-    weatherIconId: z.string(),
-    functionDesc: z.string(),
-    description: z.string(),
-    buffId: z.string().nullable(),
-});
 exports.BaseZod = z.strictObject({
     buffId: z.string(),
     buffName: z.string(),
@@ -900,18 +776,142 @@ exports.ParadoxZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
+exports.RogueRelicZod = z.strictObject({
+    id: z.string(),
+    name: z.string(),
+    description: z.string().nullable(),
+    usage: z.string(),
+    obtainApproach: z.string(),
+    iconId: z.string(),
+    type: z.string(),
+    subType: z.string(),
+    rarity: z.string(),
+    value: z.number(),
+    sortId: z.number(),
+    canSacrifice: z.boolean(),
+    unlockCondDesc: z.string().nullable(),
+});
+exports.RogueStageZod = z.strictObject({
+    excel: z.strictObject({
+        id: z.string(),
+        linkedStageId: z.string(),
+        levelId: z.string(),
+        levelReplaceIds: z.array(z.string()),
+        code: z.string(),
+        name: z.string(),
+        loadingPicId: z.string(),
+        description: z.string(),
+        eliteDesc: z.string().nullable(),
+        isBoss: z.number(),
+        isElite: z.number(),
+        difficulty: z.string(),
+        capsulePool: z.string().nullable(),
+        capsuleProb: z.number(),
+        vutresProb: z.array(z.number()),
+        boxProb: z.array(z.number()),
+        specialNodeId: z.string().nullable(),
+    }),
+    levels: StageDataZod,
+});
+exports.RogueVariationZod = z.strictObject({
+    id: z.string(),
+    type: z.string(),
+    outerName: z.string(),
+    innerName: z.string(),
+    functionDesc: z.string(),
+    desc: z.string(),
+    iconId: z.string().nullable(),
+    sound: z.string().nullable(),
+});
 exports.RogueThemeZod = z.strictObject({
     name: z.string(),
-    stageDict: z.record(z.string(), RogueStageZod),
-    toughStageDict: z.record(z.string(), RogueStageZod),
-    relicDict: z.record(z.string(), RogueRelicZod),
-    variationDict: z.record(z.string(), RogueVariationZod),
+    stageDict: z.record(z.string(), exports.RogueStageZod),
+    toughStageDict: z.record(z.string(), exports.RogueStageZod),
+    relicDict: z.record(z.string(), exports.RogueRelicZod),
+    variationDict: z.record(z.string(), exports.RogueVariationZod),
+});
+exports.SandboxItemZod = z.strictObject({
+    craft: z.strictObject({
+        itemId: z.string(),
+        type: z.string(),
+        buildingUnlockDesc: z.string(),
+        materialItems: z.record(z.string(), z.number()),
+        upgradeItems: z.record(z.string(), z.number()).nullable(),
+        outputRatio: z.number(),
+        withdrawRatio: z.number(),
+        repairCost: z.number(),
+        isHidden: z.boolean(),
+        craftGroupId: z.string(),
+        recipeLevel: z.number(),
+    }).nullable(),
+    drink: z.strictObject({
+        id: z.string(),
+        type: z.string(),
+        count: z.number(),
+    }).nullable(),
+    foodMat: z.strictObject({
+        id: z.string(),
+        type: z.string(),
+        attribute: z.string(),
+        variantType: z.string(),
+        bonusDuration: z.number(),
+        buffDesc: z.string().nullable(),
+        sortId: z.number(),
+    }).nullable(),
+    food: z.strictObject({
+        id: z.string(),
+        attributes: z.array(z.string()),
+        recipes: z.array(z.strictObject({
+            foodId: z.string(),
+            mats: z.array(z.string()),
+        })).nullable(),
+        variants: z.array(z.strictObject({
+            type: z.string(),
+            name: z.string(),
+            usage: z.string(),
+        })),
+        duration: z.number(),
+        sortId: z.number(),
+    }).nullable(),
+    data: z.strictObject({
+        itemId: z.string(),
+        itemType: z.string(),
+        itemName: z.string(),
+        itemUsage: z.string(),
+        itemDesc: z.string(),
+        itemRarity: z.number(),
+        sortId: z.number(),
+        obtainApproach: z.string(),
+    })
+});
+exports.SandboxStageZod = z.strictObject({
+    excel: z.strictObject({
+        stageId: z.string(),
+        levelId: z.string(),
+        code: z.string(),
+        name: z.string(),
+        description: z.string(),
+        actionCost: z.number(),
+        actionCostEnemyRush: z.number(),
+    }),
+    levels: StageDataZod,
+});
+exports.SandboxWeatherZod = z.strictObject({
+    weatherId: z.string(),
+    name: z.string(),
+    weatherLevel: z.number(),
+    weatherType: z.string(),
+    weatherTypeName: z.string(),
+    weatherIconId: z.string(),
+    functionDesc: z.string(),
+    description: z.string(),
+    buffId: z.string().nullable(),
 });
 exports.SandboxActZod = z.strictObject({
     name: z.string(),
-    itemDict: z.record(z.string(), SandboxItemZod),
-    weatherDict: z.record(z.string(), SandboxWeatherZod),
-    stageDict: z.record(z.string(), SandboxStageZod),
+    itemDict: z.record(z.string(), exports.SandboxItemZod),
+    weatherDict: z.record(z.string(), exports.SandboxWeatherZod),
+    stageDict: z.record(z.string(), exports.SandboxStageZod),
 });
 exports.SkillZod = z.strictObject({
     deploy: DeploySkillZod.nullable(),
