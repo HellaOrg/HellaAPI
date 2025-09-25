@@ -1,4 +1,5 @@
 import { exec } from 'child_process';
+import commandLineArgs from 'command-line-args';
 import 'dotenv/config';
 import { existsSync, readFileSync } from 'fs';
 import * as T from "hella-types";
@@ -9,6 +10,13 @@ import { promisify } from 'util';
 import * as zod from 'zod';
 import getDb from "../src/db";
 const objectHash = require('object-hash');
+
+const optionDefinitions = [
+    { name: 'ci', type: Boolean, defaultValue: false },
+    { name: 'collections', type: String, multiple: true },
+    { name: 'allgacha', type: Boolean },
+];
+const options = commandLineArgs(optionDefinitions);
 
 const logDate = (msg: string) => console.log(`[${new Date().toLocaleString()}] ${msg}`);
 const logTime = (msg: string) => console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
@@ -21,10 +29,10 @@ class G {
     static cnGamedataUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata';
 
     static collectionDeps = {
-        'cn': ['archetype', 'base', 'module', 'paradox', 'range', 'skill', 'skin', 'operator'],
+        'cn': ['operator'],
         'deployable': ['archetype', 'range', 'skill', 'skin'],
-        'operator': ['archetype', 'base', 'module', 'paradox', 'range', 'skill', 'skin', 'deployable'],
-        'recruit': ['operator', 'archetype', 'base', 'module', 'paradox', 'range', 'skill', 'skin', 'deployable'],
+        'operator': ['base', 'module', 'paradox', 'deployable'],
+        'recruit': ['operator'],
     }
     static collectionsToLoad = {
         archetype: true,
@@ -69,10 +77,6 @@ class G {
     static cnskillDict: { [key: string]: T.Skill } = {};
     static cnskinArrDict: { [key: string]: T.Skin[] } = {};
 
-    static writeToDb = false;
-    static updateAbout = true;
-    static allGacha = false;
-
     static db: Db;
     static gameConsts = (require('../src/constants.json')).gameConsts;
     static commit: any;
@@ -97,25 +101,13 @@ type Doc = {
 }
 
 async function main() {
-    const args = process.argv.slice(2);
-    if (args.length !== 0) {
-        for (const key in G.collectionsToLoad) {
-            G.collectionsToLoad[key] = false;
-        }
-        for (const arg of args) {
-            if (G.collectionsToLoad.hasOwnProperty(arg)) {
-                G.collectionsToLoad[arg] = true;
-            }
-            if (G.collectionDeps[arg]) {
-                for (const dep of G.collectionDeps[arg]) {
-                    G.collectionsToLoad[dep] = true;
-                }
-            }
-        }
+    const recurse = (coll: string) => {
+        if (G.collectionsToLoad.hasOwnProperty(coll))
+            G.collectionsToLoad[coll] = true;
+        G.collectionDeps[coll]?.forEach(dep => recurse(dep));
     }
-    if (args.includes('allgacha')) {
-        G.allGacha = true;
-        G.collectionsToLoad.gacha = true;
+    for (const coll of options.collections) {
+        recurse(coll);
     }
 
     G.db = await getDb();
@@ -130,7 +122,7 @@ async function main() {
     logDate('Starting DB load');
     logDate(`Collections to load: ${Object.entries(G.collectionsToLoad).filter(([_, v]) => v).map(([k, _]) => k).join(', ')}`); // copilot fuckery
 
-    if (G.writeToDb && G.updateAbout)
+    if (options.ci)
         await G.db.collection('about').updateOne({}, { $set: { date: G.date, hash: G.commit.sha, message: G.commit.commit.message } }, { upsert: true });
 
     if (G.collectionsToLoad.archetype)
@@ -410,7 +402,7 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
             unique.add(datum.canon);
         }
 
-        if (G.writeToDb) {
+        if (options.ci) {
             logTime(`${collection}: writing ${newDocs.length} documents`);
             const filter = { canon: { $in: newDocs.map(datum => datum.canon) } };
             await G.db.collection(collection).deleteMany(filter);
@@ -593,7 +585,7 @@ async function loadGacha() {
     const gachaPoolClient: any[] = gachaTable.gachaPoolClient.sort((a, b) => b.openTime - a.openTime);
 
     const dataArr: PreDoc[] = [];
-    if (G.allGacha) {
+    if (options.allgacha) {
         // batch into groups of 50 to avoid hitting shell length limit
         for (let i = 0; i < Math.ceil(gachaPoolClient.length / 50); i++) {
             const gachaPools = gachaPoolClient.slice(i * 50, (i + 1) * 50);
