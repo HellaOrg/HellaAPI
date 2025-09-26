@@ -11,22 +11,18 @@ import * as zod from 'zod';
 import getDb from "../src/db";
 const objectHash = require('object-hash');
 
-const optionDefinitions = [
-    { name: 'ci', type: Boolean, defaultValue: false },
-    { name: 'collections', type: String, multiple: true },
-    { name: 'allgacha', type: Boolean },
-];
-const options = commandLineArgs(optionDefinitions);
-
 const logDate = (msg: string) => console.log(`[${new Date().toLocaleString()}] ${msg}`);
 const logTime = (msg: string) => console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
 const log = (msg: string) => console.log(msg);
 const execWait = promisify(exec);
 
 class G {
-    static gamedataPath = 'ArknightsGameData_YoStar/en_US/gamedata';
-    static backupUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/5ba509ad5a07f17b7e220a25f1ff66794dd79af1/en_US/gamedata'; // last commit before removing en_US folder
-    static cnGamedataUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata';
+    static optionDefinitions = [
+        { name: 'ci', type: Boolean, defaultValue: false },
+        { name: 'collections', alias: 'c', type: String, multiple: true },
+        { name: 'allgacha', type: Boolean, defaultValue: false },
+    ];
+    static options = commandLineArgs(G.optionDefinitions);
 
     static collectionDeps = {
         'cn': ['operator'],
@@ -59,16 +55,16 @@ class G {
         cn: true
     }
 
-    static archetypeDict: { [key: string]: string } = {};       // Archetype id -> archetype name
-    static baseDict: { [key: string]: T.Base } = {};            // Base skill id -> Base object
-    static deployDict: { [key: string]: T.Deployable } = {}; // Deployable id -> Deployable object
-    static moduleDict: { [key: string]: T.Module } = {};          // Module id -> Module object
-    static operatorDict: { [key: string]: T.Operator } = {};        // Operator id -> Operator object
-    static paradoxDict: { [key: string]: T.Paradox } = {};         // Operator id -> Paradox object
-    static rangeDict: { [key: string]: T.GridRange } = {};           // Range id -> Range object
-    static skillDict: { [key: string]: T.Skill } = {};           // Skill id -> Skill object
-    static skinArrDict: { [key: string]: T.Skin[] } = {};         // Operator id -> Skin object array
-    static skinDict: { [key: string]: T.Skin } = {};            // Skin id -> Skin object
+    static archetypeDict: { [key: string]: string } = {};
+    static baseDict: { [key: string]: T.Base } = {};
+    static deployDict: { [key: string]: T.Deployable } = {};
+    static moduleDict: { [key: string]: T.Module } = {};
+    static operatorDict: { [key: string]: T.Operator } = {};
+    static paradoxDict: { [key: string]: T.Paradox } = {};
+    static rangeDict: { [key: string]: T.GridRange } = {};
+    static skillDict: { [key: string]: T.Skill } = {};
+    static skinArrDict: { [key: string]: T.Skin[] } = {};
+    static skinDict: { [key: string]: T.Skin } = {};
     static cnarchetypeDict: { [key: string]: string } = {};
     static cnbaseDict: { [key: string]: T.Base } = {};
     static cnmoduleDict: { [key: string]: T.Module } = {};
@@ -77,9 +73,14 @@ class G {
     static cnskillDict: { [key: string]: T.Skill } = {};
     static cnskinArrDict: { [key: string]: T.Skin[] } = {};
 
-    static db: Db;
+    static gamedataPath = 'ArknightsGameData_YoStar/en_US/gamedata';
+    static backupUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/5ba509ad5a07f17b7e220a25f1ff66794dd79af1/en_US/gamedata'; // last commit before removing en_US folder
+    static cnGamedataUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata';
     static gameConsts = (require('../src/constants.json')).gameConsts;
-    static commit: any;
+
+    static db: Db;
+    static hash: string;
+    static message: string;
     static date: number;
 }
 
@@ -101,29 +102,37 @@ type Doc = {
 }
 
 async function main() {
-    const recurse = (coll: string) => {
-        if (G.collectionsToLoad.hasOwnProperty(coll))
-            G.collectionsToLoad[coll] = true;
-        G.collectionDeps[coll]?.forEach(dep => recurse(dep));
-    }
-    for (const coll of options.collections) {
-        recurse(coll);
+    if (G.options.collections) {
+        const recurse = (coll: string) => {
+            if (G.collectionsToLoad.hasOwnProperty(coll))
+                G.collectionsToLoad[coll] = true;
+            G.collectionDeps[coll]?.forEach(dep => recurse(dep));
+        }
+        Object.keys(G.collectionsToLoad).forEach(coll => G.collectionsToLoad[coll] = false);
+        G.options.collections.forEach((coll: string) => recurse(coll));
     }
 
     G.db = await getDb();
-
     if (!G.db)
         return console.error('Failed to connect to database');
-
-    const hash = (await simpleGit(G.gamedataPath).log()).latest?.hash;
-    G.commit = (await (await fetch(`https://api.github.com/repos/Kengxxiao/ArknightsGameData_YoStar/commits/${hash}`)).json());
+    const latest = (await simpleGit(G.gamedataPath).log()).latest;
+    G.hash = latest.hash;
+    G.message = latest.message;
     G.date = Math.round(Date.now() / 1000); // seconds since unix epoch
 
     logDate('Starting DB load');
+    logDate('CI mode: ' + (G.options.ci ? 'ON' : 'OFF'));
+    logDate(`Commit: ${G.hash} - ${G.message}`);
     logDate(`Collections to load: ${Object.entries(G.collectionsToLoad).filter(([_, v]) => v).map(([k, _]) => k).join(', ')}`); // copilot fuckery
 
-    if (options.ci)
-        await G.db.collection('about').updateOne({}, { $set: { date: G.date, hash: G.commit.sha, message: G.commit.commit.message } }, { upsert: true });
+    if (G.options.ci)
+        await G.db.collection('about').updateOne({}, {
+            $set: {
+                date: G.date,
+                hash: G.hash,
+                message: G.message
+            }
+        }, { upsert: true });
 
     if (G.collectionsToLoad.archetype)
         await loadArchetypes();
@@ -352,8 +361,8 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
                     },
                     { respectType: false }
                 ),
-                created: createdHash ?? G.commit.sha,
-                updated: G.commit.sha,
+                created: createdHash ?? G.hash,
+                updated: G.hash,
                 date: G.date,
             },
             canon: keys[0],
@@ -402,7 +411,7 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
             unique.add(datum.canon);
         }
 
-        if (options.ci) {
+        if (G.options.ci) {
             logTime(`${collection}: writing ${newDocs.length} documents`);
             const filter = { canon: { $in: newDocs.map(datum => datum.canon) } };
             await G.db.collection(collection).deleteMany(filter);
@@ -585,7 +594,7 @@ async function loadGacha() {
     const gachaPoolClient: any[] = gachaTable.gachaPoolClient.sort((a, b) => b.openTime - a.openTime);
 
     const dataArr: PreDoc[] = [];
-    if (options.allgacha) {
+    if (G.options.allgacha) {
         // batch into groups of 50 to avoid hitting shell length limit
         for (let i = 0; i < Math.ceil(gachaPoolClient.length / 50); i++) {
             const gachaPools = gachaPoolClient.slice(i * 50, (i + 1) * 50);
