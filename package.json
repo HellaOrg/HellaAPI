@@ -2,6 +2,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "load": "ts-node scripts/load.ts",
+    "ci": "ts-node scripts/load.ts --ci",
     "test": "ts-node scripts/test.ts"
   },
   "dependencies": {

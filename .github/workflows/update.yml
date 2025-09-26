@@ -47,7 +47,7 @@ jobs:
 
           source venv/bin/activate
 
-          npm run load | tee load.out
+          npm run ci | tee load.out
 
           if [[ "${PIPESTATUS[0]}" -ne 0 ]]; then
             exit 1

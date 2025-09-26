@@ -209,8 +209,8 @@ YOSTAR_EMAIL=your_email_here
 ```
 6. Run the load script!
 ```sh
-npm run load
-npm run load ccb # optional, not loaded by default, requires YoStar authentication
+npm run ci
+npm run ci -- -c ccb # optional, not loaded by default, requires YoStar authentication
 ```
 8. (Optional) Verify that the data conforms to the specifications in [HellaTypes](https://github.com/HellaOrg/HellaAPI/tree/main/types)
 ```sh
