@@ -103,7 +103,7 @@ def main():
         with open(src, "rb") as fsrc, open(dst, "wb") as fdst:
             fsrc.seek(128)  # trim first 128 bytes
             shutil.copyfileobj(fsrc, fdst)
-            print(f"Trimmed & copied {src} -> {dst}")
+            # print(f"Trimmed & copied {src} -> {dst}")
 
     for root, _, fnames in os.walk(merge_dir):
         for fname in fnames:
@@ -134,7 +134,7 @@ def main():
                 "--",
                 src_path
             ])
-            print(f"Converted {src_path} -> {out_subdir}")
+            # print(f"Converted {src_path} -> {out_subdir}")
 
 if __name__ == "__main__":
     main()

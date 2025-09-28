@@ -74,8 +74,8 @@ jobs:
 
           cd download
 
-          unzip en.apk -d apk \
-          && unzip apk/Android/obb/com.YoStarEN.Arknights/main*.obb -d obb
+          unzip -q en.apk -d apk \
+          && unzip -q apk/Android/obb/com.YoStarEN.Arknights/main*.obb -d obb
 
           OPTIONS="--filter-by-text gamedata -t textasset -g container --log-level warning"
           mkdir -p extract/obb extract/anon

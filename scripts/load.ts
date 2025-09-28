@@ -406,9 +406,9 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
         }
         if (!validate) {
             writeFileSync(`schema_${collection}.log`, JSON.stringify(schemaErrors, null, 2));
-            logDate(`${collection}: wrote schema validation errors to schema_${collection}.log`);
+            logTime(`${collection}: wrote schema validation errors to schema_${collection}.log`);
         } else {
-            logDate(`${collection}: schema validated`);
+            logTime(`${collection}: schema validated`);
         }
 
         logTime(`${collection}: found ${newDocs.filter(doc => !oldDocs.some(old => old.canon === doc.canon)).length} new docs`);
