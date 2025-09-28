@@ -1,6 +1,6 @@
 # HellaTypes
 
-![version](https://img.shields.io/npm/v/hella-types)
+[![version](https://img.shields.io/npm/v/hella-types)](https://www.npmjs.com/package/hella-types)
 
 Formerly located at https://github.com/Awedtan/HellaTypes
 
