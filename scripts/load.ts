@@ -82,6 +82,7 @@ class G {
     static gameConsts = (require('../src/constants.json')).gameConsts;
 
     static db: Db;
+    static index: number;
     static hash: string;
     static message: string;
     static date: number;
@@ -94,6 +95,8 @@ type PreDoc = {
 type Doc = {
     _id?: ObjectId,
     meta: {
+        createdIndex: number,
+        updatedIndex: number,
         hash: string,
         created: string,
         updated: string,
@@ -126,16 +129,21 @@ async function main() {
     logDate('Starting DB load');
     logDate('CI mode: ' + (G.options.ci ? 'ON' : 'OFF'));
     logDate(`Commit: ${G.hash} - ${G.message}`);
+    logDate(`Gamedata path: ${G.options.gamedata_path}`);
     logDate(`Collections to load: ${Object.entries(G.collectionsToLoad).filter(([_, v]) => v).map(([k, _]) => k).join(', ')}`); // copilot fuckery
 
-    if (G.options.ci)
+    if (G.options.ci) {
+        const about = await G.db.collection('about').findOne({});
+        const index = about?.index ?? 1;
         await G.db.collection('about').updateOne({}, {
             $set: {
                 date: G.date,
+                index: index + 1,
                 hash: G.hash,
                 message: G.message
             }
         }, { upsert: true });
+    }
 
     if (G.collectionsToLoad.archetype)
         await loadArchetypes();
@@ -359,9 +367,12 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
 }
 async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod.ZodObject<any> | zod.ZodArray<any> | null) {
     const createDoc = (oldDocuments: any[], keys: string[], value: any): Doc => {
+        const createdIndex = oldDocuments.find(doc => doc.canon === keys[0])?.meta?.createdIndex;
         const createdHash = oldDocuments.find(doc => doc.canon === keys[0])?.meta?.created;
         return {
             meta: {
+                createdIndex: createdIndex ?? G.index,
+                updatedIndex: G.index,
                 hash: objectHash(
                     {
                         keys: keys.map(key => key.toLowerCase()),
