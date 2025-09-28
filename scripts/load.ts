@@ -1,7 +1,7 @@
 import { exec } from 'child_process';
 import commandLineArgs from 'command-line-args';
 import 'dotenv/config';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import * as T from "hella-types";
 import { Db, ObjectId } from 'mongodb';
 import { normalize } from 'path';
@@ -19,6 +19,7 @@ const execWait = promisify(exec);
 class G {
     static optionDefinitions = [
         { name: 'ci', type: Boolean, defaultValue: false },
+        { name: 'gamedata_path', alias: 'g', type: String, defaultValue: 'ArknightsGameData_YoStar/en_US/gamedata' },
         { name: 'collections', alias: 'c', type: String, multiple: true },
         { name: 'allgacha', type: Boolean, defaultValue: false },
     ];
@@ -73,8 +74,10 @@ class G {
     static cnskillDict: { [key: string]: T.Skill } = {};
     static cnskinArrDict: { [key: string]: T.Skin[] } = {};
 
-    static gamedataPath = 'ArknightsGameData_YoStar/en_US/gamedata';
-    static backupUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/5ba509ad5a07f17b7e220a25f1ff66794dd79af1/en_US/gamedata'; // last commit before removing en_US folder
+    static backupGamedataUrls = [
+        'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData_YoStar/main/en_US/gamedata',
+        'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/5ba509ad5a07f17b7e220a25f1ff66794dd79af1/en_US/gamedata' // last commit before removing en_US folder
+    ];
     static cnGamedataUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata';
     static gameConsts = (require('../src/constants.json')).gameConsts;
 
@@ -115,7 +118,7 @@ async function main() {
     G.db = await getDb();
     if (!G.db)
         return console.error('Failed to connect to database');
-    const latest = (await simpleGit(G.gamedataPath).log()).latest;
+    const latest = (await simpleGit(G.options.gamedata_path).log()).latest;
     G.hash = latest.hash;
     G.message = latest.message;
     G.date = Math.round(Date.now() / 1000); // seconds since unix epoch
@@ -226,24 +229,30 @@ async function fetchData(path: string): Promise<any> {
     let attempt = 0;
     while (attempt < retries) {
         try {
-            const filePath = normalize(`${G.gamedataPath}/${path}`.replace(/\\/g, '/'));
-            if (!existsSync(filePath)) {
-                throw new Error(`File not found: ${filePath}`);
-            }
-            const content = readFileSync(filePath, 'utf8');
-            try {
+            const filePath = normalize(`${G.options.gamedata_path}/${path}`.replace(/\\/g, '/'));
+            if (existsSync(filePath)) {
+                const content = readFileSync(filePath, 'utf8');
                 return JSON.parse(content);
-            } catch (jsonErr) {
-                throw new Error(`Failed to parse JSON from ${filePath}: ${(jsonErr as Error).message}`);
+            }
+            for (const url of G.backupGamedataUrls) {
+                const res = await fetch(`${url}/${path}`);
+                if (res.ok) {
+                    return await res.json();
+                }
+                if (res.status === 429) {
+                    await new Promise(resolve => setTimeout(resolve, 5000 * ++attempt));
+                    continue;
+                }
             }
         } catch (err) {
-            if (err.message.includes('File not found')) break;
-            if (++attempt >= retries) {
+            attempt++;
+            if (attempt >= retries) {
+                log(`Error loading ${path}: ${(err as Error).message}`);
                 throw err;
             }
         }
     }
-    throw new Error(`Failed to load data for ${path} after ${retries} attempts`);
+    throw new Error(`File not found locally or at backup URLs: ${path}`);
 }
 function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     const arr: PreDoc[] = [];
@@ -348,7 +357,6 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
 
     return arr;
 }
-
 async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod.ZodObject<any> | zod.ZodArray<any> | null) {
     const createDoc = (oldDocuments: any[], keys: string[], value: any): Doc => {
         const createdHash = oldDocuments.find(doc => doc.canon === keys[0])?.meta?.created;
@@ -382,6 +390,7 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
         .map(newDoc => createDoc(oldDocs, newDoc.keys, newDoc.value))
         .filter(doc => filterDocs(oldDocs, doc));
 
+    const schemaErrors = [];
     if (newDocs.length !== 0) {
         let validate = true;
         if (schema) {
@@ -390,15 +399,18 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
                     schema.parse(doc.value);
                 } catch (e: any) {
                     validate = false;
-                    log(`\n${collection}: schema error: ` + doc.keys);
-                    log(e);
+                    schemaErrors.push({ key: doc.canon, error: e.errors });
                     break;
                 }
             }
         }
-        if (validate) {
-            logTime(`${collection}: schema validated`);
+        if (!validate) {
+            writeFileSync(`schema_${collection}.log`, JSON.stringify(schemaErrors, null, 2));
+            logDate(`${collection}: wrote schema validation errors to schema_${collection}.log`);
+        } else {
+            logDate(`${collection}: schema validated`);
         }
+
         logTime(`${collection}: found ${newDocs.filter(doc => !oldDocs.some(old => old.canon === doc.canon)).length} new docs`);
         logTime(`${collection}: found ${newDocs.filter(doc => oldDocs.some(old => old.canon === doc.canon)).length}/${oldDocs.length} updated docs`);
 
@@ -954,40 +966,40 @@ async function loadStages() {
                 toughArr.push({ keys: [code], value: [] }); // Multiple stages can have the same code, so each code maps to an array
             }
 
-            try {
-                const levels = await fetchData(`levels/${levelId}.json`);
-                const stage = { excel: excel, levels: levels };
+            // try {
+            const levels = await fetchData(`levels/${levelId}.json`);
+            const stage = { excel: excel, levels: levels };
 
-                toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
-                toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            }
-            catch (e) {
-                const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
-                const stage = { excel: excel, levels: levels };
+            toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
+            toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
+            // }
+            // catch (e) {
+            //     const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
+            //     const stage = { excel: excel, levels: levels };
 
-                toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
-                toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            }
+            //     toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
+            //     toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
+            // }
         }
         else if (excel.difficulty === 'NORMAL') {
             if (!stageArr.find(data => data.keys.includes(code))) {
                 stageArr.push({ keys: [code], value: [] }); // Multiple stages can have the same code, so each code maps to an array
             }
 
-            try {
-                const levels = await fetchData(`levels/${levelId}.json`);
-                const stage = { excel: excel, levels: levels };
+            // try {
+            const levels = await fetchData(`levels/${levelId}.json`);
+            const stage = { excel: excel, levels: levels };
 
-                stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
-                stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            }
-            catch (e) {
-                const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
-                const stage = { excel: excel, levels: levels };
+            stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
+            stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
+            // }
+            // catch (e) {
+            //     const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
+            //     const stage = { excel: excel, levels: levels };
 
-                stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
-                stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            }
+            //     stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
+            //     stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
+            // }
         }
     });
 
