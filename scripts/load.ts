@@ -1057,7 +1057,7 @@ async function loadCnOperators() {
         opArr.push(...readOperatorIntoArr(opId, patchChars, charEquip, charBaseBuffs));
     }
 
-    loadCollection(collection, opArr, null);
+    await loadCollection(collection, opArr, null);
 }
 async function loadCnParadoxes() {
     const collection = 'cn/paradox';
