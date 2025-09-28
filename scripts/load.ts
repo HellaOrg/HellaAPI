@@ -134,11 +134,11 @@ async function main() {
 
     if (G.options.ci) {
         const about = await G.db.collection('about').findOne({});
-        const index = about?.index ?? 1;
+        G.index = (about?.index ?? 0) + 1;
         await G.db.collection('about').updateOne({}, {
             $set: {
                 date: G.date,
-                index: index + 1,
+                index: G.index,
                 hash: G.hash,
                 message: G.message
             }
