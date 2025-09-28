@@ -111,6 +111,19 @@ jobs:
           else
             echo "condition=false" >> $GITHUB_OUTPUT
           fi
+          if [[ $(grep -c "schema validation errors" load.out) -gt 0 ]]; then
+            echo "schema=true" >> $GITHUB_OUTPUT
+          else
+            echo "schema=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Print schema validation errors
+        if: steps.update.outputs.schema == 'true'
+        run: |
+          for file in $(find . -name 'schema*.log'); do
+            echo "=== $file ==="
+            cat "$file"
+          done
   test:
     name: Verify types
     needs: update
