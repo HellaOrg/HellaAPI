@@ -284,6 +284,13 @@ var StageRouteZod = z.strictObject({
     visitEveryNodeCenter: z.boolean(),
     visitEveryCheckPoint: z.boolean().optional(),
 });
+var StageRune = z.strictObject({
+    difficultyMask: z.union([z.string(), z.number()]),
+    key: z.string(),
+    professionMask: z.union([z.string(), z.number()]).optional(),
+    buildableMask: z.union([z.string(), z.number()]),
+    blackboard: z.array(BlackboardZod),
+});
 var StageDataZod = z.strictObject({
     options: z.strictObject({
         characterLimit: z.number(),
@@ -330,14 +337,13 @@ var StageDataZod = z.strictObject({
         height: z.number().optional(),
     }),
     tilesDisallowToLocate: z.tuple([]),
-    runes: z.array(z.strictObject({
-        difficultyMask: z.union([z.string(), z.number()]),
-        key: z.string(),
-        professionMask: z.union([z.string(), z.number()]).optional(),
-        buildableMask: z.union([z.string(), z.number()]),
-        blackboard: z.array(BlackboardZod),
-    })).nullable(),
-    optionalRunes: z.array(z.null()).nullable().optional(),
+    runes: z.array(StageRune).nullable(),
+    optionalRunes: z.strictObject({
+        rune_level1_1: z.array(StageRune),
+        rune_level1_2: z.array(StageRune),
+        rune_level2_1: z.array(StageRune),
+        rune_level2_2: z.array(StageRune),
+    }).nullable().optional(),
     globalBuffs: z.array(z.strictObject({
         prefabKey: z.string(),
         blackboard: z.array(BlackboardZod).nullable(),
@@ -635,7 +641,20 @@ exports.GameEventZod = z.strictObject({
     recType: z.string().nullable(),
     isPageEntry: z.boolean(),
     isMagnify: z.boolean(),
-    picGroup: z.array(z.null()),
+    picGroup: z.array(z.strictObject({
+        sortIndex: z.number(),
+        picId: z.string(),
+        availCheck: z.strictObject({
+            startTs: z.number(),
+            endTs: z.number(),
+            type: z.string(),
+            rate: z.number(),
+            stageUnlockParam: z.strictObject({
+                stageId: z.string(),
+            }).nullable(),
+            charUnlockParam: z.null(),
+        })
+    })),
     usePicGroup: z.boolean(),
 });
 exports.GridRangeZod = z.strictObject({
@@ -1075,7 +1094,11 @@ exports.StageZod = z.strictObject({
             })
         })).nullable(),
         sixStarBaseDesc: z.string().nullable().optional(),
-        sixStarDisplayRewardList: z.null().optional(),
+        sixStarDisplayRewardList: z.array(z.strictObject({
+            id: z.string(),
+            count: z.number(),
+            type: z.string(),
+        })).nullable().optional(),
         advancedRuneIdList1: z.array(z.null()).optional(),
         advancedRuneIdList2: z.array(z.null()).optional(),
     }),
