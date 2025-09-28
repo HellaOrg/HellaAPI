@@ -1,0 +1,433 @@
+{
+    "gameConsts": {
+        "ccSeasons": {
+            "beta": [
+                "Area 59 Ruins",
+                "Abandoned High-rise",
+                "Barren Plaza"
+            ],
+            "0": [
+                "Broken Path",
+                "Area 59 Ruins",
+                "Abandoned High-rise",
+                "Barren Plaza",
+                "Desolate Desert",
+                "Frost-Covered Ruins",
+                "New Street",
+                "Transport Hub"
+            ],
+            "1": [
+                "Pyrite Gorge",
+                "Area 59 Ruins",
+                "Broken Path",
+                "Desolate Desert",
+                "East Armory",
+                "Frost-Covered Ruins",
+                "New Street",
+                "Transport Hub"
+            ],
+            "2": [
+                "Deserted Factory",
+                "Broken Path",
+                "Desolate Desert",
+                "East Armory",
+                "Frost-Covered Ruins",
+                "New Street",
+                "Pyrite Gorge",
+                "Transport Hub"
+            ],
+            "3": [
+                "Windswept Highland",
+                "Area 6 Ruins",
+                "Broken Path",
+                "Deserted Factory",
+                "East Armory",
+                "Frost-Covered Ruins",
+                "Pyrite Gorge",
+                "Transport Hub"
+            ],
+            "4": [
+                "Abandoned Mine",
+                "Area 6 Ruins",
+                "Deserted Factory",
+                "East Armory",
+                "Locked-Down Prison",
+                "Pyrite Gorge",
+                "Transport Hub",
+                "Windswept Highland"
+            ],
+            "5": [
+                "Arena 8",
+                "Abandoned Mine",
+                "Area 6 Ruins",
+                "Deserted Factory",
+                "East Armory",
+                "Locked-Down Prison",
+                "Pyrite Gorge",
+                "Windswept Highland"
+            ],
+            "6": [
+                "Howling Desert",
+                "Abandoned Mine",
+                "Abandoned Plot",
+                "Area 6 Ruins",
+                "Arena 8",
+                "Deserted Factory",
+                "Locked-Down Prison",
+                "Pyrite Gorge",
+                "Windswept Highland"
+            ],
+            "7": [
+                "Hui-ch'i Foothills",
+                "Abandoned Mine",
+                "Abandoned Plot",
+                "Arena 8",
+                "Blazing Cavern",
+                "Howling Desert",
+                "Locked-Down Prison",
+                "Windswept Highland"
+            ],
+            "8": [
+                "Grand Knight Territory Bar District",
+                "Abandoned Mine",
+                "Abandoned Plot",
+                "Arena 8",
+                "Blazing Cavern",
+                "Howling Desert",
+                "Hui-ch'i Foothills",
+                "Sandsea Remnants"
+            ],
+            "9": [
+                "Sal Viento Karst",
+                "Abandoned Plot",
+                "Blazing Cavern",
+                "Grand Knight Territory Bar District",
+                "Howling Desert",
+                "Hui-ch'i Foothills",
+                "Sandsea Remnants",
+                "Shangshu Trails"
+            ],
+            "10": [
+                "Londinium Outskirts",
+                "Blazing Cavern",
+                "County Hillock Depot",
+                "Grand Knight Territory Bar District",
+                "Hui-ch'i Foothills",
+                "Sal Viento Karst",
+                "Sandsea Remnants",
+                "Shangshu Trails"
+            ],
+            "11": [
+                "Under-Construction Beachside",
+                "County Hillock Depot",
+                "Grand Knight Territory Bar District",
+                "Londinium Outskirts",
+                "Sal Viento Karst",
+                "Sandsea Remnants",
+                "Shangshu Trails",
+                "Tundra Mines"
+            ],
+            "12": [
+                "Nameless Sanctuary",
+                "County Hillock Depot",
+                "Londinium Outskirts",
+                "Foggy Warzone",
+                "Sal Viento Karst",
+                "Shangshu Trails",
+                "Tundra Mines",
+                "Under-Construction Beachside"
+            ]
+        },
+        "ccStages": [
+            {
+                "levelId": "obt/rune/level_rune_01-01",
+                "location": "Lungmen Outskirts",
+                "name": "Barren Plaza",
+                "description": "A wide-open space in the middle of the slums, filled with haphazardly discarded garbage and vagrants with nowhere else to go. However, this place has also become a suitable den for enemies to hide."
+            },
+            {
+                "levelId": "obt/rune/level_rune_01-02",
+                "location": "Lungmen Outskirts",
+                "name": "Abandoned High-rise",
+                "description": "This high-rise was abandoned after being destroyed by the flames of war, and was subsequently captured by the enemy. They now leverage the visibility it brings to defend their territory - we must recapture it."
+            },
+            {
+                "levelId": "obt/rune/level_rune_01-03",
+                "location": "Chernobog",
+                "name": "Area 59 Ruins",
+                "description": "This district within Chernobog was abandoned due to its small size and lack of strategic significance. It has since been occupied by wandering enemy forces, and we must recapture it to prevent enemies from slipping through our encirclement."
+            },
+            {
+                "levelId": "obt/rune/level_rune_02-01",
+                "location": "Uncharted Desert",
+                "name": "Desolate Desert",
+                "description": "Located deep within a remote, uncharted desert, the barren but rugged terrain provides refuge for our enemies. It is necessary to stop them before they penetrate deeper into the wilderness."
+            },
+            {
+                "levelId": "obt/rune/level_rune_02-02",
+                "location": "Chernobog",
+                "name": "Broken Path",
+                "description": "Streets torn apart by war, the pavement turned inside out, walls torn down like paper – and the culprits that caused all this destruction are still lurking nearby."
+            },
+            {
+                "levelId": "obt/rune/level_rune_02-03",
+                "location": "Lungmen",
+                "name": "New Street",
+                "description": "What was once one of Lungmen's most thriving streets is now little more than a testimony to how quickly it was deserted. Some enemies are still operating in this area, posing a threat to civilians nearby."
+            },
+            {
+                "levelId": "obt/rune/level_rune_02-04",
+                "location": "Lungmen",
+                "name": "Transport Hub",
+                "description": "Lungmen's crucial transport hub, as one of the most important strategic strongholds in the entire city, is now caught in a crossfire between multiple factions vying for control. Now, it is our job to take it back."
+            },
+            {
+                "levelId": "obt/rune/level_rune_02-05",
+                "location": "Lungmen Outskirts",
+                "name": "Frost-Covered Ruins",
+                "description": "In the aftermath of a large battle where a large section of the ruins was frozen over roams remnants of the enemy, as well as berserk Originium-related creatures. Occasionally, one will see snowflakes dancing out-of-season."
+            },
+            {
+                "levelId": "obt/rune/level_rune_03-01",
+                "location": "Barrenlands",
+                "name": "Pyrite Gorge",
+                "description": "A gorge covered in yellow sand that gives off a metalic sheen in the sunlight. Proceed with caution, for plunderers often lurk where the sun does not reach.\n<Stun Generator> Pay a cost to activate it, damaging and stunning nearby enemies."
+            },
+            {
+                "levelId": "obt/rune/level_rune_03-02",
+                "location": "Lungmen",
+                "name": "East Armory",
+                "description": "In the eastern part of the L.G.D.'s Armory, the battle over armaments has not yet ended. Please help restore stability to this area."
+            },
+            {
+                "levelId": "obt/rune/level_rune_04-01",
+                "location": "Chernobog",
+                "name": "Deserted Factory",
+                "description": "Reunion has occupied the deserted factories in Chernobog. The enemy has already set up their ambush, so please leverage the surrounding environment to your advantage."
+            },
+            {
+                "levelId": "obt/rune/level_rune_05-01",
+                "location": "Barrenlands",
+                "name": "Windswept Highland",
+                "description": "These perenially windswept highlands, far away from the paths of any nomadic cities, are believed to harbor hostile enemy forces. Investigate the situation and repel the threat."
+            },
+            {
+                "levelId": "obt/rune/level_rune_05-02",
+                "location": "Chernobog",
+                "name": "Area 6 Ruins",
+                "description": "One of Chernobog's core districts, turned into a battlefield by its chaotic tug-of-war, is now occupied by the remnants of the Reunion Movement. They must be expelled before order can return."
+            },
+            {
+                "levelId": "obt/rune/level_rune_06-01",
+                "location": "Barrenlands",
+                "name": "Abandoned Mine",
+                "description": "This abandoned mine far from the city has become a den of outlaws. Hurry up and clear them out to restore order to the area.\nRubble changes the enemy's route."
+            },
+            {
+                "levelId": "obt/rune/level_rune_06-02",
+                "location": "Columbia",
+                "name": "Locked-Down Prison",
+                "description": "A Columbian prison equipped with imprisonment devices. Help the jailers calm things down.\n<Imprisonment Device> Imprisons freed enemies within its effect area."
+            },
+            {
+                "levelId": "obt/rune/level_rune_07-01",
+                "location": "Kazimierz",
+                "name": "Arena 8",
+                "description": "Rhodes Island has been invited to participate in a sparring competition against Kazimierz knights. Please make full use of the venue to seize ultimate victory."
+            },
+            {
+                "levelId": "obt/rune/level_rune_08-01",
+                "location": "Barrenlands",
+                "name": "Howling Desert",
+                "description": "On the desolate plains where sandstorms reign supreme, locals and mercenaries alike fall together in a deadly clash, each seeking to usurp the other's wealth. It's time to correct such thinking.\n<Sandstorm> Allied units caught inside the sandstorm will have reduced ATK, continuously take damage over time, and have extended redeployment time; Enemy units will instead be slowed\n<Dirt Mound> A reinforcable structure that can be used to resist sandstorms; Dirt Mounds are naturally more durable in this environment and have higher HP"
+            },
+            {
+                "levelId": "obt/rune/level_rune_08-02",
+                "location": "Chernobog",
+                "name": "Abandoned Plot",
+                "description": "An Ursus Drone Reconnaissance Squad disguised as Guerrillas remains on standby deep within the ruins of Chernobog. No matter what they are waiting for, it's time to hand them their eviction notices."
+            },
+            {
+                "levelId": "obt/rune/level_rune_09-01",
+                "location": "Yan",
+                "name": "Hui-ch'i Foothills",
+                "description": "Dusk has departed Mount Hui-ch'i, yet the creatures born from her brushstrokes still remain, and it may take a bit of work to get this thick ink to fade.\n<Mark of Hui and Ming> Operators deployed on it will earn a Hui-Ming attribute\n<Mark of Dusk and Dawn> On first passing through, enemies will change attribute\n<Two-Step Firecracker mk2> Deals Arts damage to enemies in the four adjacent tiles, changing Hui-Ming attributes within its range"
+            },
+            {
+                "levelId": "obt/rune/level_rune_09-02",
+                "location": "Barrenlands",
+                "name": "Blazing Cavern",
+                "description": "Inside a cavern not far from a volcano, a band of thugs have seemingly tamed a massive Infected Creature. You must keep it from rampaging across the wilderness. Stop the thugs before they leave the cavern.\n<Lava Crack> Spray out lava periodically, dealing massive damage to friendly units on the surrounding 8 tiles and melting down Roadblocks"
+            },
+            {
+                "levelId": "obt/rune/level_rune_10-01",
+                "location": "Kazimierz",
+                "name": "Grand Knight Territory Bar District",
+                "description": "Late-night Kazimierz sees drunken knights wandering all over, but outnumbering them are the Armorless Union hidden in the shadows... and certain fanatical imitators of the knights.\n<City Neon> Provides an initial amount of visibility, and can further increase visibility when used\n<Knight Crest> When used, permanently provides visibility over a certain tile"
+            },
+            {
+                "levelId": "obt/rune/level_rune_10-02",
+                "location": "Sargon",
+                "name": "Sandsea Remnants",
+                "description": "A wealth of secrets are hidden in Sargon's deserts, and it's not just the local lords ameer who want their hands on them.\n<Mobile Tactical Hangar> Deploys drones as needed to assist enemy combatants."
+            },
+            {
+                "levelId": "obt/rune/level_rune_11-01",
+                "location": "Iberia",
+                "name": "Sal Viento Karst",
+                "description": "The fall of Quintus has not stopped Seaborn activity in the area. Find and eliminate them."
+            },
+            {
+                "levelId": "obt/rune/level_rune_11-02",
+                "location": "Yan",
+                "name": "Shangshu Trails",
+                "description": "The treacherous Shangshu Trails are haunted by Waregeists and Ink Spirits. Are they seeking their absent masters, or a freedom that they do not understand?"
+            },
+            {
+                "levelId": "obt/rune/level_rune_12-01",
+                "location": "Victoria",
+                "name": "Londinium Outskirts",
+                "description": "The Sarkaz have become the masters of Londinium. Protect the workers who built the city from their oppression.\n<Londinium Secondary Defense Artillery> Once fully charged, deals area True damage to both allies and enemies, centered on the friendly unit with the highest Block."
+            },
+            {
+                "levelId": "obt/rune/level_rune_12-02",
+                "location": "Victoria",
+                "name": "County Hillock Depot",
+                "description": "They are the ghosts of a bygone era. Their hatred and fury haunt the outskirts of the rebuilding city.\n<Tattered Pillar> Can be knocked down by neighboring Operators, dealing True damage to the two tiles it falls on and forming rubble that blocks routes."
+            },
+            {
+                "levelId": "obt/rune/level_rune_13-01",
+                "location": "Bolívar",
+                "name": "Under-Construction Beachside",
+                "description": "Lady Candela has carved out a corner of Dossoles's artificial beach to allow the newly-arriving Durin architects to show off their talents, but when these \"geniuses\" get sloshed with the local workers and start making a scene, someone needs to teach them a lesson.\n<Deep Water Zone> Unable to deploy on these tiles. Enemies on these tiles have reduced ASPD and Movement Speed, and continually lose HP\n<Custom Floating Platform> Can be deployed on Deep Water Zones, thereafter any unit can be deployed on that tile. The platform is destroyed when the deployed unit retreats."
+            },
+            {
+                "levelId": "obt/rune/level_rune_13-02",
+                "location": "Ursus",
+                "name": "Tundra Mines",
+                "description": "The desolate conditions of Ursus's tundra mines have forced the miners to flee simply to survive. Under conditions of anonymity, a Rhodes Island detachment was given authorization to rescue these miners and provide a means of escape.\n<Static Roadblock> Blocks the movement of Ursus Civilians and Talulah, the Fighter; Can be destroyed by your units.\n<Ursus Civilian> Life Points will be deducted by 1 when killed by an enemy."
+            },
+            {
+                "levelId": "obt/rune/level_rune_14-01",
+                "location": "Barrenlands",
+                "name": "Nameless Sanctuary",
+                "description": "A hideout in the barrens where the ancient Sarkaz altars are still operational. Outsiders are not welcome here, and naturally, armed Rhodes Island operators will not be treated kindly.\n<Originium Altar> Periodically emits Pulse Waves to the 4 surrounding tiles, damaging both allied and enemy units."
+            },
+            {
+                "levelId": "obt/rune/level_rune_14-02",
+                "location": "Victoria",
+                "name": "Foggy Warzone",
+                "description": "Fog envelops Londinium, hiding Sarkaz within. Be vigilant, advance carefully, and don't be thrown off by the enemy's ambush."
+            }
+        ],
+        "ccbSeasons": {
+            "poo": [
+                "Research Base Quarantine Zone",
+                "Area 13 Ruins",
+                "Beach Repair",
+                "Muddy Bog"
+            ],
+            "1": [
+                "Ashen Swampland",
+                "Fortified Pass",
+                "Federal Prison",
+                "Beach Repair",
+                "Area 13 Ruins"
+            ]
+        },
+        "ccbStages": [
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-01",
+                "location": "Victoria",
+                "name": "Ashen Swampland",
+                "description": "Time and again, this place has been ravaged by the flames of war and the forces of nature. But after each disaster, the reeds are able to raise their soot-covered heads once more. Will you resist to the very end like the reeds, or will you accept failure like the ashes blanketing the ground?\n<Reeds> Operators within gain Camouflage"
+            },
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-02",
+                "location": "Yan",
+                "name": "Fortified Pass",
+                "description": "A fortified army checkpoint since ancient times, used offensively as a springboard for clearing out bandits and defensively as insurance to fall back to. Recently, a Shanhaizhong force has gathered to capture the pass for use as their base of operations. The army has no plans to let them have their way, and neither should you.\n<Yumen Catastrophe Defenses> Units placed here deal more damage to ground units and take less damage from ground units."
+            },
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-03",
+                "location": "Columbia",
+                "name": "Federal Prison",
+                "description": "Home to a large number of criminals, jailbreaks are bound to happen from time to time — a chronic headache for the warden. Now, it appears that in addition to the staff in charge of supervision and punishment, a rapid response force to contain the prisoners is also needed. Listen, you can already hear the sound of metal against cell bars. It's time to get to work.\n<Imprisonment Device> Imprisons freed enemies within its effect area."
+            },
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-04",
+                "location": "Columbia",
+                "name": "Research Base Quarantine Zone",
+                "description": "Former experimental products are wreaking havoc in Site 359's quarantine zone, along with disgruntled former Rhine Lab employees. It is time they woke up from their dream."
+            },
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-05",
+                "location": "Bolívar",
+                "name": "Beach Repair",
+                "description": "Repairs are underway at the artificial beach, but disgruntled drunkards who lost their favorite drinking spot are causing trouble at the work site. Do not let them have their way."
+            },
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-06",
+                "location": "Victoria",
+                "name": "Muddy Bog",
+                "description": "Ghosts leave no traces in the mud. Their malice is hidden amongst the reeds, waiting to spread like wildfire when the wind blows. "
+            },
+            {
+                "levelId": "obt/crisis/v2/level_crisis_v2_01-07",
+                "location": "Chernobog",
+                "name": "Area 13 Ruins",
+                "description": "One of Chernobog's central districts has been seriously contaminated by Originium. The Reunion garrison here has lost all sense of reason, indiscriminately attacking anything they see. This madness must end."
+            }
+        ],
+        "professions": {
+            "PIONEER": "Vanguard",
+            "WARRIOR": "Guard",
+            "TANK": "Defender",
+            "SNIPER": "Sniper",
+            "CASTER": "Caster",
+            "MEDIC": "Medic",
+            "SUPPORT": "Supporter",
+            "SPECIAL": "Specialist",
+            "TOKEN": "Deployable",
+            "TRAP": "Deployable"
+        },
+        "tagValues": {
+            "": 1,
+            "melee": 2,
+            "ranged": 3,
+            "guard": 5,
+            "medic": 7,
+            "vanguard": 11,
+            "caster": 13,
+            "sniper": 17,
+            "defender": 19,
+            "supporter": 23,
+            "specialist": 29,
+            "healing": 31,
+            "support": 37,
+            "dps": 41,
+            "aoe": 43,
+            "slow": 47,
+            "survival": 53,
+            "defense": 59,
+            "debuff": 61,
+            "shift": 67,
+            "crowd-control": 71,
+            "nuker": 73,
+            "summon": 79,
+            "fast-redeploy": 83,
+            "dp-recovery": 89,
+            "robot": 97,
+            "starter": 101,
+            "senior": 103,
+            "top": 107,
+            "elemental": 109,
+            "TIER_1": 1,
+            "TIER_2": 101,
+            "TIER_3": 1,
+            "TIER_4": 1,
+            "TIER_5": 103,
+            "TIER_6": 107
+        }
+    }
+}
