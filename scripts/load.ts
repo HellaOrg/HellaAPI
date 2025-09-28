@@ -966,40 +966,22 @@ async function loadStages() {
                 toughArr.push({ keys: [code], value: [] }); // Multiple stages can have the same code, so each code maps to an array
             }
 
-            // try {
             const levels = await fetchData(`levels/${levelId}.json`);
             const stage = { excel: excel, levels: levels };
 
             toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
             toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            // }
-            // catch (e) {
-            //     const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
-            //     const stage = { excel: excel, levels: levels };
-
-            //     toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
-            //     toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            // }
         }
         else if (excel.difficulty === 'NORMAL') {
             if (!stageArr.find(data => data.keys.includes(code))) {
                 stageArr.push({ keys: [code], value: [] }); // Multiple stages can have the same code, so each code maps to an array
             }
 
-            // try {
             const levels = await fetchData(`levels/${levelId}.json`);
             const stage = { excel: excel, levels: levels };
 
             stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
             stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            // }
-            // catch (e) {
-            //     const levels = await (await fetch(`${G.backupUrl}/levels/${levelId}.json`)).json();
-            //     const stage = { excel: excel, levels: levels };
-
-            //     stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
-            //     stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
-            // }
         }
     });
 
