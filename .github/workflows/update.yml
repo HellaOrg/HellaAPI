@@ -8,7 +8,7 @@ on:
         required: false
         default: ''
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 */2 * * *"
 
 concurrency:
   group: update-${{ github.workflow }}-${{ github.ref }}
@@ -45,44 +45,9 @@ jobs:
           git clone --no-checkout --filter=blob:none https://github.com/HellaOrg/HellaAssets \
           && cd HellaAssets \
           && git sparse-checkout init --cone \
-          && git sparse-checkout set scripts/ \
+          && git sparse-checkout set gamedata \
           && git checkout main \
-          && pip install -r scripts/requirements.txt \
-          && playwright install \
-          && playwright install-deps \
           && cd ..
-
-          git clone --depth=1 https://github.com/ArknightsAssets/ArknightsFlatbuffers.git
-
-          # official flatc releases don't preserve null fields, but this one does?
-          wget -nv https://raw.githubusercontent.com/MooncellWiki/torappu/refs/heads/main/bin/flatc \
-          && chmod +x flatc \
-          && sudo cp -f flatc /usr/local/bin/flatc \
-          && flatc --version
-
-          wget -nv https://github.com/aelurum/AssetStudio/releases/download/ak-v1.2.3/ArknightsStudioCLI_net8_portable.zip -O ArknightsStudioCLI.zip \
-          && unzip -q ArknightsStudioCLI.zip -d ArknightsStudioCLI \
-          && rm -f ArknightsStudioCLI.zip \
-          && echo "ARKSTUDIOCLI=$(pwd)/ArknightsStudioCLI/ArknightsStudioCLI.dll" >> "$GITHUB_ENV"
-
-      - name: Download and extract gamedata
-        run: |
-          source venv/bin/activate
-
-          python3 HellaAssets/scripts/download_apk.py --server en --dest download
-          python3 HellaAssets/scripts/download_ab.py --server en --dest download --always "anon" --skip "."
-
-          cd download
-
-          unzip -q en.apk -d apk \
-          && unzip -q apk/Android/obb/com.YoStarEN.Arknights/main*.obb -d obb
-
-          OPTIONS="--filter-by-text gamedata -t textasset -g container --log-level warning"
-          mkdir -p extract/obb extract/anon
-          dotnet $ARKSTUDIOCLI obb/assets/AB/Android/anon $OPTIONS -o extract/obb
-          dotnet $ARKSTUDIOCLI anon $OPTIONS -o extract/anon
-
-          python3 ../scripts/gamedata.py
 
       - name: Update database
         id: update
@@ -101,7 +66,7 @@ jobs:
             COLLECTIONS="--collections ${{ github.event.inputs.collections }}"
           fi
 
-          npm run ci -- --gamedata_path download/out/dyn/gamedata $COLLECTIONS | tee load.out
+          npm run ci -- --gamedata_path HellaAssets/gamedata $COLLECTIONS | tee load.out
 
           if [[ "${PIPESTATUS[0]}" -ne 0 ]]; then
             exit 1
@@ -125,6 +90,7 @@ jobs:
             cat "$file"
             echo ""
           done
+
   test:
     name: Verify types
     needs: update
