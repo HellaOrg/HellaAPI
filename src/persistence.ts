@@ -100,16 +100,21 @@ export async function getSearchV2(collectionName: string, req) {
 }
 
 // Gets all documents that have been created during the last EN update
-export async function getNewEn() {
+export async function getNewEn(req) {
+    const includeColls = Array.isArray(req.query.include) ? req.query.include : [req.query.include];
+    const excludeColls = Array.isArray(req.query.exclude) ? req.query.exclude : [req.query.exclude];
+
     const collections = await (await getDb()).collections();
-    const commits = await fetch('https://api.github.com/repos/Kengxxiao/ArknightsGameData_YoStar/commits').then(res => res.json());
-    const hash = commits.find(commit => commit.commit.message.includes('[EN UPDATE]')).sha;
-    const filter = { 'meta.created': hash };
+    const about = await (await getDb()).collection('about').findOne({});
+    const index = about?.index ?? 0;
+    const filter = { 'meta.createdIndex': index };
     const result = {};
 
     for (const collection of collections) {
         if (collection.collectionName === 'about') continue;
         if (collection.collectionName.startsWith('cn')) continue;
+        if (!includeColls.includes(collection.collectionName)) continue;
+        if (excludeColls.includes(collection.collectionName)) continue;
 
         const a = await collection.find(filter).toArray();
         result[collection.collectionName] = a;

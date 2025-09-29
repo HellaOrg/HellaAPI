@@ -42,8 +42,8 @@ async function main() {
     for (const collection of collections) {
         app.use('/' + collection, createRouter(collection));
     }
-    app.use('/new', async (_req, res) => {
-        const result = await getNewEn();
+    app.use('/new', async (req, res) => {
+        const result = await getNewEn(req);
         res.status(200).send(result);
     });
     app.use((_req, res) => {
