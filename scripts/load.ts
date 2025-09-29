@@ -369,8 +369,9 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
 }
 async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod.ZodObject<any> | zod.ZodArray<any> | null) {
     const createDoc = (oldDocuments: any[], keys: string[], value: any): Doc => {
-        const createdIndex = oldDocuments.find(doc => doc.canon === keys[0])?.meta?.createdIndex;
-        const createdHash = oldDocuments.find(doc => doc.canon === keys[0])?.meta?.created;
+        const oldDoc = oldDocuments.find(doc => doc.canon === keys[0]);
+        const createdIndex = oldDoc ? (oldDoc.meta?.createdIndex ?? 0) : undefined;
+        const createdHash = oldDoc.meta?.created;
         return {
             meta: {
                 createdIndex: createdIndex ?? G.index,
