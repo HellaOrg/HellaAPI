@@ -122,10 +122,12 @@ async function main() {
     G.db = await getDb();
     if (!G.db)
         return console.error('Failed to connect to database');
+    const about = await G.db.collection('about').findOne({});
     const latest = (await simpleGit(G.options.gamedata_path).log()).latest;
     G.hash = latest.hash;
     G.message = latest.message;
     G.date = Math.round(Date.now() / 1000); // seconds since unix epoch
+    G.index = (about?.index ?? 0) + 1;
 
     logDate('Starting DB load');
     logDate('CI mode: ' + (G.options.ci ? 'ON' : 'OFF'));
@@ -189,13 +191,11 @@ async function main() {
     }
 
     if (G.options.ci) {
-        const about = await G.db.collection('about').findOne({});
-        G.index = (about?.index ?? 0) + (G.hasUpdates ? 1 : 0);
         logTime(G.hasUpdates ? `about: updates were found, incrementing DB index to ${G.index}` : 'about: no updates were found');
         await G.db.collection('about').updateOne({}, {
             $set: {
                 date: G.date,
-                index: G.index,
+                index: G.hasUpdates ? G.index : G.index - 1,
                 hash: G.hash,
                 message: G.message
             }
@@ -371,7 +371,7 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
     const createDoc = (oldDocuments: any[], keys: string[], value: any): Doc => {
         const oldDoc = oldDocuments.find(doc => doc.canon === keys[0]);
         const createdIndex = oldDoc ? (oldDoc.meta?.createdIndex ?? 0) : undefined;
-        const createdHash = oldDoc.meta?.created;
+        const createdHash = oldDoc ? (oldDoc?.meta?.created ?? '0'.repeat(40)) : undefined;
         return {
             meta: {
                 createdIndex: createdIndex ?? G.index,
