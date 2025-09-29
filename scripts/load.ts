@@ -86,6 +86,7 @@ class G {
     static hash: string;
     static message: string;
     static date: number;
+    static hasUpdates = false;
 }
 
 type PreDoc = {
@@ -131,19 +132,6 @@ async function main() {
     logDate(`Commit: ${G.hash} - ${G.message}`);
     logDate(`Gamedata path: ${G.options.gamedata_path}`);
     logDate(`Collections to load: ${Object.entries(G.collectionsToLoad).filter(([_, v]) => v).map(([k, _]) => k).join(', ')}`); // copilot fuckery
-
-    if (G.options.ci) {
-        const about = await G.db.collection('about').findOne({});
-        G.index = (about?.index ?? 0) + 1;
-        await G.db.collection('about').updateOne({}, {
-            $set: {
-                date: G.date,
-                index: G.index,
-                hash: G.hash,
-                message: G.message
-            }
-        }, { upsert: true });
-    }
 
     if (G.collectionsToLoad.archetype)
         await loadArchetypes();
@@ -198,6 +186,20 @@ async function main() {
         await loadCnSkills();
         await loadCnSkins();
         await loadCnOperators();
+    }
+
+    if (G.options.ci) {
+        const about = await G.db.collection('about').findOne({});
+        G.index = (about?.index ?? 0) + (G.hasUpdates ? 1 : 0);
+        logTime(G.hasUpdates ? `about: updates were found, incrementing DB index to ${G.index}` : 'about: no updates were found');
+        await G.db.collection('about').updateOne({}, {
+            $set: {
+                date: G.date,
+                index: G.index,
+                hash: G.hash,
+                message: G.message
+            }
+        }, { upsert: true });
     }
 
     logDate('Finished DB load');
@@ -403,6 +405,8 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
 
     const schemaErrors = [];
     if (newDocs.length !== 0) {
+        G.hasUpdates = true;
+
         let validate = true;
         if (schema) {
             for (const doc of newDocs) {
