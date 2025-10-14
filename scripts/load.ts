@@ -987,6 +987,7 @@ async function loadStages() {
 
             toughArr.push({ keys: [excel.stageId, excel.stageId.split('#').join(''), excel.code, excel.name], value: [stage] });
             toughArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
+            toughArr.find(data => data.keys.includes(code))?.value.sort((a, b) => a.excel.levelId.localeCompare(b.excel.levelId));
         }
         else if (excel.difficulty === 'NORMAL') {
             if (!stageArr.find(data => data.keys.includes(code))) {
@@ -998,6 +999,7 @@ async function loadStages() {
 
             stageArr.push({ keys: [excel.stageId, excel.code, excel.name], value: [stage] });
             stageArr.find(data => data.keys.includes(code))?.value.push(stage); // Stage code
+            stageArr.find(data => data.keys.includes(code))?.value.sort((a, b) => a.excel.levelId.localeCompare(b.excel.levelId));
         }
     });
 
