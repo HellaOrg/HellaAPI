@@ -421,8 +421,9 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
             }
         }
         if (!validate) {
-            writeFileSync(`schema_${collection}.log`, JSON.stringify(schemaErrors, null, 2));
-            logTime(`${collection}: wrote schema validation errors to schema_${collection}.log`);
+            const cleanCollection = collection.replaceAll('/', '_');
+            writeFileSync(`schema_${cleanCollection}.log`, JSON.stringify(schemaErrors, null, 2));
+            logTime(`${collection}: wrote schema validation errors to schema_${cleanCollection}.log`);
         } else {
             logTime(`${collection}: schema validated`);
         }
