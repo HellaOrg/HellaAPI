@@ -19,7 +19,7 @@ const execWait = promisify(exec);
 class G {
     static optionDefinitions = [
         { name: 'ci', type: Boolean, defaultValue: false },
-        { name: 'gamedata_path', alias: 'g', type: String, defaultValue: 'ArknightsGameData_YoStar/en_US/gamedata' },
+        { name: 'gamedata_path', alias: 'g', type: String, defaultValue: 'HellaAssets/gamedata' },
         { name: 'collections', alias: 'c', type: String, multiple: true },
         { name: 'allgacha', type: Boolean, defaultValue: false },
     ];

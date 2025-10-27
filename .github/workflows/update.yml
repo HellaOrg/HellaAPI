@@ -42,7 +42,7 @@ jobs:
           && mkdir -p ~/.local/share/arkprts \
           && echo "{}" | tee ~/.local/share/arkprts/arkprts_auth_cache.json
 
-          git clone --no-checkout --filter=blob:none https://github.com/HellaOrg/HellaAssets \
+          git clone --depth=1 --no-checkout --filter=blob:none https://github.com/HellaOrg/HellaAssets \
           && cd HellaAssets \
           && git sparse-checkout init --cone \
           && git sparse-checkout set gamedata \

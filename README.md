@@ -5,7 +5,7 @@
 
 > https://awedtan.ca/api
 
-An Arknights EN game data API. Data is fetched from [Kengxxiao/ArknightsGameData_YoStar](https://github.com/Kengxxiao/ArknightsGameData_YoStar) and official game servers, lightly massaged into a nicer format, and stored in a MongoDB database. Made with Express and self-hosted (RIP Cyclic). Also an under construction personal project.
+An Arknights EN game data API. Data is fetched from [HellaAssets](https://github.com/HellaOrg/HellaAssets) and official game servers, lightly massaged into a nicer format, and stored in a MongoDB database. Made with Express and self-hosted (RIP Cyclic). Also an under construction personal project.
 
 ## Usage
 
@@ -185,10 +185,15 @@ Loading the database is a separate operation from running the API server, and up
 ```sh
 git clone https://github.com/HellaOrg/HellaAPI.git --depth=1
 ```
-3. Clone or download [Kengxxiao/ArknightsGameData_YoStar](https://github.com/Kengxxiao/ArknightsGameData_YoStar) into the project directory
+3. In the project directory, perform a sparse checkout of [HellaAssets](https://github.com/HellaOrg/HellaAssets)
 ```sh
 cd HellaAPI
-git clone https://github.com/Kengxxiao/ArknightsGameData_YoStar --depth=1
+git clone --depth=1 --no-checkout --filter=blob:none https://github.com/HellaOrg/HellaAssets
+cd HellaAssets
+git sparse-checkout init --cone
+git sparse-checkout set gamedata
+git checkout main
+cd ..
 ```
 4. Install the project dependencies
 ```sh
@@ -228,7 +233,5 @@ To generate an account UID and token, fill in `YOSTAR_EMAIL` with your YoStar ac
 If you do not need to fetch CCB data, you can safely ignore the `YOSTAR_*` fields in the `.env` file.
 
 ## Acknowledgements
-
-[Kengxxiao/ArknightsGameData_YoStar](https://github.com/Kengxxiao/ArknightsGameData_YoStar) for providing the raw game data.
 
 [thesadru/ArkPRTS](https://github.com/thesadru/ArkPRTS) for providing direct access to official game servers and data.
