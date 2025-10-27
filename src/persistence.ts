@@ -105,9 +105,9 @@ export async function getNewEn(req) {
     const excludeColls = Array.isArray(req.query.exclude) ? req.query.exclude : [req.query.exclude];
 
     const collections = await (await getDb()).collections();
-    const about = await (await getDb()).collection('about').findOne({});
-    const index = about?.index ?? 0;
-    const filter = { 'meta.createdIndex': index };
+    const commits = await fetch('https://api.github.com/repos/HellaOrg/HellaAssets/commits').then(res => res.json());
+    const hash = commits.find(commit => commit.commit.message.includes('update: en')).sha;
+    const filter = { 'meta.created': hash };
     const result = {};
 
     for (const collection of collections) {
