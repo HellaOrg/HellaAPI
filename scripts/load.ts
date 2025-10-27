@@ -326,26 +326,19 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     const keyArr: string[] = [opId, opName, opName.replace(/['-]/g, ''), opName.replace(/['-]/g, ' ')];
     keyArr.push(...keyArr.slice(1).filter(k => k.includes(' the ')).map(k => k.split(' the ')[0] + ' alter'));
 
-    // not intended to be a comprehensive list, just what i call them
+    // Deaccented names and alts without "the" in their names
     const hardcodeOpId = {
         'char_4055_bgsnow': ['pozemka'],
         'char_4064_mlynar': ['mlynar'],
         'char_002_amiya': ['caster amiya', 'amiya caster'],
         'char_1001_amiya2': ['guard amiya', 'amiya guard'],
         'char_1037_amiya3': ['medic amiya', 'amiya medic'],
-        'char_1012_skadi2': ['skalter'],
-        'char_1013_chen2': ['chalter'],
-        'char_1014_nearl2': ['ntr'],
-        'char_1023_ghost2': ['spalter'],
-        'char_1026_gval2': ['gavialter'],
-        'char_1028_texas2': ['texalter'],
-        'char_1020_reed2': ['reedalter'],
-        'char_1029_yato2': ['yalter'],
-        'char_1016_agoat2': ['eyjafyalla the hvit aska', 'eyjalter'],
-        'char_1033_swire2': ['swalter'],
-        'char_1034_jesca2': ['jessicalter'],
-        'char_1035_wisdel': ['wisadel', 'w alter', 'walter'],
-        'char_1019_siege2': ['salter']
+        'char_1029_yato2': ['yato alter'],
+        'char_1030_noirc2': ['noir corne alter'],
+        'char_1016_agoat2': ['eyjafyalla the hvit aska'],
+        'char_1035_wisdel': ['wisadel', 'w alter'],
+        'char_1019_siege2': ['siege alter'],
+        'char_1042_phatm2': ['phantom alter'],
     }
     if (hardcodeOpId[opId]) keyArr.push(...hardcodeOpId[opId]);
 
