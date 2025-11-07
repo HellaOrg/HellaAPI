@@ -1,6 +1,6 @@
 {
   "name": "hella-types",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "",

@@ -49,6 +49,7 @@ const AttributesKeyFrameZod = z.strictObject({
         levitateImmune: z.boolean(),
         disarmedCombatImmune: z.boolean(),
         fearedImmune: z.boolean(),
+        palsyImmune: z.boolean(),
     }),
 });
 const EnemyAttributesZod = z.strictObject({
@@ -79,6 +80,7 @@ const EnemyAttributesZod = z.strictObject({
     levitateImmune: DefinedBooleanZod.optional(),
     disarmedCombatImmune: DefinedBooleanZod.optional(),
     fearedImmune: DefinedBooleanZod.optional(),
+    palsyImmune: DefinedBooleanZod.optional(),
 });
 const EnemySkillsZod = z.strictObject({
     prefabKey: z.string(),
@@ -199,6 +201,7 @@ const StageCardZod = z.strictObject({
             level: z.number(),
         })
     ).nullable().optional(),
+    showSpIllust: z.boolean().optional(),
     inst: z.strictObject({
         characterKey: z.string(),
         level: z.number(),
@@ -402,6 +405,7 @@ const StageDataZod = z.strictObject({
                 levitateImmune: z.boolean(),
                 disarmedCombatImmune: z.boolean(),
                 fearedImmune: z.boolean().optional(),
+                palsyImmune: z.boolean().optional(),
             }),
             applyWay: z.string(),
             motion: z.string(),
@@ -602,6 +606,7 @@ export const GachaPoolZod = z.strictObject({
             freeCount: z.number(),
             hasFreeChar: z.boolean(),
             limitedCharId: z.string(),
+            version: z.number().optional(),
         }).nullable().optional(),
     }),
     details: z.strictObject({
@@ -886,6 +891,8 @@ export const RogueStageZod = z.strictObject({
         vutresProb: z.array(z.number()),
         boxProb: z.array(z.number()),
         specialNodeId: z.string().nullable(),
+        redCapsulePool: z.string().nullable(),
+        redCapsuleProb: z.number(),
     }),
     levels: StageDataZod,
 });
@@ -1027,7 +1034,9 @@ export const SkinZod = z.strictObject({
         })
     ).nullable(),
     illustId: z.string().nullable(),
+    spIllustId: z.string().nullable(),
     dynIllustId: z.string().nullable(),
+    spDynIllustId: z.string().nullable(),
     avatarId: z.string(),
     portraitId: z.string().nullable(),
     dynPortraitId: z.string().nullable(),
@@ -1090,6 +1099,7 @@ export const StageZod = z.strictObject({
         canBattleReplay: z.boolean(),
         apCost: z.number(),
         apFailReturn: z.number(),
+        maxSlot: z.number(),
         etItemId: z.string().nullable(),
         etCost: z.number(),
         etFailReturn: z.number(),
@@ -1139,7 +1149,7 @@ export const StageZod = z.strictObject({
         canUseTrapTool: z.boolean(),
         canUseBattlePerformance: z.boolean(),
         canUseFirework: z.boolean().optional(),
-        canContinuousBattle: z.boolean(),
+        canMultipleBattle: z.boolean(),
         startButtonOverrideId: z.string().nullable(),
         isStagePatch: z.boolean(),
         mainStageId: z.string().nullable(),
@@ -1181,6 +1191,7 @@ export const DeployableZod = z.strictObject({
     data: z.strictObject({
         name: z.string(),
         description: z.string().nullable(),
+        sortIndex: z.number(),
         canUseGeneralPotentialItem: z.boolean(),
         canUseActivityPotentialItem: z.boolean(),
         potentialItemId: z.string().nullable(),
@@ -1189,6 +1200,18 @@ export const DeployableZod = z.strictObject({
         nationId: z.string().nullable(),
         groupId: z.string().nullable(),
         teamId: z.string().nullable(),
+        mainPower: z.strictObject({
+            nationId: z.string().nullable(),
+            groupId: z.string().nullable(),
+            teamId: z.string().nullable(),
+        }),
+        subPower: z.array(
+            z.strictObject({
+                nationId: z.string().nullable(),
+                groupId: z.string().nullable(),
+                teamId: z.string().nullable(),
+            })
+        ).nullable(),
         displayNumber: z.string().nullable(),
         appellation: z.string(),
         position: z.string(),
