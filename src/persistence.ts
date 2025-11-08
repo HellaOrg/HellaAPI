@@ -66,11 +66,17 @@ export async function getSearch(collectionName: string, req) {
 
 const operatorMap = {
     '=': '$eq',
+    'eq': '$eq',
     '!=': '$ne',
+    'ne': '$ne',
     '>': '$gt',
+    'gt': '$gt',
     '>=': '$gte',
+    'ge': '$gte',
     '<': '$lt',
+    'lt': '$lt',
     '<=': '$lte',
+    'le': '$lte',
     'in': '$in',
     'nin': '$nin'
 };
