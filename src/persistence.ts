@@ -136,6 +136,26 @@ function createPipeline(req, matchStage = {}) {
 
     pipeline.push({ $match: matchStage });
 
+    if (req.query.sort) {
+        const sortParam = JSON.parse(req.query.sort);
+        const sortStage = {};
+
+        for (const [field, direction] of Object.entries(sortParam)) {
+            // allow "asc"/"desc" or numeric 1/-1
+            const dirValue =
+                typeof direction === 'string'
+                    ? direction.toLowerCase() === 'desc'
+                        ? -1
+                        : 1
+                    : direction;
+            sortStage[`value.${field}`] = dirValue;
+        }
+
+        if (Object.keys(sortStage).length > 0) {
+            pipeline.push({ $sort: sortStage });
+        }
+    }
+
     // mongodb does not support including and excluding fields at the same time
     if (includeParams) {
         projection['meta'] = 1;
