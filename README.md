@@ -37,7 +37,7 @@ Returns all documents where their fields are equal to, greater than or equal to,
 
 #### SearchV2
 
-> api/{resource}/searchV2?filter={"field1": "value1", "field2": {">=": "value2"}, "field3": {"in": ["value3", "value4"]}}
+> api/{resource}/searchv2?filter={"field1": "value1", "field2": {">=": "value2"}, "field3": {"in": ["value3", "value4"]}}
 
 > [!NOTE]
 > The curly braces `{}` in the `filter` parameter do not denote placeholder values; they are literal characters that are to be included in the request.
