@@ -1,15 +1,15 @@
 # HellaAPI
 
-[![update](https://github.com/Awedtan/HellaAPI/actions/workflows/update.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/update.yml)
-[![test](https://github.com/Awedtan/HellaAPI/actions/workflows/test.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/test.yml)
+[![update](https://github.com/HellaOrg/HellaAPI/actions/workflows/update.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/update.yml)
+[![test](https://github.com/HellaOrg/HellaAPI/actions/workflows/test.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/test.yml)
 
-> https://awedtan.ca/api
+> https://awedtan.ca/api/operator/hellagur
 
 An Arknights EN game data API. Data is fetched from [HellaAssets](https://github.com/HellaOrg/HellaAssets) and official game servers, lightly massaged into a nicer format, and stored in a MongoDB database. Made with Express and self-hosted (RIP Cyclic). Also an under construction personal project.
 
 ## Usage
 
-### Document Selection
+### Document Selection Modes
 
 #### Multi
 
@@ -31,40 +31,59 @@ Returns all documents whose `keys` includes the specified key. Checks for substr
 
 #### Search
 
-> api/{resource}/search?{field1}={value1}&{field2}>={value2}&{field3}<={value3}
+> api/{resource}/search?{field1}={value1}&{field2}>={value2}&{field3.subfield}<={value3}
 
-Returns all documents where their fields are equal to, greater than, or less than the specified values. Uses dot notation for searching nested fields.
+Returns all documents where their fields are equal to, greater than or equal to, or less than or equal to the specified values. Uses dot notation for searching nested fields.
 
 #### SearchV2
 
-> api/{resource}/searchV2?filter={"field1": "value1", "field2": {">=": "value2"}, "field3": {"in": ["value3", "value4"]}}
+> api/{resource}/searchv2?filter={"field1": "value1", "field2": {">=": "value2"}, "field3": {"in": ["value3", "value4"]}}
 
-Returns all documents that satisfy the specified filter. Supported search operators are:
+> [!NOTE]
+> The curly braces `{}` in the `filter` parameter do not denote placeholder values; they are literal characters that are to be included in the request.
+
+Returns all documents that satisfy the specified filter. The above example will return documents where:
+- `field1` is equal to `value1`
+- `field2` is greater than or equal to `value2`
+- `field3` is equal to either `value3` or `value4`    
+
+Supported filter operators are:
 
 | Operator | Description
 |-|-|
-| =   | Equal                                |
-| !=  | Not equal                            |
-| >   | Greater than                         |
-| >=  | Greater than or equal                |
-| <   | Less than                            |
-| <=  | Less than or equal                   |
-| in  | Matches any value in an array        |
-| nin | Does not match any value in an array |
+| `=`, `eq`   | Equal                                |
+| `!=`, `ne`  | Not equal                            |
+| `>`, `gt`   | Greater than                         |
+| `>=`, `ge`  | Greater than or equal                |
+| `<`, `lt`   | Less than                            |
+| `<=`, `le`  | Less than or equal                   |
+| `in`      | Equal to any value in an array         |
+| `nin`     | Not equal to any value in an array     |
 
 ### Additional Parameters
+
+The following parameters are generally applicable to any of the above document selection modes.
+
+> [!NOTE]
+> If a request contains both `include` and `exclude` parameters, only `include` parameters will be taken into consideration.
 
 #### Include
 
 > api/{resource}?include={field1}&include={field2}
 
-Specify fields to include in the response. If a request contains both `include` and `exclude` parameters, only `include` parameters will be considered.
+Specify fields to include in documents. If include parameters are present, all other fields are excluded by default.
 
 #### Exclude
 
 > api/{resource}?exclude={field1}&exclude={field2}
 
-Specify fields to exclude from the response. If a request contains both `include` and `exclude` parameters, only `include` parameters will be considered.
+Specify fields to exclude from documents.
+
+#### Sort
+
+> api/{resource}?sort={"field1": "desc", "field2": "asc"}
+
+Sort returned documents by the specified fields and directions. Earlier fields take priority over later fields.
 
 #### Limit
 
@@ -102,13 +121,13 @@ The following two requests are functionally identical. They exclude the `termId`
 
 Requests that return very large amounts of data may take a long time. By excluding unneeded fields, response times can be dramatically improved.
 
-> ~500 ms: https://awedtan.ca/api/stage?include=excel
+> Large request: https://awedtan.ca/api/stage?include=excel
 >
-> ~50 ms: https://awedtan.ca/api/stage?include=excel.name
+> 10x faster: https://awedtan.ca/api/stage?include=excel.name
 
 ## Resource Endpoints
 
-| Resource | Description | Valid Keys | [Return Type](https://github.com/Awedtan/HellaAPI/tree/main/types) |
+| Resource | Description | Valid Keys | [Return Type](https://github.com/HellaOrg/HellaAPI/tree/main/types) |
 |-|-|-|-|
 | [/archetype](https://awedtan.ca/api/archetype)                               | External archetype name | Internal archetype name       | `string`         |
 | [/base](https://awedtan.ca/api/base)                                         | RIIC base skills        | Base skill ID                 | `Base`           |
@@ -139,7 +158,7 @@ Requests that return very large amounts of data may take a long time. By excludi
 | [/skin](https://awedtan.ca/api/skin)                                         | Operator skins          | Skin ID                       | `Skin`           |
 | [/stage](https://awedtan.ca/api/stage)                                       | Normal stages           | Stage ID/code                 | `Stage[]`        |
 | [/toughstage](https://awedtan.ca/api/toughstage)                             | Challenge stages        | Stage ID/code                 | `Stage[]`        |
-| Nonstandard resources |
+| Non-standard resources |
 | [/about](https://awedtan.ca/api/about)                                       | API meta information |-|-|
 | [/new](https://awedtan.ca/api/new)                                           | Data added in most recent update |-|-|
 | [/recruitpool](https://awedtan.ca/api/recruitpool)                           | Recruitable operators |-| `string[]` |
@@ -233,5 +252,7 @@ To generate an account UID and token, fill in `YOSTAR_EMAIL` with your YoStar ac
 If you do not need to fetch CCB data, you can safely ignore the `YOSTAR_*` fields in the `.env` file.
 
 ## Acknowledgements
+
+The people over at [MooncellWiki](https://github.com/MooncellWiki/) for their datamining efforts and their freely available resources.
 
 [thesadru/ArkPRTS](https://github.com/thesadru/ArkPRTS) for providing direct access to official game servers and data.

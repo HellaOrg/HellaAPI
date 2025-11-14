@@ -10,7 +10,8 @@ export async function getCollections() {
 // operator
 export async function getMulti(collectionName: string, req) {
     const collection = (await getDb()).collection(collectionName);
-    const result = await collection.find({}, createOptions(req)).toArray();
+    const pipeline = createPipeline(req, {});
+    const result = await collection.aggregate(pipeline).toArray();
     return result;
 }
 
@@ -18,16 +19,19 @@ export async function getMulti(collectionName: string, req) {
 // operator/char_188_helage
 export async function getSingle(collectionName: string, req) {
     const collection = (await getDb()).collection(collectionName);
-    const result = await collection.findOne({ keys: { $eq: req.params.id } }, createOptions(req));
-    return result;
+    const match = { keys: { $eq: req.params.id } };
+    const pipeline = createPipeline(req, match);
+    const result = await collection.aggregate(pipeline).toArray();
+    return result[0] || {};
 }
 
 // Gets all documents whose keys contain the request id as a substring
 // operator/match/helage
 export async function getMatch(collectionName: string, req) {
     const collection = (await getDb()).collection(collectionName);
-    // Find matching keys through a regex match with case insensitivity
-    const result = await collection.find({ keys: { $regex: req.params.id, $options: 'i' } }, createOptions(req)).toArray();
+    const match = { keys: { $regex: req.params.id, $options: 'i' } };
+    const pipeline = createPipeline(req, match);
+    const result = await collection.aggregate(pipeline).toArray();
     return result;
 }
 
@@ -35,38 +39,44 @@ export async function getMatch(collectionName: string, req) {
 // operator/search?data.subProfessionId=musha
 export async function getSearch(collectionName: string, req) {
     const collection = (await getDb()).collection(collectionName);
-    const filter: Filter<Document> = {};
+    const matchStage = {};
 
     for (const key in req.query) {
-        if (key.charAt(key.length - 1) === '>') {
+        if (['include', 'exclude', 'limit', 'sort'].includes(key)) continue;
+
+        if (key.endsWith('>')) {
             const field = `value.${key.slice(0, -1)}`;
-            filter[field] = filter[field] || {};
-            filter[field].$gte = parseInt(req.query[key]);
-            continue;
+            matchStage[field] = matchStage[field] || {};
+            matchStage[field].$gte = parseFloat(req.query[key]);
         }
-        else if (key.charAt(key.length - 1) === '<') {
+        else if (key.endsWith('<')) {
             const field = `value.${key.slice(0, -1)}`;
-            filter[field] = filter[field] || {};
-            filter[field].$lte = parseInt(req.query[key]);
-            continue;
+            matchStage[field] = matchStage[field] || {};
+            matchStage[field].$lte = parseFloat(req.query[key]);
         }
         else {
-            if (['include', 'exclude', 'limit'].includes(key)) continue;
-            filter[`value.${key}`] = { $eq: req.query[key] };
+            matchStage[`value.${key}`] = { $eq: req.query[key] };
         }
     }
 
-    const result = await collection.find(filter, createOptions(req)).toArray();
+    const pipeline = createPipeline(req, matchStage);
+    const result = await collection.aggregate(pipeline).toArray();
     return result;
 }
 
 const operatorMap = {
     '=': '$eq',
+    'eq': '$eq',
     '!=': '$ne',
+    'ne': '$ne',
     '>': '$gt',
+    'gt': '$gt',
     '>=': '$gte',
+    'ge': '$gte',
     '<': '$lt',
+    'lt': '$lt',
     '<=': '$lte',
+    'le': '$lte',
     'in': '$in',
     'nin': '$nin'
 };
@@ -75,27 +85,27 @@ const operatorMap = {
 // Symbols that are intended to be used in a filter must be URL encoded
 // item/searchV2?filter={"data.subProfessionId":"musha"}
 export async function getSearchV2(collectionName: string, req) {
+    const collection = (await getDb()).collection(collectionName);
     const filter = JSON.parse(req.query.filter || '{}');
-    const mongoFilter: Filter<Document> = {};
+    const matchStage = {};
 
     for (const [field, condition] of Object.entries(filter)) {
         const mongoField = `value.${field}`;
-        if (condition && typeof condition === 'object') {
+        if (condition && typeof condition === 'object' && !Array.isArray(condition)) {
             const mongoCondition = {};
             for (const [operator, value] of Object.entries(condition)) {
-                if (operatorMap[operator]) {
-                    mongoCondition[operatorMap[operator]] = value;
-                }
+                const mapped = operatorMap[operator];
+                if (mapped) mongoCondition[mapped] = value;
             }
-            mongoFilter[mongoField] = mongoCondition;
+            matchStage[mongoField] = mongoCondition;
         }
         else {
-            mongoFilter[mongoField] = { $eq: condition };
+            matchStage[mongoField] = { $eq: condition };
         }
     }
 
-    const collection = (await getDb()).collection(collectionName);
-    const result = await collection.find(mongoFilter, createOptions(req)).toArray();
+    const pipeline = createPipeline(req, matchStage);
+    const result = await collection.aggregate(pipeline).toArray();
     return result;
 }
 
@@ -123,11 +133,34 @@ export async function getNewEn(req) {
     return result;
 }
 
-function createOptions(req) {
+function createPipeline(req, matchStage = {}) {
     const includeParams = req.query.include;
     const excludeParams = req.query.exclude;
+    const pipeline = [];
     const projection = {};
-    const limit = parseInt(req.query.limit) ?? 0;
+    const limit = parseInt(req.query.limit) || 0;
+
+    pipeline.push({ $match: matchStage });
+
+    if (req.query.sort) {
+        const sortParam = JSON.parse(req.query.sort);
+        const sortStage = {};
+
+        for (const [field, direction] of Object.entries(sortParam)) {
+            // allow "asc"/"desc" or numeric 1/-1
+            const dirValue =
+                typeof direction === 'string'
+                    ? direction.toLowerCase() === 'desc'
+                        ? -1
+                        : 1
+                    : direction;
+            sortStage[`value.${field}`] = dirValue;
+        }
+
+        if (Object.keys(sortStage).length > 0) {
+            pipeline.push({ $sort: sortStage });
+        }
+    }
 
     // mongodb does not support including and excluding fields at the same time
     if (includeParams) {
@@ -150,6 +183,13 @@ function createOptions(req) {
         }
     }
 
-    const options: FindOptions = { projection, limit };
-    return options;
+    if (Object.keys(projection).length) {
+        pipeline.push({ $project: projection });
+    }
+
+    if (limit > 0) {
+        pipeline.push({ $limit: limit });
+    }
+
+    return pipeline;
 }

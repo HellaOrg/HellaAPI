@@ -6,31 +6,46 @@ const cors = require('cors');
 function createRouter(route: string) {
     const router = express.Router();
     router.get('/', async (req, res) => {
-        const result = await getMulti(route, req);
-        if (!result) res.status(404).send({ msg: 'Not found' });
-        else res.status(200).send(result);
+        try {
+            const result = await getMulti(route, req);
+            res.status(200).send(result);
+        } catch (e) {
+            res.status(500).send({ msg: "An unexpected error occured." });
+        }
     });
     router.get('/search', async (req, res) => {
-        const result = await getSearch(route, req);
-        if (!result) res.status(404).send({ msg: 'Not found' });
-        else res.status(200).send(result);
+        try {
+            const result = await getSearch(route, req);
+            res.status(200).send(result);
+        } catch (e) {
+            res.status(500).send({ msg: "An unexpected error occured." });
+        }
     });
     router.get('/searchV2', async (req, res) => {
-        const result = await getSearchV2(route, req);
-        if (!result) res.status(404).send({ msg: 'Not found' });
-        else res.status(200).send(result);
+        try {
+            const result = await getSearchV2(route, req);
+            res.status(200).send(result);
+        } catch (e) {
+            res.status(500).send({ msg: "An unexpected error occured." });
+        }
     });
 
     // must be registered last
     router.get('/match/:id', async (req, res) => {
-        const result = await getMatch(route, req);
-        if (!result) res.status(404).send({ msg: 'Not found' });
-        else res.status(200).send(result);
+        try {
+            const result = await getMatch(route, req);
+            res.status(200).send(result);
+        } catch (e) {
+            res.status(500).send({ msg: "An unexpected error occured." });
+        }
     });
     router.get('/:id', async (req, res) => {
-        const result = await getSingle(route, req);
-        if (!result) res.status(404).send({ msg: 'Not found' });
-        else res.status(200).send(result);
+        try {
+            const result = await getSingle(route, req);
+            res.status(200).send(result);
+        } catch (e) {
+            res.status(500).send({ msg: "An unexpected error occured." });
+        }
     });
     return router;
 }
@@ -54,7 +69,7 @@ async function main() {
         res.status(404).send(obj);
     });
     app.use((err, _req, res, next) => {
-        res.status(500).send("Uh oh! An unexpected error occured.");
+        res.status(500).send({ msg: "An unexpected error occured." });
         console.log(err);
     });
     app.listen(process.env.PORT, () => {
