@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OperatorZod = exports.DeployableZod = exports.StageZod = exports.SkinZod = exports.SkillZod = exports.SandboxActZod = exports.SandboxWeatherZod = exports.SandboxStageZod = exports.SandboxItemZod = exports.RogueThemeZod = exports.RogueVariationZod = exports.RogueStageZod = exports.RogueRelicZod = exports.ParadoxZod = exports.ModuleZod = exports.ItemZod = exports.GridRangeZod = exports.GameEventZod = exports.GachaPoolZod = exports.EnemyZod = exports.DefinitionZod = exports.CCSeasonZod = exports.CCStageZod = exports.CCStageLegacyZod = exports.BaseZod = void 0;
 var z = require("zod");
 var BlackboardZod = z.strictObject({
-    key: z.string(),
+    key: z.string().nullable(),
     value: z.number().nullable().optional(),
     valueStr: z.string().nullable().optional(),
 });
@@ -339,7 +339,7 @@ var StageDataZod = z.strictObject({
         width: z.number().optional(),
         height: z.number().optional(),
     }),
-    tilesDisallowToLocate: z.tuple([]),
+    tilesDisallowToLocate: z.tuple([]).nullable(),
     runes: z.array(StageRune).nullable(),
     optionalRunes: z.strictObject({
         rune_level1_1: z.array(StageRune),

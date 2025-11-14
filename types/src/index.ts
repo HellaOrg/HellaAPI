@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
 const BlackboardZod = z.strictObject({
-    key: z.string(),
+    key: z.string().nullable(),
     value: z.number().nullable().optional(),
     valueStr: z.string().nullable().optional(),
 });
@@ -354,7 +354,7 @@ const StageDataZod = z.strictObject({
         width: z.number().optional(),
         height: z.number().optional(),
     }),
-    tilesDisallowToLocate: z.tuple([]),
+    tilesDisallowToLocate: z.tuple([]).nullable(),
     runes: z.array(StageRune).nullable(),
     optionalRunes: z.strictObject({
         rune_level1_1: z.array(StageRune),
