@@ -50,6 +50,7 @@ const AttributesKeyFrameZod = z.strictObject({
         disarmedCombatImmune: z.boolean(),
         fearedImmune: z.boolean(),
         palsyImmune: z.boolean(),
+        attractImmune: z.boolean(),
     }),
 });
 const EnemyAttributesZod = z.strictObject({
@@ -73,6 +74,7 @@ const EnemyAttributesZod = z.strictObject({
     epResistance: DefinedNumberZod.optional(),
     damageHitratePhysical: DefinedNumberZod.optional(),
     damageHitrateMagical: DefinedNumberZod.optional(),
+    epBreakRecoverSpeed: DefinedNumberZod.optional(),
     stunImmune: DefinedBooleanZod,
     silenceImmune: DefinedBooleanZod,
     sleepImmune: DefinedBooleanZod.optional(),
@@ -81,6 +83,7 @@ const EnemyAttributesZod = z.strictObject({
     disarmedCombatImmune: DefinedBooleanZod.optional(),
     fearedImmune: DefinedBooleanZod.optional(),
     palsyImmune: DefinedBooleanZod.optional(),
+    attractImmune: DefinedBooleanZod.optional(),
 });
 const EnemySkillsZod = z.strictObject({
     prefabKey: z.string(),
@@ -202,6 +205,7 @@ const StageCardZod = z.strictObject({
         })
     ).nullable().optional(),
     showSpIllust: z.boolean().optional(),
+    masterInfos: z.null().optional(),
     inst: z.strictObject({
         characterKey: z.string(),
         level: z.number(),
@@ -406,6 +410,7 @@ const StageDataZod = z.strictObject({
                 disarmedCombatImmune: z.boolean(),
                 fearedImmune: z.boolean().optional(),
                 palsyImmune: z.boolean().optional(),
+                attractImmune: z.boolean().optional(),
             }),
             applyWay: z.string(),
             motion: z.string(),
@@ -864,13 +869,15 @@ export const RogueRelicZod = z.strictObject({
     usage: z.string(),
     obtainApproach: z.string(),
     iconId: z.string(),
+    itemIconGroupId: z.number().nullable(),
     type: z.string(),
     subType: z.string(),
     rarity: z.string(),
-    value: z.number(),
     sortId: z.number(),
     canSacrifice: z.boolean(),
+    tinyIconColor: z.string().nullable(),
     unlockCondDesc: z.string().nullable(),
+    shortUsage: z.string().nullable(),
 });
 export const RogueStageZod = z.strictObject({
     excel: z.strictObject({
@@ -1192,6 +1199,8 @@ export const DeployableZod = z.strictObject({
         name: z.string(),
         description: z.string().nullable(),
         sortIndex: z.number(),
+        spTargetType: z.string(),
+        spTargetId: z.number().nullable(),
         canUseGeneralPotentialItem: z.boolean(),
         canUseActivityPotentialItem: z.boolean(),
         potentialItemId: z.string().nullable(),
