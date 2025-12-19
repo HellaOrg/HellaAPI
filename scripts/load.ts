@@ -273,7 +273,14 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     // ID AND DATA
     const opData = charFile[opId];
     if (['notchar1', 'notchar2'].includes(opData.subProfessionId)) return [];
-    if (opId === 'char_614_acsupo') opData.name = 'Raidian (Stronghold Protocol)'; // differentiate the raidians
+
+    const nameOverride = {
+        'char_614_acsupo': 'Raidian (Stronghold Protocol)',
+        'char_002_amiya': 'Amiya (Caster)',
+        'char_1001_amiya2': 'Amiya (Guard)',
+        'char_1037_amiya3': 'Amiya (Medic)',
+    };
+    if (nameOverride[opId]) opData.name = nameOverride[opId];
 
     // RECRUIT ID
     const rarityId = G.gameConsts.tagValues[opData.rarity] ?? 1;
@@ -325,7 +332,8 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
 
     // KEYS
     const opName = opData.name.toLowerCase();
-    const keyArr: string[] = [opId, opName, opName.replace(/['-]/g, ''), opName.replace(/['-]/g, ' ')];
+    const nameDeleteCharRegex = /['-()]/g;
+    const keyArr: string[] = [opId, opName, opName.replace(nameDeleteCharRegex, ''), opName.replace(nameDeleteCharRegex, ' ')];
     keyArr.push(...keyArr.slice(1).filter(k => k.includes(' the ')).map(k => k.split(' the ')[0] + ' alter'));
 
     // Deaccented names and alts without "the" in their names
