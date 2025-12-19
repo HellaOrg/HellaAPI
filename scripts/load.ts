@@ -273,6 +273,7 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     // ID AND DATA
     const opData = charFile[opId];
     if (['notchar1', 'notchar2'].includes(opData.subProfessionId)) return [];
+    if (opId === 'char_614_acsupo') opData.name = 'Raidian (Stronghold Protocol)'; // differentiate the raidians
 
     // RECRUIT ID
     const rarityId = G.gameConsts.tagValues[opData.rarity] ?? 1;
@@ -322,6 +323,7 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     // PARADOX SIMULATION
     const opParadox = G.paradoxDict[opId] ?? G.cnparadoxDict[opId] ?? null;
 
+    // KEYS
     const opName = opData.name.toLowerCase();
     const keyArr: string[] = [opId, opName, opName.replace(/['-]/g, ''), opName.replace(/['-]/g, ' ')];
     keyArr.push(...keyArr.slice(1).filter(k => k.includes(' the ')).map(k => k.split(' the ')[0] + ' alter'));
