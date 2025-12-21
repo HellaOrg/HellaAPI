@@ -557,7 +557,7 @@ async function loadDeployables() {
     const characterTable: { [key: string]: any } = await fetchData('excel/character_table.json');
 
     const dataArr: PreDoc[] = Object.keys(characterTable)
-        .filter(key => ['notchar1', 'notchar2'].includes(characterTable[key].subProfessionId))
+        .filter(key => ['TRAP', 'TOKEN'].includes(characterTable[key].profession))
         .map(key => {
             const data = characterTable[key];
             return {
