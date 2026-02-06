@@ -42,7 +42,7 @@ class G {
         deployable: true,
         operator: true,
         cc: true,
-        ccb: false,
+        ccb: true,
         ccblegacy: true,
         define: true,
         enemy: true,
