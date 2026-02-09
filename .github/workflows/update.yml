@@ -5,10 +5,18 @@ on:
     inputs:
       collections:
         description: 'Space-separated list of collections to update'
+        type: string
+        required: false
+        default: ''
+  workflow_call:
+    inputs:
+      collections:
+        description: 'Space-separated list of collections to update'
+        type: string
         required: false
         default: ''
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 */3 * * *"
 
 concurrency:
   group: update-${{ github.workflow }}-${{ github.ref }}

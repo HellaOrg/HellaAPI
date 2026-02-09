@@ -1,0 +1,18 @@
+name: Update CCB
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *"
+
+concurrency:
+  group: update-ccb-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update:
+    name: Update CCB
+    uses: ./.github/workflows/update.yml
+    secrets: inherit
+    with:
+      collections: "ccb"
