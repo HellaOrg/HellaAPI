@@ -70,8 +70,8 @@ jobs:
           source venv/bin/activate
 
           COLLECTIONS=""
-          if [ -n "${{ github.event.inputs.collections }}" ]; then
-            COLLECTIONS="--collections ${{ github.event.inputs.collections }}"
+          if [ -n "${{ inputs.collections }}" ]; then
+            COLLECTIONS="--collections ${{ inputs.collections }}"
           fi
 
           npm run ci -- --gamedata_path HellaAssets/gamedata $COLLECTIONS | tee load.out
