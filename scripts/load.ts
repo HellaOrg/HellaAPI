@@ -276,7 +276,6 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
 
     const nameOverride = {
         'char_614_acsupo': 'Raidian (Stronghold Protocol)',
-        'char_002_amiya': 'Amiya (Caster)',
         'char_1001_amiya2': 'Amiya (Guard)',
         'char_1037_amiya3': 'Amiya (Medic)',
     };
