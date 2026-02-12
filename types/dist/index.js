@@ -748,6 +748,7 @@ exports.ModuleZod = z.strictObject({
                 target: z.string(),
                 isToken: z.boolean(),
                 validInGameTag: z.string().nullable(),
+                validInMapTag: z.string().nullable(),
                 addOrOverrideTalentDataBundle: z.strictObject({
                     candidates: z.array(z.strictObject({
                         displayRangeId: z.boolean(),
