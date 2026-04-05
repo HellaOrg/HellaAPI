@@ -109,7 +109,7 @@ async function main() {
                 } else {
                     schema.parse(doc.value);
                 }
-            } catch (e) {
+            } catch (e: any) {
                 console.log(`${name} error for ${JSON.stringify(doc.canon.toLowerCase())}: ${e.message}`);
                 code = 1;
             }

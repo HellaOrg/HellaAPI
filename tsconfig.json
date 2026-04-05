@@ -3,7 +3,13 @@
         "allowJs": false,
         "target": "ESNext",
         "module": "CommonJS",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "noImplicitAny": false,
+        "strictNullChecks": false,
+        "types": [
+            "node",
+            "express"
+        ]
     },
     "include": [
         "src/**/*.ts",
