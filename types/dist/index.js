@@ -1,29 +1,26 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.OperatorZod = exports.DeployableZod = exports.StageZod = exports.SkinZod = exports.SkillZod = exports.SandboxActZod = exports.SandboxWeatherZod = exports.SandboxStageZod = exports.SandboxItemZod = exports.RogueThemeZod = exports.RogueVariationZod = exports.RogueStageZod = exports.RogueRelicZod = exports.ParadoxZod = exports.ModuleZod = exports.ItemZod = exports.GridRangeZod = exports.GameEventZod = exports.GachaPoolZod = exports.EnemyZod = exports.DefinitionZod = exports.CCSeasonZod = exports.CCStageZod = exports.CCStageLegacyZod = exports.BaseZod = void 0;
-var z = require("zod");
-var BlackboardZod = z.strictObject({
+import * as z from 'zod';
+const BlackboardZod = z.strictObject({
     key: z.string().nullable(),
     value: z.number().nullable().optional(),
     valueStr: z.string().nullable().optional(),
 });
-var DefinedStringZod = z.strictObject({
+const DefinedStringZod = z.strictObject({
     m_defined: z.boolean(),
     m_value: z.string().nullable(),
 });
-var DefinedStringArrayZod = z.strictObject({
+const DefinedStringArrayZod = z.strictObject({
     m_defined: z.boolean(),
     m_value: z.array(z.string()).nullable(),
 });
-var DefinedNumberZod = z.strictObject({
+const DefinedNumberZod = z.strictObject({
     m_defined: z.boolean(),
     m_value: z.number().nullable(),
 });
-var DefinedBooleanZod = z.strictObject({
+const DefinedBooleanZod = z.strictObject({
     m_defined: z.boolean(),
     m_value: z.boolean().nullable(),
 });
-var AttributesKeyFrameZod = z.strictObject({
+const AttributesKeyFrameZod = z.strictObject({
     level: z.number(),
     data: z.strictObject({
         maxHp: z.number(),
@@ -54,7 +51,7 @@ var AttributesKeyFrameZod = z.strictObject({
         attractImmune: z.boolean(),
     }),
 });
-var EnemyAttributesZod = z.strictObject({
+const EnemyAttributesZod = z.strictObject({
     maxHp: DefinedNumberZod,
     atk: DefinedNumberZod,
     def: DefinedNumberZod,
@@ -86,7 +83,7 @@ var EnemyAttributesZod = z.strictObject({
     palsyImmune: DefinedBooleanZod.optional(),
     attractImmune: DefinedBooleanZod.optional(),
 });
-var EnemySkillsZod = z.strictObject({
+const EnemySkillsZod = z.strictObject({
     prefabKey: z.string(),
     priority: z.number(),
     cooldown: z.number(),
@@ -94,13 +91,13 @@ var EnemySkillsZod = z.strictObject({
     spCost: z.number(),
     blackboard: z.array(BlackboardZod).nullable(),
 });
-var EnemySpDataZod = z.strictObject({
+const EnemySpDataZod = z.strictObject({
     spType: z.string(),
     maxSp: z.number(),
     initSp: z.number(),
     increment: z.number(),
 });
-var EnemyDataZod = z.strictObject({
+const EnemyDataZod = z.strictObject({
     name: DefinedStringZod,
     description: DefinedStringZod,
     prefabKey: DefinedStringZod,
@@ -118,12 +115,12 @@ var EnemyDataZod = z.strictObject({
     skills: z.array(EnemySkillsZod).nullable(),
     spData: EnemySpDataZod.nullable(),
 });
-var LevelUpCostZod = z.strictObject({
+const LevelUpCostZod = z.strictObject({
     id: z.string(),
     count: z.number(),
     type: z.string(),
 });
-var ManufactFormulaZod = z.strictObject({
+const ManufactFormulaZod = z.strictObject({
     formulaId: z.string(),
     itemId: z.string(),
     count: z.number(),
@@ -142,7 +139,7 @@ var ManufactFormulaZod = z.strictObject({
         rank: z.number(),
     })),
 });
-var WorkshopFormulaZod = z.strictObject({
+const WorkshopFormulaZod = z.strictObject({
     sortId: z.number(),
     formulaId: z.string(),
     rarity: z.number(),
@@ -169,23 +166,23 @@ var WorkshopFormulaZod = z.strictObject({
         rank: z.number(),
     })),
 });
-var OperatorUnlockCondZod = z.strictObject({
+const OperatorUnlockCondZod = z.strictObject({
     phase: z.union([z.string(), z.number()]),
     level: z.number(),
 });
-var LevelUpCostCondZod = z.strictObject({
+const LevelUpCostCondZod = z.strictObject({
     unlockCond: OperatorUnlockCondZod,
     lvlUpTime: z.number(),
     levelUpCost: z.array(LevelUpCostZod).nullable(),
 });
-var DeploySkillZod = z.strictObject({
+const DeploySkillZod = z.strictObject({
     skillId: z.string().nullable(),
     overridePrefabKey: z.string().nullable(),
     overrideTokenKey: z.string().nullable(),
     levelUpCostCond: z.array(LevelUpCostCondZod),
     unlockCond: OperatorUnlockCondZod,
 });
-var StageCardZod = z.strictObject({
+const StageCardZod = z.strictObject({
     initialCnt: z.number().optional(),
     hidden: z.boolean(),
     alias: z.string().nullable(),
@@ -208,20 +205,20 @@ var StageCardZod = z.strictObject({
     tmplId: z.string().nullable().optional(),
     overrideSkillBlackboard: z.array(BlackboardZod).nullable().optional(),
 });
-var StageInstZod = StageCardZod.extend({
+const StageInstZod = StageCardZod.extend({
     position: z.strictObject({
         row: z.number(),
         col: z.number(),
     }),
     direction: z.union([z.string(), z.number()]).optional(),
 });
-var StageDefinesZod = z.strictObject({
+const StageDefinesZod = z.strictObject({
     characterInsts: z.array(StageInstZod),
     tokenInsts: z.array(StageInstZod),
     characterCards: z.array(StageCardZod),
     tokenCards: z.array(StageCardZod),
 });
-var StageEffectZod = z.strictObject({
+const StageEffectZod = z.strictObject({
     key: z.string(),
     offset: z.strictObject({
         x: z.number(),
@@ -230,7 +227,7 @@ var StageEffectZod = z.strictObject({
     }),
     direction: z.union([z.string(), z.number()]),
 });
-var StageActionZod = z.strictObject({
+const StageActionZod = z.strictObject({
     actionType: z.union([z.string(), z.number()]),
     managedByScheduler: z.boolean(),
     key: z.string(),
@@ -254,7 +251,7 @@ var StageActionZod = z.strictObject({
     actionId: z.null().optional(),
     forceBlockWaveInBranch: z.boolean().optional(),
 });
-var StageRouteZod = z.strictObject({
+const StageRouteZod = z.strictObject({
     motionMode: z.union([z.string(), z.number()]),
     startPosition: z.strictObject({
         row: z.number(),
@@ -291,14 +288,14 @@ var StageRouteZod = z.strictObject({
     visitEveryNodeCenter: z.boolean(),
     visitEveryCheckPoint: z.boolean().optional(),
 });
-var StageRune = z.strictObject({
+const StageRune = z.strictObject({
     difficultyMask: z.union([z.string(), z.number()]),
     key: z.string(),
     professionMask: z.union([z.string(), z.number()]).optional(),
     buildableMask: z.union([z.string(), z.number()]),
     blackboard: z.array(BlackboardZod),
 });
-var StageDataZod = z.strictObject({
+const StageDataZod = z.strictObject({
     options: z.strictObject({
         characterLimit: z.number(),
         maxLifePoint: z.number(),
@@ -445,7 +442,7 @@ var StageDataZod = z.strictObject({
     runtimeData: z.null().optional(),
     cameraPlugin: z.string().nullable().optional(),
 });
-exports.BaseZod = z.strictObject({
+export const BaseZod = z.strictObject({
     buffId: z.string(),
     buffName: z.string(),
     buffIcon: z.string(),
@@ -457,7 +454,7 @@ exports.BaseZod = z.strictObject({
     roomType: z.string(),
     description: z.string(),
 });
-exports.CCStageLegacyZod = z.strictObject({
+export const CCStageLegacyZod = z.strictObject({
     const: z.strictObject({
         levelId: z.string(),
         location: z.string(),
@@ -466,7 +463,7 @@ exports.CCStageLegacyZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
-exports.CCStageZod = z.strictObject({
+export const CCStageZod = z.strictObject({
     excel: z.strictObject({
         stageId: z.string(),
         mapId: z.string(),
@@ -483,16 +480,16 @@ exports.CCStageZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
-exports.CCSeasonZod = z.strictObject({
+export const CCSeasonZod = z.strictObject({
     seasonId: z.string(),
-    stageDict: z.record(z.string(), exports.CCStageZod),
+    stageDict: z.record(z.string(), CCStageZod),
 });
-exports.DefinitionZod = z.strictObject({
+export const DefinitionZod = z.strictObject({
     termId: z.string(),
     termName: z.string(),
     description: z.string(),
 });
-exports.EnemyZod = z.strictObject({
+export const EnemyZod = z.strictObject({
     excel: z.strictObject({
         enemyId: z.string(),
         enemyIndex: z.string(),
@@ -523,7 +520,7 @@ exports.EnemyZod = z.strictObject({
         })),
     }),
 });
-exports.GachaPoolZod = z.strictObject({
+export const GachaPoolZod = z.strictObject({
     client: z.strictObject({
         gachaPoolId: z.string(),
         gachaIndex: z.number(),
@@ -633,7 +630,7 @@ exports.GachaPoolZod = z.strictObject({
         }),
     }),
 });
-exports.GameEventZod = z.strictObject({
+export const GameEventZod = z.strictObject({
     id: z.string(),
     type: z.union([z.string(), z.number()]),
     displayType: z.string(),
@@ -668,7 +665,7 @@ exports.GameEventZod = z.strictObject({
     })),
     usePicGroup: z.boolean(),
 });
-exports.GridRangeZod = z.strictObject({
+export const GridRangeZod = z.strictObject({
     id: z.string(),
     direction: z.number(),
     grids: z.array(z.strictObject({
@@ -676,7 +673,7 @@ exports.GridRangeZod = z.strictObject({
         col: z.number(),
     })),
 });
-exports.ItemZod = z.strictObject({
+export const ItemZod = z.strictObject({
     data: z.strictObject({
         itemId: z.string(),
         name: z.string(),
@@ -706,7 +703,7 @@ exports.ItemZod = z.strictObject({
     }),
     formula: z.union([ManufactFormulaZod, WorkshopFormulaZod]).nullable(),
 });
-exports.ModuleZod = z.strictObject({
+export const ModuleZod = z.strictObject({
     info: z.strictObject({
         uniEquipId: z.string(),
         uniEquipName: z.string(),
@@ -782,7 +779,7 @@ exports.ModuleZod = z.strictObject({
         })),
     }).nullable(),
 });
-exports.ParadoxZod = z.strictObject({
+export const ParadoxZod = z.strictObject({
     excel: z.strictObject({
         charId: z.string(),
         stageId: z.string(),
@@ -807,7 +804,7 @@ exports.ParadoxZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
-exports.RogueRelicZod = z.strictObject({
+export const RogueRelicZod = z.strictObject({
     id: z.string(),
     name: z.string(),
     description: z.string().nullable(),
@@ -824,7 +821,7 @@ exports.RogueRelicZod = z.strictObject({
     unlockCondDesc: z.string().nullable(),
     shortUsage: z.string().nullable(),
 });
-exports.RogueStageZod = z.strictObject({
+export const RogueStageZod = z.strictObject({
     excel: z.strictObject({
         id: z.string(),
         linkedStageId: z.string(),
@@ -848,7 +845,7 @@ exports.RogueStageZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
-exports.RogueVariationZod = z.strictObject({
+export const RogueVariationZod = z.strictObject({
     id: z.string(),
     type: z.string(),
     outerName: z.string(),
@@ -858,14 +855,14 @@ exports.RogueVariationZod = z.strictObject({
     iconId: z.string().nullable(),
     sound: z.string().nullable(),
 });
-exports.RogueThemeZod = z.strictObject({
+export const RogueThemeZod = z.strictObject({
     name: z.string(),
-    stageDict: z.record(z.string(), exports.RogueStageZod),
-    toughStageDict: z.record(z.string(), exports.RogueStageZod),
-    relicDict: z.record(z.string(), exports.RogueRelicZod),
-    variationDict: z.record(z.string(), exports.RogueVariationZod),
+    stageDict: z.record(z.string(), RogueStageZod),
+    toughStageDict: z.record(z.string(), RogueStageZod),
+    relicDict: z.record(z.string(), RogueRelicZod),
+    variationDict: z.record(z.string(), RogueVariationZod),
 });
-exports.SandboxItemZod = z.strictObject({
+export const SandboxItemZod = z.strictObject({
     craft: z.strictObject({
         itemId: z.string(),
         type: z.string(),
@@ -919,7 +916,7 @@ exports.SandboxItemZod = z.strictObject({
         obtainApproach: z.string(),
     })
 });
-exports.SandboxStageZod = z.strictObject({
+export const SandboxStageZod = z.strictObject({
     excel: z.strictObject({
         stageId: z.string(),
         levelId: z.string(),
@@ -931,7 +928,7 @@ exports.SandboxStageZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
-exports.SandboxWeatherZod = z.strictObject({
+export const SandboxWeatherZod = z.strictObject({
     weatherId: z.string(),
     name: z.string(),
     weatherLevel: z.number(),
@@ -942,13 +939,13 @@ exports.SandboxWeatherZod = z.strictObject({
     description: z.string(),
     buffId: z.string().nullable(),
 });
-exports.SandboxActZod = z.strictObject({
+export const SandboxActZod = z.strictObject({
     name: z.string(),
-    itemDict: z.record(z.string(), exports.SandboxItemZod),
-    weatherDict: z.record(z.string(), exports.SandboxWeatherZod),
-    stageDict: z.record(z.string(), exports.SandboxStageZod),
+    itemDict: z.record(z.string(), SandboxItemZod),
+    weatherDict: z.record(z.string(), SandboxWeatherZod),
+    stageDict: z.record(z.string(), SandboxStageZod),
 });
-exports.SkillZod = z.strictObject({
+export const SkillZod = z.strictObject({
     deploy: DeploySkillZod.nullable(),
     excel: z.strictObject({
         skillId: z.string(),
@@ -974,7 +971,7 @@ exports.SkillZod = z.strictObject({
         }))
     }),
 });
-exports.SkinZod = z.strictObject({
+export const SkinZod = z.strictObject({
     skinId: z.string(),
     charId: z.string(),
     tokenSkinMap: z.array(z.strictObject({
@@ -1020,7 +1017,7 @@ exports.SkinZod = z.strictObject({
         onPeriod: z.number(),
     }),
 });
-exports.StageZod = z.strictObject({
+export const StageZod = z.strictObject({
     excel: z.strictObject({
         stageType: z.string(),
         difficulty: z.string(),
@@ -1123,7 +1120,7 @@ exports.StageZod = z.strictObject({
     }),
     levels: StageDataZod,
 });
-exports.DeployableZod = z.strictObject({
+export const DeployableZod = z.strictObject({
     id: z.string(),
     archetype: z.string(),
     data: z.strictObject({
@@ -1222,20 +1219,20 @@ exports.DeployableZod = z.strictObject({
             lvlUpCost: z.array(LevelUpCostZod).nullable(),
         })),
     }),
-    range: exports.GridRangeZod.nullable(),
-    skills: z.array(exports.SkillZod.nullable()),
-    skins: z.array(exports.SkinZod.nullable()),
+    range: GridRangeZod.nullable(),
+    skills: z.array(SkillZod.nullable()),
+    skins: z.array(SkinZod.nullable()),
 });
 ;
-exports.OperatorZod = exports.DeployableZod.extend({
+export const OperatorZod = DeployableZod.extend({
     bases: z.array(z.strictObject({
         condition: z.strictObject({
             buffId: z.string(),
             cond: OperatorUnlockCondZod,
         }),
-        skill: exports.BaseZod,
+        skill: BaseZod,
     })),
-    modules: z.array(exports.ModuleZod),
-    paradox: exports.ParadoxZod.nullable(),
+    modules: z.array(ModuleZod),
+    paradox: ParadoxZod.nullable(),
     recruit: z.number(),
 });

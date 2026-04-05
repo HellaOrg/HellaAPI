@@ -1,6 +1,6 @@
 {
   "name": "hella-types",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "",
@@ -10,10 +10,8 @@
     "build": "tsc"
   },
   "dependencies": {
+    "typescript": "^6.0.2",
     "zod": "3.22.4"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.0"
   },
   "repository": {
     "type": "git",
