@@ -497,7 +497,7 @@ export const EnemyZod = z.strictObject({
         sortId: z.number(),
         name: z.string(),
         enemyLevel: z.enum(['NORMAL', 'ELITE', 'BOSS']),
-        description: z.string(),
+        description: z.string().nullable(),
         attackType: z.null(),
         ability: z.null(),
         isInvalidKilled: z.boolean(),
