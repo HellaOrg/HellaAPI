@@ -554,6 +554,16 @@ export const EnemyZod = z.strictObject({
         ),
     }),
 });
+export const FactionZod = z.strictObject({
+    powerId: z.string(),
+    orderNum: z.number(),
+    powerLevel: z.number(),
+    powerName: z.string(),
+    powerCode: z.string(),
+    color: z.string(),
+    isLimited: z.boolean(),
+    isRaw: z.boolean(),
+});
 export const GachaPoolZod = z.strictObject({
     client: z.strictObject({
         gachaPoolId: z.string(),
@@ -1309,6 +1319,7 @@ export const DeployableZod = z.strictObject({
             })
         ),
     }),
+    factions: z.array(FactionZod.nullable()),
     range: GridRangeZod.nullable(),
     skills: z.array(SkillZod.nullable()),
     skins: z.array(SkinZod.nullable()),
@@ -1336,6 +1347,7 @@ export type CCSeason = z.infer<typeof CCSeasonZod>;
 export type Definition = z.infer<typeof DefinitionZod>;
 export type Deployable = z.infer<typeof DeployableZod>;
 export type Enemy = z.infer<typeof EnemyZod>;
+export type Faction = z.infer<typeof FactionZod>;
 export type GachaPool = z.infer<typeof GachaPoolZod>;
 export type GameEvent = z.infer<typeof GameEventZod>;
 export type GridRange = z.infer<typeof GridRangeZod>;

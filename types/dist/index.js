@@ -520,6 +520,16 @@ export const EnemyZod = z.strictObject({
         })),
     }),
 });
+export const FactionZod = z.strictObject({
+    powerId: z.string(),
+    orderNum: z.number(),
+    powerLevel: z.number(),
+    powerName: z.string(),
+    powerCode: z.string(),
+    color: z.string(),
+    isLimited: z.boolean(),
+    isRaw: z.boolean(),
+});
 export const GachaPoolZod = z.strictObject({
     client: z.strictObject({
         gachaPoolId: z.string(),
@@ -1219,6 +1229,7 @@ export const DeployableZod = z.strictObject({
             lvlUpCost: z.array(LevelUpCostZod).nullable(),
         })),
     }),
+    factions: z.array(FactionZod.nullable()),
     range: GridRangeZod.nullable(),
     skills: z.array(SkillZod.nullable()),
     skins: z.array(SkinZod.nullable()),
