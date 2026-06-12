@@ -10,11 +10,13 @@ on:
     branches:
       - main
     paths:
+      - scripts/test.ts
       - types/**/*.ts
   push:
     branches:
       - main
     paths:
+      - scripts/test.ts
       - types/**/*.ts
   schedule:
     - cron: "0 0 * * *"
