@@ -27,7 +27,7 @@ class G {
 
     static collectionDeps = {
         'cn': ['operator'],
-        'deployable': ['archetype', 'range', 'skill', 'skin'],
+        'deployable': ['archetype', 'faction', 'range', 'skill', 'skin'],
         'operator': ['base', 'module', 'paradox', 'deployable'],
         'recruit': ['operator'],
     }
@@ -47,6 +47,7 @@ class G {
         define: true,
         enemy: true,
         event: true,
+        faction: true,
         gacha: true,
         item: true,
         recruit: true,
@@ -59,6 +60,7 @@ class G {
     static archetypeDict: { [key: string]: string } = {};
     static baseDict: { [key: string]: T.Base } = {};
     static deployDict: { [key: string]: T.Deployable } = {};
+    static factionDict: { [key: string]: T.Faction } = {};
     static moduleDict: { [key: string]: T.Module } = {};
     static operatorDict: { [key: string]: T.Operator } = {};
     static paradoxDict: { [key: string]: T.Paradox } = {};
@@ -139,6 +141,8 @@ async function main() {
         await loadArchetypes();
     if (G.collectionsToLoad.base)
         await loadBases();
+    if (G.collectionsToLoad.faction)
+        await loadFactions();
     if (G.collectionsToLoad.module)
         await loadModules();
     if (G.collectionsToLoad.paradox)
@@ -298,6 +302,13 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     // ARCHETYPE
     const opArchetype = G.archetypeDict[opData.subProfessionId] ?? G.cnarchetypeDict[opData.subProfessionId];
 
+    // FACTIONS
+    const opFactions = [];
+    const mainFaction = G.factionDict[opData.mainPower.teamId ?? opData.mainPower.groupId ?? opData.mainPower.nationId];
+    if (mainFaction) opFactions.push(mainFaction);
+    const subFactions = opData.subPower?.map(power => G.factionDict[power.teamId ?? power.groupId ?? power.nationId]);
+    if (subFactions) opFactions.push(...subFactions);
+
     // RANGE
     const opRange = G.rangeDict[opData.phases[opData.phases.length - 1].rangeId] ?? G.cnrangeDict[opData.phases[opData.phases.length - 1]];
 
@@ -358,6 +369,7 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
             archetype: opArchetype,
             bases: opBases,
             data: opData,
+            factions: opFactions,
             modules: opModules,
             paradox: opParadox,
             range: opRange,
@@ -559,12 +571,20 @@ async function loadDeployables() {
         .filter(key => ['TRAP', 'TOKEN'].includes(characterTable[key].profession))
         .map(key => {
             const data = characterTable[key];
+
+            const factions = [];
+            const mainFaction = G.factionDict[data.mainPower.teamId ?? data.mainPower.groupId ?? data.mainPower.nationId];
+            if (mainFaction) factions.push(mainFaction);
+            const subFactions = data.subPower?.map(power => G.factionDict[power.teamId ?? power.groupId ?? power.nationId]);
+            if (subFactions) factions.push(...subFactions);
+
             return {
                 keys: [key, data.name, data.name.replace(/['-]/g, '')],
                 value: {
                     id: key,
                     archetype: G.archetypeDict[data.subProfessionId] ?? G.cnarchetypeDict[data.subProfessionId],
                     data: data,
+                    factions: factions,
                     range: G.rangeDict[data.phases[data.phases.length - 1].rangeId]
                         ?? G.cnrangeDict[data.phases[data.phases.length - 1]]
                         ?? null,
@@ -616,6 +636,19 @@ async function loadEvents() {
     });
 
     await loadCollection(collection, dataArr, T.GameEventZod);
+}
+async function loadFactions() {
+    const collection = 'faction';
+    logTime(`${collection}: starting`);
+
+    const handbookTeamTable: { [key: string]: any } = await fetchData('excel/handbook_team_table.json');
+
+    const dataArr: PreDoc[] = Object.values(handbookTeamTable).map(faction => {
+        G.factionDict[faction.powerId] = faction;
+        return { keys: [faction.powerId], value: faction }
+    });
+
+    await loadCollection(collection, dataArr, T.FactionZod);
 }
 async function loadGacha() {
     const collection = "gacha";
