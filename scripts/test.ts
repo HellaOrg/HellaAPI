@@ -41,6 +41,10 @@ const collections = [
         schema: T.GameEventZod,
     },
     {
+        name: 'faction',
+        schema: T.FactionZod,
+    },
+    {
         name: 'gacha',
         schema: T.GachaPoolZod,
     },
