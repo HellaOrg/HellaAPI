@@ -9,6 +9,7 @@ import simpleGit from 'simple-git';
 import { promisify } from 'util';
 import * as zod from 'zod';
 import getDb from "../src/db";
+import { exit } from 'process';
 const objectHash = require('object-hash');
 
 const logDate = (msg: string) => console.log(`[${new Date().toLocaleString()}] ${msg}`);
@@ -303,11 +304,15 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     const opArchetype = G.archetypeDict[opData.subProfessionId] ?? G.cnarchetypeDict[opData.subProfessionId];
 
     // FACTIONS
-    const opFactions = [];
-    const mainFaction = G.factionDict[opData.mainPower.teamId ?? opData.mainPower.groupId ?? opData.mainPower.nationId];
-    if (mainFaction) opFactions.push(mainFaction);
-    const subFactions = opData.subPower?.map(power => G.factionDict[power.teamId ?? power.groupId ?? power.nationId]);
-    if (subFactions) opFactions.push(...subFactions);
+    const opFactions = [opData.mainPower, ...(opData.subPower ?? [])]
+        .filter(power => !!power)
+        .map(power => {
+            return {
+                nationPower: G.factionDict[power.nationId],
+                groupPower: G.factionDict[power.groupId],
+                teamPower: G.factionDict[power.teamId]
+            };
+        });
 
     // RANGE
     const opRange = G.rangeDict[opData.phases[opData.phases.length - 1].rangeId] ?? G.cnrangeDict[opData.phases[opData.phases.length - 1]];
@@ -572,19 +577,21 @@ async function loadDeployables() {
         .map(key => {
             const data = characterTable[key];
 
-            const factions = [];
-            const mainFaction = G.factionDict[data.mainPower.teamId ?? data.mainPower.groupId ?? data.mainPower.nationId];
-            if (mainFaction) factions.push(mainFaction);
-            const subFactions = data.subPower?.map(power => G.factionDict[power.teamId ?? power.groupId ?? power.nationId]);
-            if (subFactions) factions.push(...subFactions);
-
             return {
                 keys: [key, data.name, data.name.replace(/['-]/g, '')],
                 value: {
                     id: key,
                     archetype: G.archetypeDict[data.subProfessionId] ?? G.cnarchetypeDict[data.subProfessionId],
                     data: data,
-                    factions: factions,
+                    factions: [data.mainPower, ...(data.subPower ?? [])]
+                        .filter(power => !!power)
+                        .map(power => {
+                            return {
+                                nationPower: G.factionDict[power.nationId],
+                                groupPower: G.factionDict[power.groupId],
+                                teamPower: G.factionDict[power.teamId]
+                            };
+                        }),
                     range: G.rangeDict[data.phases[data.phases.length - 1].rangeId]
                         ?? G.cnrangeDict[data.phases[data.phases.length - 1]]
                         ?? null,
