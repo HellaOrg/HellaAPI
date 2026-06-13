@@ -145,16 +145,6 @@ const ManufactFormulaZod = z.strictObject({
         })
     ),
 });
-const PowerZod = z.strictObject({
-    powerId: z.string(),
-    orderNum: z.number(),
-    powerLevel: z.number(),
-    powerName: z.string(),
-    powerCode: z.string(),
-    color: z.string(),
-    isLimited: z.boolean(),
-    isRaw: z.boolean(),
-});
 const WorkshopFormulaZod = z.strictObject({
     sortId: z.number(),
     formulaId: z.string(),
@@ -565,9 +555,14 @@ export const EnemyZod = z.strictObject({
     }),
 });
 export const FactionZod = z.strictObject({
-    nationPower: PowerZod.optional(),
-    groupPower: PowerZod.optional(),
-    teamPower: PowerZod.optional(),
+    powerId: z.string(),
+    orderNum: z.number(),
+    powerLevel: z.number(),
+    powerName: z.string(),
+    powerCode: z.string(),
+    color: z.string(),
+    isLimited: z.boolean(),
+    isRaw: z.boolean(),
 });
 export const GachaPoolZod = z.strictObject({
     client: z.strictObject({
@@ -1324,7 +1319,11 @@ export const DeployableZod = z.strictObject({
             })
         ),
     }),
-    factions: z.array(FactionZod.nullable()),
+    factions: z.array(z.strictObject({
+        nationPower: FactionZod.nullable().optional(),
+        groupPower: FactionZod.nullable().optional(),
+        teamPower: FactionZod.nullable().optional(),
+    })),
     range: GridRangeZod.nullable(),
     skills: z.array(SkillZod.nullable()),
     skins: z.array(SkinZod.nullable()),
