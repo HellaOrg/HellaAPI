@@ -145,6 +145,16 @@ const ManufactFormulaZod = z.strictObject({
         })
     ),
 });
+const PowerZod = z.strictObject({
+    powerId: z.string(),
+    orderNum: z.number(),
+    powerLevel: z.number(),
+    powerName: z.string(),
+    powerCode: z.string(),
+    color: z.string(),
+    isLimited: z.boolean(),
+    isRaw: z.boolean(),
+});
 const WorkshopFormulaZod = z.strictObject({
     sortId: z.number(),
     formulaId: z.string(),
@@ -555,14 +565,9 @@ export const EnemyZod = z.strictObject({
     }),
 });
 export const FactionZod = z.strictObject({
-    powerId: z.string(),
-    orderNum: z.number(),
-    powerLevel: z.number(),
-    powerName: z.string(),
-    powerCode: z.string(),
-    color: z.string(),
-    isLimited: z.boolean(),
-    isRaw: z.boolean(),
+    nationPower: PowerZod.optional(),
+    groupPower: PowerZod.optional(),
+    teamPower: PowerZod.optional(),
 });
 export const GachaPoolZod = z.strictObject({
     client: z.strictObject({
