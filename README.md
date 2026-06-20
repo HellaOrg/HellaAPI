@@ -1,6 +1,7 @@
 # HellaAPI
 
 [![update](https://github.com/HellaOrg/HellaAPI/actions/workflows/update.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/update.yml)
+[![update-ccb](https://github.com/HellaOrg/HellaAPI/actions/workflows/update-ccb.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/update-ccb.yml)
 [![test](https://github.com/HellaOrg/HellaAPI/actions/workflows/test.yml/badge.svg)](https://github.com/HellaOrg/HellaAPI/actions/workflows/test.yml)
 
 > https://awedtan.ca/api/operator/hellagur
