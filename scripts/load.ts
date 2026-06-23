@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec, ExecException } from 'child_process';
 import commandLineArgs from 'command-line-args';
 import 'dotenv/config';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -9,7 +9,6 @@ import simpleGit from 'simple-git';
 import { promisify } from 'util';
 import * as zod from 'zod';
 import getDb from "../src/db";
-import { exit } from 'process';
 const objectHash = require('object-hash');
 
 const logDate = (msg: string) => console.log(`[${new Date().toLocaleString()}] ${msg}`);
@@ -172,7 +171,14 @@ async function main() {
     if (G.collectionsToLoad.event)
         await loadEvents();
     if (G.collectionsToLoad.gacha)
-        await loadGacha();
+        try {
+            await loadGacha();
+        } catch (e) {
+            if ((e as ExecException).stderr?.includes("KeyError: 'challenge'"))
+                logTime('gacha: failed, game servers are under maintenance')
+            else
+                throw e;
+        }
     if (G.collectionsToLoad.item)
         await loadItems();
     if (G.collectionsToLoad.recruit)
