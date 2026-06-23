@@ -812,6 +812,7 @@ export const ModuleZod = z.strictObject({
                                     displayRangeId: z.boolean(),
                                     upgradeDescription: z.string(),
                                     talentIndex: z.number(),
+                                    validModeIndices: z.null(),
                                     unlockCondition: OperatorUnlockCondZod,
                                     requiredPotentialRank: z.number(),
                                     prefabKey: z.string(),
@@ -1201,6 +1202,7 @@ export const StageZod = z.strictObject({
         })).nullable().optional(),
         advancedRuneIdList1: z.array(z.null()).optional(),
         advancedRuneIdList2: z.array(z.null()).optional(),
+        useSpecialSizeMapPreview: z.boolean(),
     }),
     levels: StageDataZod,
 });
