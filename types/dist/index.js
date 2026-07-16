@@ -761,7 +761,7 @@ export const ModuleZod = z.strictObject({
                         displayRangeId: z.boolean(),
                         upgradeDescription: z.string(),
                         talentIndex: z.number(),
-                        validModeIndices: z.null(),
+                        validModeIndices: z.array(z.number()).nullable(),
                         unlockCondition: OperatorUnlockCondZod,
                         requiredPotentialRank: z.number(),
                         prefabKey: z.string(),
