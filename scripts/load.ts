@@ -370,6 +370,7 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
         'char_1035_wisdel': ['wisadel', 'w alter'],
         'char_1019_siege2': ['siege alter'],
         'char_1042_phatm2': ['phantom alter'],
+        'char_4166_varkis': ['varkaris'],
     }
     if (hardcodeOpId[opId]) keyArr.push(...hardcodeOpId[opId]);
 
