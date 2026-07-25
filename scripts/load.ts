@@ -351,6 +351,9 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
     // PARADOX SIMULATION
     const opParadox = G.paradoxDict[opId] ?? G.cnparadoxDict[opId] ?? null;
 
+    // DEPLOYABLES
+    const opDeploys = opData.displayTokenDict ? Object.entries(opData.displayTokenDict).filter(token => token[1] && G.deployDict[token[0]]).map(token => G.deployDict[token[0]]) : null;
+
     // KEYS
     const opName = opData.name.toLowerCase();
     const nameDeleteCharRegex = /['-()]/g;
@@ -381,6 +384,7 @@ function readOperatorIntoArr(opId: string, charFile, charEquip, charBaseBuffs) {
             archetype: opArchetype,
             bases: opBases,
             data: opData,
+            deploys: opDeploys,
             factions: opFactions,
             modules: opModules,
             paradox: opParadox,
@@ -584,27 +588,30 @@ async function loadDeployables() {
         .map(key => {
             const data = characterTable[key];
 
+            const deploy = {
+                id: key,
+                archetype: G.archetypeDict[data.subProfessionId] ?? G.cnarchetypeDict[data.subProfessionId],
+                data: data,
+                factions: [data.mainPower, ...(data.subPower ?? [])]
+                    .filter(power => !!power)
+                    .map(power => {
+                        return {
+                            nationPower: G.factionDict[power.nationId],
+                            groupPower: G.factionDict[power.groupId],
+                            teamPower: G.factionDict[power.teamId]
+                        };
+                    }),
+                range: G.rangeDict[data.phases[data.phases.length - 1].rangeId]
+                    ?? G.cnrangeDict[data.phases[data.phases.length - 1]]
+                    ?? null,
+                skills: data.skills.map(s => G.skillDict[s.skillId] ?? G.cnskillDict[s.skillId] ?? null),
+                skins: G.skinArrDict[key] ?? G.cnskinArrDict[key] ?? []
+            };
+
+            G.deployDict[key] = deploy;
             return {
                 keys: [key, data.name, data.name.replace(/['-]/g, '')],
-                value: {
-                    id: key,
-                    archetype: G.archetypeDict[data.subProfessionId] ?? G.cnarchetypeDict[data.subProfessionId],
-                    data: data,
-                    factions: [data.mainPower, ...(data.subPower ?? [])]
-                        .filter(power => !!power)
-                        .map(power => {
-                            return {
-                                nationPower: G.factionDict[power.nationId],
-                                groupPower: G.factionDict[power.groupId],
-                                teamPower: G.factionDict[power.teamId]
-                            };
-                        }),
-                    range: G.rangeDict[data.phases[data.phases.length - 1].rangeId]
-                        ?? G.cnrangeDict[data.phases[data.phases.length - 1]]
-                        ?? null,
-                    skills: data.skills.map(s => G.skillDict[s.skillId] ?? G.cnskillDict[s.skillId] ?? null),
-                    skins: G.skinArrDict[key] ?? G.cnskinArrDict[key] ?? []
-                }
+                value: deploy
             }
         });
 

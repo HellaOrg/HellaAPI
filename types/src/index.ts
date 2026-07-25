@@ -1340,6 +1340,7 @@ export const OperatorZod = DeployableZod.extend({
             skill: BaseZod,
         })
     ),
+    deploys: z.array(DeployableZod).nullable(),
     modules: z.array(ModuleZod),
     paradox: ParadoxZod.nullable(),
     recruit: z.number(),
