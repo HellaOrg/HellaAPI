@@ -81,28 +81,38 @@ const operatorMap = {
     'nin': '$nin'
 };
 
+function buildSearchV2Filter(filter: Record<string, any>): Record<string, any> {
+    const matchStage: Record<string, any> = {};
+
+    for (const [field, condition] of Object.entries(filter)) {
+        if (field === 'and' || field === 'or' || field === 'nor') {
+            matchStage[`$${field}`] = (condition as any[]).map(subFilter => buildSearchV2Filter(subFilter));
+        }
+        else {
+            const mongoField = `value.${field}`;
+            if (condition && typeof condition === 'object' && !Array.isArray(condition)) {
+                const mongoCondition: Record<string, any> = {};
+                for (const [operator, value] of Object.entries(condition)) {
+                    const mapped = operatorMap[operator];
+                    if (mapped) mongoCondition[mapped] = value;
+                }
+                matchStage[mongoField] = mongoCondition;
+            }
+            else {
+                matchStage[mongoField] = { $eq: condition };
+            }
+        }
+    }
+    return matchStage;
+}
+
 // Gets all documents that satisfy the request filter
 // Symbols that are intended to be used in a filter must be URL encoded
 // item/searchV2?filter={"data.subProfessionId":"musha"}
 export async function getSearchV2(collectionName: string, req) {
     const collection = (await getDb()).collection(collectionName);
     const filter = JSON.parse(req.query.filter || '{}');
-    const matchStage = {};
-
-    for (const [field, condition] of Object.entries(filter)) {
-        const mongoField = `value.${field}`;
-        if (condition && typeof condition === 'object' && !Array.isArray(condition)) {
-            const mongoCondition = {};
-            for (const [operator, value] of Object.entries(condition)) {
-                const mapped = operatorMap[operator];
-                if (mapped) mongoCondition[mapped] = value;
-            }
-            matchStage[mongoField] = mongoCondition;
-        }
-        else {
-            matchStage[mongoField] = { $eq: condition };
-        }
-    }
+    const matchStage = buildSearchV2Filter(filter);
 
     const pipeline = createPipeline(req, matchStage);
     const result = await collection.aggregate(pipeline).toArray();

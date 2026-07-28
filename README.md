@@ -52,14 +52,21 @@ Supported filter operators are:
 
 | Operator | Description
 |-|-|
-| `=`, `eq`   | Equal                                |
-| `!=`, `ne`  | Not equal                            |
-| `>`, `gt`   | Greater than                         |
-| `>=`, `ge`  | Greater than or equal                |
-| `<`, `lt`   | Less than                            |
-| `<=`, `le`  | Less than or equal                   |
-| `in`      | Equal to any value in an array         |
-| `nin`     | Not equal to any value in an array     |
+| `=`, `eq`   | Equal
+| `!=`, `ne`  | Not equal
+| `>`, `gt`   | Greater than
+| `>=`, `ge`  | Greater than or equal
+| `<`, `lt`   | Less than
+| `<=`, `le`  | Less than or equal
+| `in`        | Equal to any value in an array
+| `nin`       | Not equal to any value in an array
+| `and`       | All subfilters must match
+| `or`        | Any subfilter must match
+| `nor`       | No subfilter may match
+
+Logical operators `and`, `or`, and `nor` allow combining or negating multiple nested subfilters:
+
+> api/{resource}/searchv2?filter={"or":[{"field1": "value1"}, {"field2": {">=": "value2"}}]}
 
 ### Additional Parameters
 
@@ -113,6 +120,10 @@ Valid responses will have the below JSON format. The `keys` array contains all v
 This request will return the rarity of all "Musha" operators (Hellagur, Utage, etc.).
 
 > https://awedtan.ca/api/operator/search?data.subProfessionId=musha&include=data.rarity
+
+This request will return all operators in the "Yan" or the "Rhodes Island" faction.
+
+> [https://awedtan.ca/api/operator/searchv2?filter={"or":[{"factions.nationPower.powerId":"yan"},{"factions.nationPower.powerId":"rhodes"}]}](https://awedtan.ca/api/operator/searchv2?filter={"or":[{"factions.nationPower.powerId":"yan"},{"factions.nationPower.powerId":"rhodes"}]})
 
 The following two requests are functionally identical. They exclude the `termId` and `termName` fields from the `Definition` object, leaving only its `description` field.
 
