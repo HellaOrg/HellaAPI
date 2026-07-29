@@ -666,7 +666,7 @@ async function loadFactions() {
 
     const dataArr: PreDoc[] = Object.values(handbookTeamTable).map(faction => {
         G.factionDict[faction.powerId] = faction;
-        return { keys: [faction.powerId], value: faction }
+        return { keys: [faction.powerId, faction.powerName.toLowerCase(), faction.powerId.toLowerCase()], value: faction }
     });
 
     await loadCollection(collection, dataArr, T.FactionZod);
