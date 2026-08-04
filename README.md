@@ -60,6 +60,7 @@ Supported filter operators are:
 | `<=`, `le`  | Less than or equal
 | `in`        | Equal to any value in an array
 | `nin`       | Not equal to any value in an array
+| `regex`     | Match a regular expression pattern
 | `and`       | All subfilters must match
 | `or`        | Any subfilter must match
 | `nor`       | No subfilter may match
@@ -67,6 +68,12 @@ Supported filter operators are:
 Logical operators `and`, `or`, and `nor` allow combining or negating multiple nested subfilters:
 
 > api/{resource}/searchv2?filter={"or":[{"field1": "value1"}, {"field2": {">=": "value2"}}]}
+
+The `regex` operator accepts either a plain string pattern or an object with `pattern` and `options` fields:
+
+> api/{resource}/searchv2?filter={"field1":{"regex":"val.*e1"}}
+
+> api/{resource}/searchv2?filter={"field1":{"regex":{"pattern":"val.*e1","options":"i"}}}
 
 ### Additional Parameters
 

@@ -1,5 +1,11 @@
 import { Filter, FindOptions } from 'mongodb';
+import safeRegex from 'safe-regex2';
 import getDb from './db';
+
+export class BadRequestError extends Error {}
+
+export class ValidationError extends BadRequestError {}
+export class ParseError extends BadRequestError {}
 
 export async function getCollections() {
     const collections = await (await getDb()).collections();
@@ -93,8 +99,30 @@ function buildSearchV2Filter(filter: Record<string, any>): Record<string, any> {
             if (condition && typeof condition === 'object' && !Array.isArray(condition)) {
                 const mongoCondition: Record<string, any> = {};
                 for (const [operator, value] of Object.entries(condition)) {
-                    const mapped = operatorMap[operator];
-                    if (mapped) mongoCondition[mapped] = value;
+                    if (operator === 'regex') {
+                        let pattern: string;
+                        let options: string | undefined;
+                        if (typeof value === 'string') {
+                            pattern = value;
+                        } else if (value && typeof value === 'object') {
+                            const obj = value as Record<string, any>;
+                            pattern = obj.pattern;
+                            options = obj.options;
+                        } else {
+                            continue;
+                        }
+                        if (typeof pattern !== 'string') {
+                            throw new ValidationError('Invalid regex operator value');
+                        }
+                        if (!safeRegex(pattern)) {
+                            throw new ValidationError('Invalid regex pattern');
+                        }
+                        mongoCondition['$regex'] = pattern;
+                        if (options) mongoCondition['$options'] = options;
+                    } else {
+                        const mapped = operatorMap[operator];
+                        if (mapped) mongoCondition[mapped] = value;
+                    }
                 }
                 matchStage[mongoField] = mongoCondition;
             }
@@ -111,7 +139,12 @@ function buildSearchV2Filter(filter: Record<string, any>): Record<string, any> {
 // item/searchV2?filter={"data.subProfessionId":"musha"}
 export async function getSearchV2(collectionName: string, req) {
     const collection = (await getDb()).collection(collectionName);
-    const filter = JSON.parse(req.query.filter || '{}');
+    let filter: Record<string, any>;
+    try {
+        filter = JSON.parse(req.query.filter || '{}');
+    } catch {
+        throw new ParseError('Invalid filter JSON');
+    }
     const matchStage = buildSearchV2Filter(filter);
 
     const pipeline = createPipeline(req, matchStage);
@@ -153,7 +186,12 @@ function createPipeline(req, matchStage = {}) {
     pipeline.push({ $match: matchStage });
 
     if (req.query.sort) {
-        const sortParam = JSON.parse(req.query.sort);
+        let sortParam: Record<string, any>;
+        try {
+            sortParam = JSON.parse(req.query.sort);
+        } catch {
+            throw new ParseError('Invalid sort JSON');
+        }
         const sortStage = {};
 
         for (const [field, direction] of Object.entries(sortParam)) {
