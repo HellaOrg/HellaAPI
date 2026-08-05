@@ -12,20 +12,23 @@ const CheckpointType = ['APPEAR_AT_POS', 'DISAPPEAR', 'MAP_OFFSET_MOVE', 'MOVE',
 const CompleteState = ['COMPLETE', 'PASS'] as const;
 const DropType = ['ADDITIONAL', 'COMPLETE', 'CONDITION_DROP', 'NORMAL', 'ONCE', 'SPECIAL'] as const;
 const DurationType = ['AMMO', 'NONE'] as const;
+const EnemyAbilityListTextFormat = ['NORMAL', 'SILENCE', 'TITLE'] as const;
 const EnemyApplyWay = ['ALL', 'MELEE', 'NONE', 'RANGED'] as const;
+const EnemyDamageType = ['PHYSIC', 'MAGIC', 'NO_DAMAGE', 'HEAL'] as const;
+const EnemyEnemyLevel = ['NORMAL', 'ELITE', 'BOSS'] as const;
 const EnemyLevelType = ['BOSS', 'ELITE', 'NORMAL'] as const;
 const EnemyMotion = ['FLY', 'WALK'] as const;
 const EnemySpType = ['INCREASE_WHEN_ATTACK', 'INCREASE_WHEN_TAKEN_DAMAGE', 'INCREASE_WITH_TIME', 'NONE'] as const;
 const EvolvePhase = ['PHASE_0', 'PHASE_2'] as const;
 const FormulaItem = ['ADDITION'] as const;
 const FormulaType = ['F_ASC', 'F_BUILDING', 'F_DIAMOND', 'F_EVOLVE', 'F_EXP', 'F_GOLD', 'F_SKILL'] as const;
+const GachaGachaRuleType = ['ATTAIN', 'CLASSIC', 'CLASSIC_ATTAIN', 'CLASSIC_DOUBLE', 'DOUBLE', 'FESCLASSIC', 'LIMITED', 'LINKAGE', 'NORMAL', 'SINGLE', 'SPECIAL'] as const;
 const GameEventDisplayType = ['BRANCHLINE', 'MINISTORY', 'NONE', 'SIDESTORY'] as const;
 const GameEventType = ['APRIL_FOOL', 'ARCADE', 'AUTOCHESS_SEASON', 'AUTOCHESS_VERIFY1', 'BLESS_ONLY', 'BOSS_RUSH', 'CHECKIN_ACCESS', 'CHECKIN_ALL_PLAYER', 'CHECKIN_ONLY', 'CHECKIN_VS', 'COLLECTION', 'DEFAULT', 'ENEMY_DUEL', 'FLIP_ONLY', 'FLOAT_PARADE', 'GRID_GACHA', 'GRID_GACHA_V2', 'HALFIDLE_VERIFY1', 'INTERLOCK', 'LOGIN_ONLY', 'MAINLINE_BP', 'MAIN_BUFF', 'MINISTORY', 'MISSION_ONLY', 'MULTIPLAY', 'MULTIPLAY_V3', 'MULTIPLAY_VERIFY2', 'PRAY_ONLY', 'RECRUIT_ONLY', 'ROGUELIKE', 'SWITCH_ONLY', 'TEAM_QUEST', 'TYPE_ACT12SIDE', 'TYPE_ACT13SIDE', 'TYPE_ACT17D7', 'TYPE_ACT17SIDE', 'TYPE_ACT20SIDE', 'TYPE_ACT21SIDE', 'TYPE_ACT24SIDE', 'TYPE_ACT25SIDE', 'TYPE_ACT27SIDE', 'TYPE_ACT29SIDE', 'TYPE_ACT35SIDE', 'TYPE_ACT36SIDE', 'TYPE_ACT38SIDE', 'TYPE_ACT3D0', 'TYPE_ACT42D0', 'TYPE_ACT42SIDE', 'TYPE_ACT44SIDE', 'TYPE_ACT45SIDE', 'TYPE_ACT46SIDE', 'TYPE_ACT4D0', 'TYPE_ACT5D0', 'TYPE_ACT5D1', 'TYPE_ACT9D0', 'TYPE_MAINSS', 'UNIQUE_ONLY', 'VEC_BREAK', 'VEC_BREAK_V2', 'YEAR_5_GENERAL'] as const;
 const GameEventRecType = ['CANNOT_COMPLETE', 'CAN_COMPLETE', 'SPECIAL'] as const;
 const HeightType = ['HIGHLAND', 'LOWLAND'] as const;
 const ItemClassifyType = ['CONSUME', 'MATERIAL', 'NONE', 'NORMAL'] as const;
 const ItemItemType = ['ACTIVITY_COIN', 'ACTIVITY_ITEM', 'ACTIVITY_POTENTIAL', 'AP_BASE', 'AP_GAMEPLAY', 'AP_ITEM', 'AP_SUPPLY', 'CARD_EXP', 'CLASSIC_FES_PICK_TIER_5', 'CLASSIC_FES_PICK_TIER_6', 'CLASSIC_SHD', 'CLASSIC_TKT_GACHA', 'CLASSIC_TKT_GACHA_10', 'CRS_RUNE_COIN', 'CRS_SHOP_COIN', 'CRS_SHOP_COIN_V2', 'DIAMOND', 'DIAMOND_SHD', 'EMOTICON_SET', 'EPGS_COIN', 'ET_STAGE', 'EXCLUSIVE_TKT_GACHA', 'EXCLUSIVE_TKT_GACHA_10', 'EXP_PLAYER', 'EXTERMINATION_AGENT', 'FAVOR_ADD_ITEM', 'GOLD', 'HGG_SHD', 'ITEM_PACK', 'LGG_SHD', 'LIMITED_BUFF', 'LIMITED_TKT_GACHA_10', 'LINKAGE_TKT_GACHA_10', 'LMTGS_COIN', 'MATERIAL', 'MATERIAL_ISSUE_VOUCHER', 'MCARD_VOUCHER', 'MEDAL', 'NEW_PROGRESS', 'OPTIONAL_VOUCHER_PICK', 'RENAMING_CARD', 'REP_COIN', 'RETRO_COIN', 'RETURN_CREDIT', 'RETURN_PROGRESS', 'RL_COIN', 'SANDBOX_TOKEN', 'SOCIAL_PT', 'TKT_GACHA', 'TKT_GACHA_10', 'TKT_GACHA_PRSV', 'TKT_INST_FIN', 'TKT_RECRUIT', 'TKT_TRY', 'UNI_COLLECTION', 'VOUCHER_CGACHA', 'VOUCHER_ELITE_II_4', 'VOUCHER_ELITE_II_5', 'VOUCHER_ELITE_II_6', 'VOUCHER_FULL_POTENTIAL', 'VOUCHER_LEVELMAX_4', 'VOUCHER_LEVELMAX_5', 'VOUCHER_LEVELMAX_6', 'VOUCHER_MGACHA', 'VOUCHER_PICK', 'VOUCHER_SKILL_SPECIALLEVELMAX_4', 'VOUCHER_SKILL_SPECIALLEVELMAX_5', 'VOUCHER_SKILL_SPECIALLEVELMAX_6', 'VOUCHER_SKIN'] as const;
-const ItemItemTypeLegacyNumeric = [85, 86, 87, 88, 90] as const;
 const ItemRarity = ['TIER_1', 'TIER_2', 'TIER_3', 'TIER_4', 'TIER_5', 'TIER_6'] as const;
 const LevelUpCostType = ['GOLD', 'MATERIAL'] as const;
 const ModuleType = ['ADVANCED', 'INITIAL'] as const;
@@ -62,6 +65,7 @@ const StageActionType = ['ACTIVATE_PREDEFINED', 'BATTLE_EVENTS', 'DIALOG', 'DISP
 const StageDifficulty = ['FOUR_STAR', 'NORMAL', 'SIX_STAR'] as const;
 const StageDiffGroup = ['ALL', 'EASY', 'NONE', 'NORMAL', 'TOUGH'] as const;
 const StageRandomType = ['ALWAYS', 'NEVER', 'PER_DAY', 'PER_SEASON', 'PER_SETTLE_DAY'] as const;
+const StageRuneProfessionMask = ['NONE', 'PIONEER', 'WARRIOR', 'TANK', 'SNIPER', 'CASTER', 'MEDIC', 'SUPPORT', 'SPECIAL', 'TRAP'] as const;
 const StageType = ['ACTIVITY', 'CAMPAIGN', 'CLIMB_TOWER', 'DAILY', 'GUIDE', 'MAIN', 'PERMANENT', 'SPECIAL_STORY', 'SUB', 'TEMPORARY'] as const;
 const VoucherItemType = ['MATERIAL_ISSUE_VOUCHER', 'OPTIONAL_VOUCHER_PICK'] as const;
 const VoiceType = ['ALL', 'ILLUST', 'NONE'] as const;
@@ -373,7 +377,7 @@ const StageRouteZod = z.strictObject({
 const StageRune = z.strictObject({
     difficultyMask: z.union([z.string(), z.number()]),
     key: z.string(),
-    professionMask: z.union([z.enum(['NONE', 'PIONEER', 'WARRIOR', 'TANK', 'SNIPER', 'CASTER', 'MEDIC', 'SUPPORT', 'SPECIAL', 'TRAP']), z.number()]).optional(),
+    professionMask: z.union([z.enum(StageRuneProfessionMask), z.number()]).optional(),
     buildableMask: z.union([z.enum(BuildableMask), z.number()]),
     blackboard: z.array(BlackboardZod),
 });
@@ -479,8 +483,8 @@ const StageDataZod = z.strictObject({
                 palsyImmune: z.boolean().optional(),
                 attractImmune: z.boolean().optional(),
             }),
-            applyWay: z.string(),
-            motion: z.string(),
+            applyWay: z.enum(EnemyApplyWay),
+            motion: z.enum(EnemyMotion),
             enemyTags: z.array(z.string()).nullable(),
             notCountInTotal: z.boolean(),
             alias: z.null(),
@@ -488,7 +492,7 @@ const StageDataZod = z.strictObject({
             rangeRadius: z.number(),
             numOfExtraDrops: z.number(),
             viewRadius: z.number(),
-            levelType: z.string(),
+            levelType: z.enum(EnemyLevelType),
             talentBlackboard: z.array(BlackboardZod).nullable(),
             skills: z.array(EnemySkillsZod).nullable(),
             spData: EnemySpDataZod.nullable(),
@@ -592,7 +596,7 @@ export const EnemyZod = z.strictObject({
         enemyTags: z.array(z.string()).nullable(),
         sortId: z.number(),
         name: z.string(),
-        enemyLevel: z.enum(['NORMAL', 'ELITE', 'BOSS']),
+        enemyLevel: z.enum(EnemyEnemyLevel),
         description: z.string().nullable(),
         attackType: z.null(),
         ability: z.null(),
@@ -603,11 +607,11 @@ export const EnemyZod = z.strictObject({
         abilityList: z.array(
             z.strictObject({
                 text: z.string(),
-                textFormat: z.enum(['NORMAL', 'SILENCE', 'TITLE'])
+                textFormat: z.enum(EnemyAbilityListTextFormat)
             })
         ),
         linkEnemies: z.array(z.string()),
-        damageType: z.array(z.enum(['PHYSIC', 'MAGIC', 'NO_DAMAGE', 'HEAL'])),
+        damageType: z.array(z.enum(EnemyDamageType)),
         invisibleDetail: z.boolean(),
     }),
     levels: z.strictObject({
@@ -646,7 +650,7 @@ export const GachaPoolZod = z.strictObject({
         CDPrimColor: z.string().nullable(),
         CDSecColor: z.string().nullable(),
         freeBackColor: z.string().nullable().optional(),
-        gachaRuleType: z.enum(['ATTAIN', 'CLASSIC', 'CLASSIC_ATTAIN', 'CLASSIC_DOUBLE', 'DOUBLE', 'FESCLASSIC', 'LIMITED', 'LINKAGE', 'NORMAL', 'SINGLE', 'SPECIAL']),
+        gachaRuleType: z.enum(GachaGachaRuleType),
         dynMeta: z.union([
             z.strictObject({
                 chooseRuleConst: z.string(),
@@ -805,7 +809,7 @@ export const ItemZod = z.strictObject({
         obtainApproach: z.string().nullable(),
         hideInItemGet: z.boolean(),
         classifyType: z.enum(ItemClassifyType),
-        itemType: z.enum(ItemItemType).or(z.union([z.literal(85), z.literal(86), z.literal(87), z.literal(88), z.literal(90)])),
+        itemType: z.enum(ItemItemType).or(z.number()),
         stageDropList: z.array(
             z.strictObject({
                 stageId: z.string(),
