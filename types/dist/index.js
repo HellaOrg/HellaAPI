@@ -1,4 +1,69 @@
 import * as z from 'zod';
+const AppearanceStyle = ['HIGH_DIFFICULTY', 'MAIN_NORMAL', 'MAIN_PREDEFINED', 'MIST_OPS', 'SPECIAL_STORY', 'SUB', 'TRAINING'];
+const AttributeType = ['ATK', 'ATTACK_SPEED', 'COST', 'DEF', 'MAGIC_RESISTANCE', 'MAX_HP', 'RESPAWN_TIME'];
+const BlockMask = ['FLY_ONLY', 'NONE', 'WALK_ONLY'];
+const BuildableMask = ['ALL', 'MELEE', 'NONE', 'RANGED'];
+const BuildableType = ['ALL', 'MELEE', 'NONE', 'RANGED'];
+const BuffCategory = ['FUNCTION', 'OUTPUT', 'RECOVERY'];
+const BuffType = ['M_ASC', 'M_DIAMOND', 'M_EXP', 'M_GOLD', 'W_ASC', 'W_BUILDING', 'W_EVOLVE', 'W_SKILL'];
+const CardinalDirection = ['DOWN', 'LEFT', 'RIGHT', 'UP'];
+const CheckpointType = ['APPEAR_AT_POS', 'DISAPPEAR', 'MAP_OFFSET_MOVE', 'MOVE', 'PATROL_MOVE', 'WAIT_BOSSRUSH_WAVE', 'WAIT_CURRENT_FRAGMENT_TIME', 'WAIT_CURRENT_WAVE_TIME', 'WAIT_FOR_SECONDS'];
+const CompleteState = ['COMPLETE', 'PASS'];
+const DropType = ['ADDITIONAL', 'COMPLETE', 'CONDITION_DROP', 'NORMAL', 'ONCE', 'SPECIAL'];
+const DurationType = ['AMMO', 'NONE'];
+const EnemyApplyWay = ['ALL', 'MELEE', 'NONE', 'RANGED'];
+const EnemyLevelType = ['BOSS', 'ELITE', 'NORMAL'];
+const EnemyMotion = ['FLY', 'WALK'];
+const EnemySpType = ['INCREASE_WHEN_ATTACK', 'INCREASE_WHEN_TAKEN_DAMAGE', 'INCREASE_WITH_TIME', 'NONE'];
+const EvolvePhase = ['PHASE_0', 'PHASE_2'];
+const FormulaItem = ['ADDITION'];
+const FormulaType = ['F_ASC', 'F_BUILDING', 'F_DIAMOND', 'F_EVOLVE', 'F_EXP', 'F_GOLD', 'F_SKILL'];
+const GameEventDisplayType = ['BRANCHLINE', 'MINISTORY', 'NONE', 'SIDESTORY'];
+const GameEventType = ['APRIL_FOOL', 'ARCADE', 'AUTOCHESS_SEASON', 'AUTOCHESS_VERIFY1', 'BLESS_ONLY', 'BOSS_RUSH', 'CHECKIN_ACCESS', 'CHECKIN_ALL_PLAYER', 'CHECKIN_ONLY', 'CHECKIN_VS', 'COLLECTION', 'DEFAULT', 'ENEMY_DUEL', 'FLIP_ONLY', 'FLOAT_PARADE', 'GRID_GACHA', 'GRID_GACHA_V2', 'HALFIDLE_VERIFY1', 'INTERLOCK', 'LOGIN_ONLY', 'MAINLINE_BP', 'MAIN_BUFF', 'MINISTORY', 'MISSION_ONLY', 'MULTIPLAY', 'MULTIPLAY_V3', 'MULTIPLAY_VERIFY2', 'PRAY_ONLY', 'RECRUIT_ONLY', 'ROGUELIKE', 'SWITCH_ONLY', 'TEAM_QUEST', 'TYPE_ACT12SIDE', 'TYPE_ACT13SIDE', 'TYPE_ACT17D7', 'TYPE_ACT17SIDE', 'TYPE_ACT20SIDE', 'TYPE_ACT21SIDE', 'TYPE_ACT24SIDE', 'TYPE_ACT25SIDE', 'TYPE_ACT27SIDE', 'TYPE_ACT29SIDE', 'TYPE_ACT35SIDE', 'TYPE_ACT36SIDE', 'TYPE_ACT38SIDE', 'TYPE_ACT3D0', 'TYPE_ACT42D0', 'TYPE_ACT42SIDE', 'TYPE_ACT44SIDE', 'TYPE_ACT45SIDE', 'TYPE_ACT46SIDE', 'TYPE_ACT4D0', 'TYPE_ACT5D0', 'TYPE_ACT5D1', 'TYPE_ACT9D0', 'TYPE_MAINSS', 'UNIQUE_ONLY', 'VEC_BREAK', 'VEC_BREAK_V2', 'YEAR_5_GENERAL'];
+const GameEventRecType = ['CANNOT_COMPLETE', 'CAN_COMPLETE', 'SPECIAL'];
+const HeightType = ['HIGHLAND', 'LOWLAND'];
+const ItemClassifyType = ['CONSUME', 'MATERIAL', 'NONE', 'NORMAL'];
+const ItemItemType = ['ACTIVITY_COIN', 'ACTIVITY_ITEM', 'ACTIVITY_POTENTIAL', 'AP_BASE', 'AP_GAMEPLAY', 'AP_ITEM', 'AP_SUPPLY', 'CARD_EXP', 'CLASSIC_FES_PICK_TIER_5', 'CLASSIC_FES_PICK_TIER_6', 'CLASSIC_SHD', 'CLASSIC_TKT_GACHA', 'CLASSIC_TKT_GACHA_10', 'CRS_RUNE_COIN', 'CRS_SHOP_COIN', 'CRS_SHOP_COIN_V2', 'DIAMOND', 'DIAMOND_SHD', 'EMOTICON_SET', 'EPGS_COIN', 'ET_STAGE', 'EXCLUSIVE_TKT_GACHA', 'EXCLUSIVE_TKT_GACHA_10', 'EXP_PLAYER', 'EXTERMINATION_AGENT', 'FAVOR_ADD_ITEM', 'GOLD', 'HGG_SHD', 'ITEM_PACK', 'LGG_SHD', 'LIMITED_BUFF', 'LIMITED_TKT_GACHA_10', 'LINKAGE_TKT_GACHA_10', 'LMTGS_COIN', 'MATERIAL', 'MATERIAL_ISSUE_VOUCHER', 'MCARD_VOUCHER', 'MEDAL', 'NEW_PROGRESS', 'OPTIONAL_VOUCHER_PICK', 'RENAMING_CARD', 'REP_COIN', 'RETRO_COIN', 'RETURN_CREDIT', 'RETURN_PROGRESS', 'RL_COIN', 'SANDBOX_TOKEN', 'SOCIAL_PT', 'TKT_GACHA', 'TKT_GACHA_10', 'TKT_GACHA_PRSV', 'TKT_INST_FIN', 'TKT_RECRUIT', 'TKT_TRY', 'UNI_COLLECTION', 'VOUCHER_CGACHA', 'VOUCHER_ELITE_II_4', 'VOUCHER_ELITE_II_5', 'VOUCHER_ELITE_II_6', 'VOUCHER_FULL_POTENTIAL', 'VOUCHER_LEVELMAX_4', 'VOUCHER_LEVELMAX_5', 'VOUCHER_LEVELMAX_6', 'VOUCHER_MGACHA', 'VOUCHER_PICK', 'VOUCHER_SKILL_SPECIALLEVELMAX_4', 'VOUCHER_SKILL_SPECIALLEVELMAX_5', 'VOUCHER_SKILL_SPECIALLEVELMAX_6', 'VOUCHER_SKIN'];
+const ItemItemTypeLegacyNumeric = [85, 86, 87, 88, 90];
+const ItemRarity = ['TIER_1', 'TIER_2', 'TIER_3', 'TIER_4', 'TIER_5', 'TIER_6'];
+const LevelUpCostType = ['GOLD', 'MATERIAL'];
+const ModuleType = ['ADVANCED', 'INITIAL'];
+const MotionMode = ['E_NUM', 'FLY', 'WALK'];
+const OccPer = ['ALMOST', 'ALWAYS', 'OFTEN', 'SOMETIMES', 'USUAL'];
+const OperatorPhase = ['PHASE_0', 'PHASE_1', 'PHASE_2'];
+const OperatorPosition = ['ALL', 'MELEE', 'NONE', 'RANGED'];
+const OperatorProfession = ['CASTER', 'MEDIC', 'PIONEER', 'SNIPER', 'SPECIAL', 'SUPPORT', 'TANK', 'TOKEN', 'TRAP', 'WARRIOR'];
+const ParadoxUnlockType = ['AWAKE'];
+const PassableMask = ['ALL', 'FLY_ONLY', 'NONE'];
+const PerformanceStageFlag = ['NORMAL_STAGE', 'PERFORMANCE_STAGE'];
+const PlayerSideMask = ['ALL', 'NONE', 'SIDE_B'];
+const PotentialRankType = ['BUFF', 'CUSTOM'];
+const ProgressType = ['ONCE', 'PROGRESS'];
+const Rarity = ['TIER_1', 'TIER_2', 'TIER_3', 'TIER_4', 'TIER_5', 'TIER_6'];
+const RefreshType = ['ALWAYS', 'NEVER', 'PER_DAY', 'PER_SEASON', 'PER_SETTLE_DAY'];
+const RewardType = ['ACTIVITY_ITEM', 'CARD_EXP', 'CHAR', 'CHARM', 'DIAMOND', 'ET_STAGE', 'FURN', 'GOLD', 'MATERIAL', 'PLOT_ITEM', 'TKT_RECRUIT'];
+const RoomType = ['CONTROL', 'DORMITORY', 'HIRE', 'MANUFACTURE', 'MEETING', 'POWER', 'TRADING', 'TRAINING', 'WORKSHOP'];
+const RogueRelicSubType = ['CURSE', 'NONE', 'RED_CAPSULE', 'SECRET', 'SINGLE_RAND_FREE', 'TEMP_TICKET', 'TOTEM_LOWER', 'TOTEM_UPPER'];
+const RogueRelicType = ['ABSTRACT_DISASTER', 'ACTIVE_TOOL', 'BIGPILL', 'CHAOS', 'CHAOS_LEVEL', 'CHAOS_PURIFY', 'COPPER', 'COPPER_BUFF', 'COPPER_DRAW_NUM', 'CUSTOM_TICKET', 'DICE_POINT', 'DICE_TYPE', 'DISASTER', 'DISASTER_TYPE', 'DIVINATION_KIT', 'EXP', 'EXPLORE_TOOL', 'FEATURE', 'FRAGMENT', 'GOLD', 'HP', 'HPMAX', 'KEY_POINT', 'LOCKED_TREASURE', 'MAX_WEIGHT', 'PILL', 'POPULATION', 'RECRUIT_TICKET', 'RELIC', 'SAN_POINT', 'SHIELD', 'SPECIAL_ZONE_AP', 'SQUAD_CAPACITY', 'STASH_RECRUIT_LIMIT', 'TOTEM', 'TOTEM_EFFECT', 'UPGRADE_TICKET', 'VISION', 'WRATH'];
+const RogueStageDifficulty = ['FOUR_STAR', 'NORMAL'];
+const RogueVariationType = ['BAT', 'MAP', 'RES'];
+const SandboxCraftType = ['BASE_BUILDING', 'COMBAT_BUILDING', 'TACTICAL'];
+const SandboxDrinkType = ['FOOD', 'FOODMAT'];
+const SandboxFoodAttribute = ['ATTACK', 'ENHANCED', 'NONE', 'SURVIVE'];
+const SandboxFoodEffectType = ['ATTACK', 'COOLDOWN', 'COST', 'SKILL_POINT', 'SPECIAL', 'SURVIVE'];
+const SandboxFoodVariantType = ['ALPHA', 'BETA', 'GAMMA', 'NONE'];
+const SandboxItemType = ['ANIMAL', 'BUILDING', 'BUILDINGMAT', 'COIN', 'CRAFT', 'FOOD', 'FOODMAT', 'INSECT', 'PLACEHOLDER', 'SLUGITEM', 'SPECIALMAT', 'STAMINAPOT', 'TACTICAL'];
+const SandboxWeatherType = ['DESERT', 'NORMAL', 'RAINFOREST', 'VOLCANO'];
+const SkillSpType = ['INCREASE_WHEN_ATTACK', 'INCREASE_WHEN_TAKEN_DAMAGE', 'INCREASE_WITH_TIME', 'NONE'];
+const SkillType = ['AUTO', 'MANUAL', 'PASSIVE'];
+const SpTargetType = ['NONE', 'ROGUE'];
+const StageActionType = ['ACTIVATE_PREDEFINED', 'BATTLE_EVENTS', 'DIALOG', 'DISPLAY_ENEMY_INFO', 'EMPTY', 'PLAY_BGM', 'PLAY_OPERA', 'PREVIEW_CURSOR', 'SPAWN', 'STORY', 'TRIGGER_PREDEFINED', 'WITHDRAW_PREDEFINED'];
+const StageDifficulty = ['FOUR_STAR', 'NORMAL', 'SIX_STAR'];
+const StageDiffGroup = ['ALL', 'EASY', 'NONE', 'NORMAL', 'TOUGH'];
+const StageRandomType = ['ALWAYS', 'NEVER', 'PER_DAY', 'PER_SEASON', 'PER_SETTLE_DAY'];
+const StageType = ['ACTIVITY', 'CAMPAIGN', 'CLIMB_TOWER', 'DAILY', 'GUIDE', 'MAIN', 'PERMANENT', 'SPECIAL_STORY', 'SUB', 'TEMPORARY'];
+const VoucherItemType = ['MATERIAL_ISSUE_VOUCHER', 'OPTIONAL_VOUCHER_PICK'];
+const VoiceType = ['ALL', 'ILLUST', 'NONE'];
 const BlackboardZod = z.strictObject({
     key: z.string().nullable(),
     value: z.number().nullable().optional(),
@@ -92,7 +157,7 @@ const EnemySkillsZod = z.strictObject({
     blackboard: z.array(BlackboardZod).nullable(),
 });
 const EnemySpDataZod = z.strictObject({
-    spType: z.string(),
+    spType: z.enum(EnemySpType),
     maxSp: z.number(),
     initSp: z.number(),
     increment: z.number(),
@@ -118,7 +183,7 @@ const EnemyDataZod = z.strictObject({
 const LevelUpCostZod = z.strictObject({
     id: z.string(),
     count: z.number(),
-    type: z.string(),
+    type: z.enum(LevelUpCostType),
 });
 const ManufactFormulaZod = z.strictObject({
     formulaId: z.string(),
@@ -126,8 +191,8 @@ const ManufactFormulaZod = z.strictObject({
     count: z.number(),
     weight: z.number(),
     costPoint: z.number(),
-    formulaType: z.string(),
-    buffType: z.string(),
+    formulaType: z.enum(FormulaType),
+    buffType: z.enum(BuffType),
     costs: z.array(LevelUpCostZod),
     requireRooms: z.array(z.strictObject({
         roomId: z.string(),
@@ -147,8 +212,8 @@ const WorkshopFormulaZod = z.strictObject({
     count: z.number(),
     goldCost: z.number(),
     apCost: z.number(),
-    formulaType: z.string(),
-    buffType: z.string(),
+    formulaType: z.enum(FormulaType),
+    buffType: z.enum(BuffType),
     extraOutcomeRate: z.number(),
     extraOutcomeGroup: z.array(z.strictObject({
         weight: z.number(),
@@ -167,7 +232,7 @@ const WorkshopFormulaZod = z.strictObject({
     })),
 });
 const OperatorUnlockCondZod = z.strictObject({
-    phase: z.union([z.string(), z.number()]),
+    phase: z.union([z.enum(OperatorPhase), z.number()]),
     level: z.number(),
 });
 const LevelUpCostCondZod = z.strictObject({
@@ -195,7 +260,7 @@ const StageCardZod = z.strictObject({
     inst: z.strictObject({
         characterKey: z.string(),
         level: z.number(),
-        phase: z.union([z.string(), z.number()]).optional(),
+        phase: z.union([z.enum(OperatorPhase), z.number()]).optional(),
         favorPoint: z.number(),
         potentialRank: z.number(),
     }),
@@ -210,7 +275,7 @@ const StageInstZod = StageCardZod.extend({
         row: z.number(),
         col: z.number(),
     }),
-    direction: z.union([z.string(), z.number()]).optional(),
+    direction: z.union([z.enum(CardinalDirection), z.number()]).optional(),
 });
 const StageDefinesZod = z.strictObject({
     characterInsts: z.array(StageInstZod),
@@ -225,10 +290,10 @@ const StageEffectZod = z.strictObject({
         y: z.number(),
         z: z.number(),
     }),
-    direction: z.union([z.string(), z.number()]),
+    direction: z.union([z.enum(CardinalDirection), z.number()]),
 });
 const StageActionZod = z.strictObject({
-    actionType: z.union([z.string(), z.number()]),
+    actionType: z.union([z.enum(StageActionType), z.number()]),
     managedByScheduler: z.boolean(),
     key: z.string(),
     count: z.number(),
@@ -242,8 +307,8 @@ const StageActionZod = z.strictObject({
     hiddenGroup: z.string().nullable(),
     randomSpawnGroupKey: z.string().nullable().optional(),
     randomSpawnGroupPackKey: z.string().nullable().optional(),
-    randomType: z.union([z.string(), z.number()]).optional(),
-    refreshType: z.string().optional(),
+    randomType: z.union([z.enum(StageRandomType), z.number()]).optional(),
+    refreshType: z.union([z.enum(RefreshType), z.number()]).optional(),
     weight: z.number().optional(),
     dontBlockWave: z.boolean().optional(),
     isValid: z.boolean().optional(),
@@ -252,7 +317,7 @@ const StageActionZod = z.strictObject({
     forceBlockWaveInBranch: z.boolean().optional(),
 });
 const StageRouteZod = z.strictObject({
-    motionMode: z.union([z.string(), z.number()]),
+    motionMode: z.union([z.enum(MotionMode), z.number()]),
     startPosition: z.strictObject({
         row: z.number(),
         col: z.number(),
@@ -270,7 +335,7 @@ const StageRouteZod = z.strictObject({
         y: z.number(),
     }),
     checkpoints: z.array(z.strictObject({
-        type: z.union([z.string(), z.number()]),
+        type: z.union([z.enum(CheckpointType), z.number()]),
         time: z.number(),
         position: z.strictObject({
             row: z.number(),
@@ -291,8 +356,8 @@ const StageRouteZod = z.strictObject({
 const StageRune = z.strictObject({
     difficultyMask: z.union([z.string(), z.number()]),
     key: z.string(),
-    professionMask: z.union([z.string(), z.number()]).optional(),
-    buildableMask: z.union([z.string(), z.number()]),
+    professionMask: z.union([z.enum(['NONE', 'PIONEER', 'WARRIOR', 'TANK', 'SNIPER', 'CASTER', 'MEDIC', 'SUPPORT', 'SPECIAL', 'TRAP']), z.number()]).optional(),
+    buildableMask: z.union([z.enum(BuildableMask), z.number()]),
     blackboard: z.array(BlackboardZod),
 });
 const StageDataZod = z.strictObject({
@@ -320,10 +385,10 @@ const StageDataZod = z.strictObject({
         map: z.array(z.array(z.number())),
         tiles: z.array(z.strictObject({
             tileKey: z.string(),
-            heightType: z.union([z.string(), z.number()]),
-            buildableType: z.union([z.string(), z.number()]),
-            passableMask: z.union([z.string(), z.number()]),
-            playerSideMask: z.union([z.string(), z.number()]).optional(),
+            heightType: z.union([z.enum(HeightType), z.number()]),
+            buildableType: z.union([z.enum(BuildableType), z.number()]),
+            passableMask: z.union([z.enum(PassableMask), z.number()]),
+            playerSideMask: z.union([z.enum(PlayerSideMask), z.number()]).optional(),
             blackboard: z.array(BlackboardZod).nullable(),
             effects: z.array(StageEffectZod).nullable(),
         })),
@@ -332,8 +397,8 @@ const StageDataZod = z.strictObject({
                 row: z.number(),
                 col: z.number(),
             }),
-            direction: z.union([z.string(), z.number()]),
-            blockMask: z.union([z.string(), z.number()]),
+            direction: z.union([z.enum(CardinalDirection), z.number()]),
+            blockMask: z.union([z.enum(BlockMask), z.number()]),
         })).nullable(),
         tags: z.array(z.string()).nullable(),
         effects: z.array(StageEffectZod).nullable(),
@@ -450,8 +515,8 @@ export const BaseZod = z.strictObject({
     sortId: z.number(),
     buffColor: z.string(),
     textColor: z.string(),
-    buffCategory: z.string(),
-    roomType: z.string(),
+    buffCategory: z.enum(BuffCategory),
+    roomType: z.enum(RoomType),
     description: z.string(),
 });
 export const CCStageLegacyZod = z.strictObject({
@@ -468,7 +533,7 @@ export const CCStageZod = z.strictObject({
         stageId: z.string(),
         mapId: z.string(),
         levelId: z.string(),
-        stageType: z.string(),
+        stageType: z.enum(StageType),
         code: z.string(),
         name: z.string(),
         loadingPicId: z.string(),
@@ -642,8 +707,8 @@ export const GachaPoolZod = z.strictObject({
 });
 export const GameEventZod = z.strictObject({
     id: z.string(),
-    type: z.union([z.string(), z.number()]),
-    displayType: z.string(),
+    type: z.enum(GameEventType),
+    displayType: z.enum(GameEventDisplayType),
     name: z.string(),
     startTime: z.number(),
     endTime: z.number(),
@@ -656,7 +721,7 @@ export const GameEventZod = z.strictObject({
     isReplicate: z.boolean(),
     needFixedSync: z.boolean(),
     trapDomainId: z.string().nullable(),
-    recType: z.string().nullable(),
+    recType: z.enum(GameEventRecType).nullable(),
     isPageEntry: z.boolean(),
     isMagnify: z.boolean(),
     picGroup: z.array(z.strictObject({
@@ -688,7 +753,7 @@ export const ItemZod = z.strictObject({
         itemId: z.string(),
         name: z.string(),
         description: z.string().nullable(),
-        rarity: z.string(),
+        rarity: z.enum(ItemRarity),
         iconId: z.string(),
         overrideBkg: z.null(),
         stackIconId: z.string().nullable(),
@@ -696,11 +761,11 @@ export const ItemZod = z.strictObject({
         usage: z.string().nullable(),
         obtainApproach: z.string().nullable(),
         hideInItemGet: z.boolean(),
-        classifyType: z.string(),
-        itemType: z.union([z.string(), z.number()]),
+        classifyType: z.enum(ItemClassifyType),
+        itemType: z.enum(ItemItemType).or(z.union([z.literal(85), z.literal(86), z.literal(87), z.literal(88), z.literal(90)])),
         stageDropList: z.array(z.strictObject({
             stageId: z.string(),
-            occPer: z.string(),
+            occPer: z.enum(OccPer),
         })),
         buildingProductList: z.array(z.strictObject({
             roomType: z.string(),
@@ -708,7 +773,7 @@ export const ItemZod = z.strictObject({
         })),
         voucherRelateList: z.array(z.strictObject({
             voucherId: z.string(),
-            voucherItemType: z.string(),
+            voucherItemType: z.enum(VoucherItemType),
         })).nullable(),
     }),
     formula: z.union([ManufactFormulaZod, WorkshopFormulaZod]).nullable(),
@@ -723,8 +788,8 @@ export const ModuleZod = z.strictObject({
         typeName1: z.string(),
         typeName2: z.string().nullable(),
         equipShiningColor: z.string(),
-        showEvolvePhase: z.string(),
-        unlockEvolvePhase: z.string(),
+        showEvolvePhase: z.enum(EvolvePhase),
+        unlockEvolvePhase: z.enum(EvolvePhase),
         charId: z.string(),
         tmplId: z.string().nullable(),
         showLevel: z.number(),
@@ -737,7 +802,7 @@ export const ModuleZod = z.strictObject({
             3: z.number(),
         }).nullable(),
         itemCost: z.record(z.string(), z.array(LevelUpCostZod)).nullable(),
-        type: z.string(),
+        type: z.enum(ModuleType),
         uniEquipGetTime: z.number(),
         uniEquipShowEnd: z.number(),
         charEquipOrder: z.number(),
@@ -801,7 +866,7 @@ export const ParadoxZod = z.strictObject({
         loadingPicId: z.string(),
         description: z.string(),
         unlockParam: z.array(z.strictObject({
-            unlockType: z.string(),
+            unlockType: z.enum(ParadoxUnlockType),
             unlockParam1: z.string(),
             unlockParam2: z.string(),
             unlockParam3: z.null(),
@@ -823,8 +888,8 @@ export const RogueRelicZod = z.strictObject({
     obtainApproach: z.string(),
     iconId: z.string(),
     itemIconGroupId: z.string().nullable(),
-    type: z.string(),
-    subType: z.string(),
+    type: z.enum(RogueRelicType),
+    subType: z.enum(RogueRelicSubType),
     rarity: z.string(),
     sortId: z.number(),
     canSacrifice: z.boolean(),
@@ -845,7 +910,7 @@ export const RogueStageZod = z.strictObject({
         eliteDesc: z.string().nullable(),
         isBoss: z.number(),
         isElite: z.number(),
-        difficulty: z.string(),
+        difficulty: z.enum(RogueStageDifficulty),
         capsulePool: z.string().nullable(),
         capsuleProb: z.number(),
         vutresProb: z.array(z.number()),
@@ -858,7 +923,7 @@ export const RogueStageZod = z.strictObject({
 });
 export const RogueVariationZod = z.strictObject({
     id: z.string(),
-    type: z.string(),
+    type: z.enum(RogueVariationType),
     outerName: z.string(),
     innerName: z.string(),
     functionDesc: z.string(),
@@ -876,7 +941,7 @@ export const RogueThemeZod = z.strictObject({
 export const SandboxItemZod = z.strictObject({
     craft: z.strictObject({
         itemId: z.string(),
-        type: z.string(),
+        type: z.enum(SandboxCraftType),
         buildingUnlockDesc: z.string(),
         materialItems: z.record(z.string(), z.number()),
         upgradeItems: z.record(z.string(), z.number()).nullable(),
@@ -889,27 +954,27 @@ export const SandboxItemZod = z.strictObject({
     }).nullable(),
     drink: z.strictObject({
         id: z.string(),
-        type: z.string(),
+        type: z.enum(SandboxDrinkType),
         count: z.number(),
     }).nullable(),
     foodMat: z.strictObject({
         id: z.string(),
         type: z.string(),
-        attribute: z.string(),
-        variantType: z.string(),
+        attribute: z.enum(SandboxFoodAttribute),
+        variantType: z.enum(SandboxFoodVariantType),
         bonusDuration: z.number(),
         buffDesc: z.string().nullable(),
         sortId: z.number(),
     }).nullable(),
     food: z.strictObject({
         id: z.string(),
-        attributes: z.array(z.string()),
+        attributes: z.array(z.enum(SandboxFoodEffectType)),
         recipes: z.array(z.strictObject({
             foodId: z.string(),
             mats: z.array(z.string()),
         })).nullable(),
         variants: z.array(z.strictObject({
-            type: z.string(),
+            type: z.enum(SandboxFoodVariantType),
             name: z.string(),
             usage: z.string(),
         })),
@@ -918,7 +983,7 @@ export const SandboxItemZod = z.strictObject({
     }).nullable(),
     data: z.strictObject({
         itemId: z.string(),
-        itemType: z.string(),
+        itemType: z.enum(SandboxItemType),
         itemName: z.string(),
         itemUsage: z.string(),
         itemDesc: z.string(),
@@ -943,7 +1008,7 @@ export const SandboxWeatherZod = z.strictObject({
     weatherId: z.string(),
     name: z.string(),
     weatherLevel: z.number(),
-    weatherType: z.string(),
+    weatherType: z.enum(SandboxWeatherType),
     weatherTypeName: z.string(),
     weatherIconId: z.string(),
     functionDesc: z.string(),
@@ -966,10 +1031,10 @@ export const SkillZod = z.strictObject({
             name: z.string(),
             rangeId: z.string().nullable(),
             description: z.string().nullable(),
-            skillType: z.string(),
-            durationType: z.string(),
+            skillType: z.enum(SkillType),
+            durationType: z.enum(DurationType),
             spData: z.strictObject({
-                spType: z.union([z.string(), z.number()]),
+                spType: z.enum(SkillSpType).or(z.literal(8)),
                 levelUpCost: z.null(),
                 maxChargeTime: z.number(),
                 spCost: z.number(),
@@ -1005,7 +1070,7 @@ export const SkinZod = z.strictObject({
     isBuySkin: z.boolean(),
     tmplId: z.string().nullable(),
     voiceId: z.string().nullable(),
-    voiceType: z.string(),
+    voiceType: z.enum(VoiceType),
     displaySkin: z.strictObject({
         skinName: z.string().nullable(),
         colorList: z.array(z.string()).nullable(),
@@ -1030,13 +1095,13 @@ export const SkinZod = z.strictObject({
 });
 export const StageZod = z.strictObject({
     excel: z.strictObject({
-        stageType: z.string(),
-        difficulty: z.string(),
-        performanceStageFlag: z.string(),
-        diffGroup: z.string(),
+        stageType: z.enum(StageType),
+        difficulty: z.enum(StageDifficulty),
+        performanceStageFlag: z.enum(PerformanceStageFlag),
+        diffGroup: z.enum(StageDiffGroup),
         unlockCondition: z.array(z.strictObject({
             stageId: z.string(),
-            completeState: z.string(),
+            completeState: z.enum(CompleteState),
         })),
         stageId: z.string(),
         levelId: z.string(),
@@ -1076,22 +1141,22 @@ export const StageZod = z.strictObject({
         isHardPredefined: z.boolean(),
         isSkillSelectablePredefined: z.boolean(),
         isStoryOnly: z.boolean(),
-        appearanceStyle: z.string(),
+        appearanceStyle: z.enum(AppearanceStyle),
         stageDropInfo: z.strictObject({
             firstPassRewards: z.null(),
             firstCompleteRewards: z.null(),
             passRewards: z.null(),
             completeRewards: z.null(),
             displayRewards: z.array(z.strictObject({
-                type: z.string(),
+                type: z.enum(RewardType),
                 id: z.string(),
-                dropType: z.string(),
+                dropType: z.enum(DropType),
             })),
             displayDetailRewards: z.array(z.strictObject({
                 occPercent: z.string(),
-                type: z.string(),
+                type: z.enum(RewardType),
                 id: z.string(),
-                dropType: z.string(),
+                dropType: z.enum(DropType),
             })),
         }),
         canUseCharm: z.boolean(),
@@ -1113,10 +1178,10 @@ export const StageZod = z.strictObject({
             rewards: z.array(z.strictObject({
                 id: z.string(),
                 count: z.number(),
-                type: z.string(),
+                type: z.enum(RewardType),
             })),
             progressInfo: z.strictObject({
-                progressType: z.string(),
+                progressType: z.enum(ProgressType),
                 descList: z.record(z.string(), z.string()),
             })
         })).nullable(),
@@ -1139,7 +1204,7 @@ export const DeployableZod = z.strictObject({
         name: z.string(),
         description: z.string().nullable(),
         sortIndex: z.number(),
-        spTargetType: z.string(),
+        spTargetType: z.enum(SpTargetType),
         spTargetId: z.string().nullable(),
         canUseGeneralPotentialItem: z.boolean(),
         canUseActivityPotentialItem: z.boolean(),
@@ -1161,7 +1226,7 @@ export const DeployableZod = z.strictObject({
         })).nullable(),
         displayNumber: z.string().nullable(),
         appellation: z.string(),
-        position: z.string(),
+        position: z.enum(OperatorPosition),
         tagList: z.array(z.string()).nullable(),
         itemUsage: z.string().nullable(),
         itemDesc: z.string().nullable(),
@@ -1169,8 +1234,8 @@ export const DeployableZod = z.strictObject({
         isNotObtainable: z.boolean(),
         isSpChar: z.boolean(),
         maxPotentialLevel: z.number(),
-        rarity: z.string(),
-        profession: z.string(),
+        rarity: z.enum(Rarity),
+        profession: z.enum(OperatorProfession),
         subProfessionId: z.string(),
         trait: z.strictObject({
             candidates: z.array(z.strictObject({
@@ -1187,7 +1252,7 @@ export const DeployableZod = z.strictObject({
             rangeId: z.string().nullable(),
             maxLevel: z.number(),
             attributesKeyFrames: z.array(AttributesKeyFrameZod),
-            evolveCost: z.union([z.array(LevelUpCostZod), z.null()]),
+            evolveCost: z.array(LevelUpCostZod).nullable(),
         })),
         skills: z.array(DeploySkillZod),
         displayTokenDict: z.record(z.boolean()).nullable(),
@@ -1205,7 +1270,7 @@ export const DeployableZod = z.strictObject({
             })).nullable(),
         })).nullable(),
         potentialRanks: z.array(z.strictObject({
-            type: z.string(),
+            type: z.enum(PotentialRankType),
             description: z.string(),
             buff: z.strictObject({
                 attributes: z.strictObject({
@@ -1215,8 +1280,8 @@ export const DeployableZod = z.strictObject({
                     abnormalCombos: z.null(),
                     abnormalComboImmunes: z.null(),
                     attributeModifiers: z.array(z.strictObject({
-                        attributeType: z.string(),
-                        formulaItem: z.string(),
+                        attributeType: z.enum(AttributeType),
+                        formulaItem: z.enum(FormulaItem),
                         value: z.number(),
                         loadFromBlackboard: z.boolean(),
                         fetchBaseValueFromSourceEntity: z.boolean(),
