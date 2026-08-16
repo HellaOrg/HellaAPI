@@ -34193,7 +34193,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         CDPrimColor: z.ZodNullable<z.ZodString>;
         CDSecColor: z.ZodNullable<z.ZodString>;
         freeBackColor: z.ZodOptional<z.ZodNullable<z.ZodString>>;
-        gachaRuleType: z.ZodEnum<["ATTAIN", "CLASSIC", "CLASSIC_ATTAIN", "CLASSIC_DOUBLE", "DOUBLE", "FESCLASSIC", "LIMITED", "LINKAGE", "NORMAL", "SINGLE", "SPECIAL"]>;
+        gachaRuleType: z.ZodUnion<[z.ZodEnum<["ATTAIN", "CLASSIC", "CLASSIC_ATTAIN", "CLASSIC_DOUBLE", "DOUBLE", "FESCLASSIC", "LIMITED", "LINKAGE", "NORMAL", "SINGLE", "SPECIAL"]>, z.ZodNumber]>;
         dynMeta: z.ZodNullable<z.ZodUnion<[z.ZodObject<{
             chooseRuleConst: z.ZodString;
             homeDescConst: z.ZodString;
@@ -34319,7 +34319,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -34400,7 +34400,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -34799,7 +34799,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -34930,7 +34930,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -90573,7 +90573,9 @@ export declare const SkinZod: z.ZodObject<{
     dynIllustId: z.ZodNullable<z.ZodString>;
     spDynIllustId: z.ZodNullable<z.ZodString>;
     avatarId: z.ZodString;
+    spAvatarId: z.ZodNullable<z.ZodString>;
     portraitId: z.ZodNullable<z.ZodString>;
+    spPortraitId: z.ZodNullable<z.ZodString>;
     dynPortraitId: z.ZodNullable<z.ZodString>;
     dynEntranceId: z.ZodNullable<z.ZodString>;
     buildingId: z.ZodNullable<z.ZodString>;
@@ -90665,7 +90667,9 @@ export declare const SkinZod: z.ZodObject<{
     dynIllustId: string | null;
     spDynIllustId: string | null;
     avatarId: string;
+    spAvatarId: string | null;
     portraitId: string | null;
+    spPortraitId: string | null;
     dynPortraitId: string | null;
     dynEntranceId: string | null;
     buildingId: string | null;
@@ -90710,7 +90714,9 @@ export declare const SkinZod: z.ZodObject<{
     dynIllustId: string | null;
     spDynIllustId: string | null;
     avatarId: string;
+    spAvatarId: string | null;
     portraitId: string | null;
+    spPortraitId: string | null;
     dynPortraitId: string | null;
     dynEntranceId: string | null;
     buildingId: string | null;
@@ -101064,7 +101070,9 @@ export declare const DeployableZod: z.ZodObject<{
         dynIllustId: z.ZodNullable<z.ZodString>;
         spDynIllustId: z.ZodNullable<z.ZodString>;
         avatarId: z.ZodString;
+        spAvatarId: z.ZodNullable<z.ZodString>;
         portraitId: z.ZodNullable<z.ZodString>;
+        spPortraitId: z.ZodNullable<z.ZodString>;
         dynPortraitId: z.ZodNullable<z.ZodString>;
         dynEntranceId: z.ZodNullable<z.ZodString>;
         buildingId: z.ZodNullable<z.ZodString>;
@@ -101156,7 +101164,9 @@ export declare const DeployableZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -101201,7 +101211,9 @@ export declare const DeployableZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -101541,7 +101553,9 @@ export declare const DeployableZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -101881,7 +101895,9 @@ export declare const DeployableZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -103775,7 +103791,9 @@ export declare const OperatorZod: z.ZodObject<{
         dynIllustId: z.ZodNullable<z.ZodString>;
         spDynIllustId: z.ZodNullable<z.ZodString>;
         avatarId: z.ZodString;
+        spAvatarId: z.ZodNullable<z.ZodString>;
         portraitId: z.ZodNullable<z.ZodString>;
+        spPortraitId: z.ZodNullable<z.ZodString>;
         dynPortraitId: z.ZodNullable<z.ZodString>;
         dynEntranceId: z.ZodNullable<z.ZodString>;
         buildingId: z.ZodNullable<z.ZodString>;
@@ -103867,7 +103885,9 @@ export declare const OperatorZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -103912,7 +103932,9 @@ export declare const OperatorZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -105906,7 +105928,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: z.ZodNullable<z.ZodString>;
             spDynIllustId: z.ZodNullable<z.ZodString>;
             avatarId: z.ZodString;
+            spAvatarId: z.ZodNullable<z.ZodString>;
             portraitId: z.ZodNullable<z.ZodString>;
+            spPortraitId: z.ZodNullable<z.ZodString>;
             dynPortraitId: z.ZodNullable<z.ZodString>;
             dynEntranceId: z.ZodNullable<z.ZodString>;
             buildingId: z.ZodNullable<z.ZodString>;
@@ -105998,7 +106022,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: string | null;
             spDynIllustId: string | null;
             avatarId: string;
+            spAvatarId: string | null;
             portraitId: string | null;
+            spPortraitId: string | null;
             dynPortraitId: string | null;
             dynEntranceId: string | null;
             buildingId: string | null;
@@ -106043,7 +106069,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: string | null;
             spDynIllustId: string | null;
             avatarId: string;
+            spAvatarId: string | null;
             portraitId: string | null;
+            spPortraitId: string | null;
             dynPortraitId: string | null;
             dynEntranceId: string | null;
             buildingId: string | null;
@@ -106383,7 +106411,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: string | null;
             spDynIllustId: string | null;
             avatarId: string;
+            spAvatarId: string | null;
             portraitId: string | null;
+            spPortraitId: string | null;
             dynPortraitId: string | null;
             dynEntranceId: string | null;
             buildingId: string | null;
@@ -106723,7 +106753,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: string | null;
             spDynIllustId: string | null;
             avatarId: string;
+            spAvatarId: string | null;
             portraitId: string | null;
+            spPortraitId: string | null;
             dynPortraitId: string | null;
             dynEntranceId: string | null;
             buildingId: string | null;
@@ -115976,7 +116008,9 @@ export declare const OperatorZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -116337,7 +116371,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: string | null;
             spDynIllustId: string | null;
             avatarId: string;
+            spAvatarId: string | null;
             portraitId: string | null;
+            spPortraitId: string | null;
             dynPortraitId: string | null;
             dynEntranceId: string | null;
             buildingId: string | null;
@@ -117604,7 +117640,9 @@ export declare const OperatorZod: z.ZodObject<{
         dynIllustId: string | null;
         spDynIllustId: string | null;
         avatarId: string;
+        spAvatarId: string | null;
         portraitId: string | null;
+        spPortraitId: string | null;
         dynPortraitId: string | null;
         dynEntranceId: string | null;
         buildingId: string | null;
@@ -117965,7 +118003,9 @@ export declare const OperatorZod: z.ZodObject<{
             dynIllustId: string | null;
             spDynIllustId: string | null;
             avatarId: string;
+            spAvatarId: string | null;
             portraitId: string | null;
+            spPortraitId: string | null;
             dynPortraitId: string | null;
             dynEntranceId: string | null;
             buildingId: string | null;

@@ -615,7 +615,7 @@ export const GachaPoolZod = z.strictObject({
         CDPrimColor: z.string().nullable(),
         CDSecColor: z.string().nullable(),
         freeBackColor: z.string().nullable().optional(),
-        gachaRuleType: z.enum(GachaGachaRuleType),
+        gachaRuleType: z.union([z.enum(GachaGachaRuleType), z.number()]),
         dynMeta: z.union([
             z.strictObject({
                 chooseRuleConst: z.string(),
@@ -1063,7 +1063,9 @@ export const SkinZod = z.strictObject({
     dynIllustId: z.string().nullable(),
     spDynIllustId: z.string().nullable(),
     avatarId: z.string(),
+    spAvatarId: z.string().nullable(),
     portraitId: z.string().nullable(),
+    spPortraitId: z.string().nullable(),
     dynPortraitId: z.string().nullable(),
     dynEntranceId: z.string().nullable(),
     buildingId: z.string().nullable(),
