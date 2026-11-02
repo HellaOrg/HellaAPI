@@ -1086,6 +1086,173 @@ export const SandboxActZod = z.strictObject({
     weatherDict: z.record(z.string(), SandboxWeatherZod),
     stageDict: z.record(z.string(), SandboxStageZod),
 });
+const SandboxV3RuneZod = z.strictObject({
+    id: z.string(),
+    points: z.number(),
+    mutexGroupKey: z.null(),
+    description: z.string(),
+    runes: z.array(
+        z.strictObject({
+            key: z.string(),
+            selector: z.strictObject({
+                professionMask: z.number(),
+                buildableMask: z.string(),
+                playerSideMask: z.string(),
+                sideType: z.string(),
+                charIdFilter: z.null(),
+                charIdExcludeFilter: z.null(),
+                enemyIdFilter: z.null(),
+                enemyIdExcludeFilter: z.null(),
+                enemyLevelTypeFilter: z.null(),
+                enemyActionHiddenGroupFilter: z.null(),
+                skillIdFilter: z.null(),
+                tileKeyFilter: z.null(),
+                groupTagFilter: z.null(),
+                filterTagFilter: z.null(),
+                filterTagExcludeFilter: z.null(),
+                subProfessionExcludeFilter: z.null(),
+                mapTagFilter: z.null(),
+                heightTypeMask: z.string()
+            }),
+            blackboard: z.array(BlackboardZod)
+        })
+    )
+});
+export const SandboxV3ItemZod = z.strictObject({
+    extra: z.strictObject({
+        itemId: z.string(),
+        itemType: z.string(),
+        trapCfgId: z.string(),
+        recipeCfgId: z.string(),
+        relicCfgId: z.string(),
+        itemRarity: z.number(),
+        itemSortId1: z.number(),
+        itemSortId2: z.number(),
+        isBagPreview: z.boolean()
+    }).nullable(),
+    cook: z.strictObject({
+        itemId: z.string(),
+        attrList: z.array(z.string()),
+        mainMatList: z.array(z.string()),
+        itemUsage: z.string(),
+        itemName: z.string(),
+        runeData: SandboxV3RuneZod
+    }).nullable(),
+    spice: z.strictObject({
+        itemId: z.string(),
+        buffDesc: z.string(),
+        attrType: z.string(),
+        runeData: SandboxV3RuneZod
+    }).nullable(),
+    process: z.array(z.strictObject({
+        recipeCfgId: z.string(),
+        recipeLevel: z.number(),
+        recipeItemId: z.null(),
+        materials: z.record(
+            z.string(),
+            z.number()
+        ),
+        outputItemId: z.string(),
+        outputCnt: z.number(),
+        outputProsperity: z.number(),
+        recipeName: z.string(),
+        outputSkillIcon: z.string()
+    })),
+    build: z.array(z.strictObject({
+        recipeCfgId: z.string(),
+        recipeItemId: z.string(),
+        materials: z.record(z.string(), z.number()),
+        outputItemId: z.string(),
+        outputTrapType: z.string(),
+        withdrawRatio: z.number(),
+        outputCnt: z.number()
+    })),
+    data: z.strictObject({
+        itemId: z.string(),
+        itemType: z.string(),
+        itemName: z.string(),
+        itemUsage: z.string(),
+        itemDesc: z.string(),
+        itemRarity: z.number(),
+        sortId: z.number(),
+        obtainApproach: z.string()
+    })
+});
+export const SandboxV3StageZod = z.strictObject({
+    excel: z.strictObject({
+        stageId: z.string(),
+        code: z.string(),
+        name: z.string(),
+        description: z.string(),
+        maxDay: z.number(),
+        maxPlayTime: z.number(),
+        jumpTime: z.number(),
+        targetPowerValue: z.number(),
+        dayTargetValues: z.array(z.number()),
+        taskPool: z.array(z.string()),
+        questPoolByDifficulty: z.number(),
+        statParams: z.string(),
+        milestones: z.record(
+            z.string(),
+            z.strictObject({
+                milestoneId: z.string(),
+                stage: z.string(),
+                targetPowerValue: z.number(),
+                choiceSlotCnt: z.number(),
+                allowRefresh: z.boolean(),
+                allowGiveUpChoice: z.boolean(),
+                defaultPool: z.string(),
+                refreshPool: z.string()
+            })
+        ),
+        taskSlots: z.array(z.string()),
+        initialItemData: z.array(
+            z.strictObject({
+                itemId: z.string(),
+                count: z.number()
+            })
+        ),
+        squadMax: z.number(),
+        initialRecruitNum: z.number(),
+        dayPassRecruitNum: z.number(),
+        levelRune: z.string().nullable(),
+        firstDayDescription: z.string(),
+        levelBgm: z.string(),
+        isFormationSaved: z.boolean()
+    }),
+    story: z.strictObject({
+        stageId: z.string(),
+        subStageIdList: z.array(z.string()),
+        initialSubStageIndexList: z.array(z.number())
+    }),
+    substages: z.array(
+        z.strictObject({
+            excel: z.strictObject({
+                subStageId: z.string(),
+                levelId: z.string(),
+                typeMask: z.number(),
+                mapPreviewId: z.string()
+            }),
+            levels: StageDataZod
+        })
+    )
+});
+export const SandboxV3WeatherZod = z.strictObject({
+    weatherId: z.string(),
+    name: z.string(),
+    runeId: z.string().nullable(),
+    exRuneId: z.string().nullable(),
+    funcDesc: z.string(),
+    desc: z.string(),
+    enableFog: z.boolean(),
+    screenEffectId: z.string().nullable(),
+});
+export const SandboxV3ActZod = z.strictObject({
+    name: z.string(),
+    itemDict: z.record(z.string(), SandboxV3ItemZod),
+    stageDict: z.record(z.string(), SandboxV3StageZod),
+    weatherDict: z.record(z.string(), SandboxV3WeatherZod),
+});
 export const SkillZod = z.strictObject({
     deploy: DeploySkillZod.nullable(),
     excel: z.strictObject({
@@ -1443,6 +1610,10 @@ export type SandboxAct = z.infer<typeof SandboxActZod>;
 export type SandboxItem = z.infer<typeof SandboxItemZod>;
 export type SandboxStage = z.infer<typeof SandboxStageZod>;
 export type SandboxWeather = z.infer<typeof SandboxWeatherZod>;
+export type SandboxV3Act = z.infer<typeof SandboxV3ActZod>;
+export type SandboxV3Item = z.infer<typeof SandboxV3ItemZod>;
+export type SandboxV3Stage = z.infer<typeof SandboxV3StageZod>;
+export type SandboxV3Weather = z.infer<typeof SandboxV3WeatherZod>;
 export type Skill = z.infer<typeof SkillZod>;
 export type Skin = z.infer<typeof SkinZod>;
 export type Stage = z.infer<typeof StageZod>;

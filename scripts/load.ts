@@ -53,6 +53,7 @@ class G {
         recruit: true,
         rogue: true,
         sandbox: true,
+        sandboxv3: true,
         stage: true,
         cn: true
     }
@@ -187,6 +188,8 @@ async function main() {
         await loadRogueThemes();
     if (G.collectionsToLoad.sandbox)
         await loadSandboxes();
+    if (G.collectionsToLoad.sandboxv3)
+        await loadSandboxesV3();
     if (G.collectionsToLoad.stage)
         await loadStages();
 
@@ -895,7 +898,6 @@ async function loadSandboxes() {
 
     const sandboxTable = await fetchData('excel/sandbox_perm_table.json');
     const basicInfo: { [key: string]: any } = sandboxTable.basicInfo;
-    const SANDBOX_V2: { [key: string]: any } = sandboxTable.detail.SANDBOX_V2;
 
     const numOfThemes = Object.keys(basicInfo).length;
 
@@ -905,7 +907,9 @@ async function loadSandboxes() {
     const sandWeatherArr: PreDoc[][] = [];
 
     for (let i = 0; i < numOfThemes; i++) {
-        const sandbox = Object.values(SANDBOX_V2)[i];
+        if (i !== 0) continue;
+
+        const sandbox: { [key: string]: any } = Object.values(sandboxTable.detail.SANDBOX_V2)[i];
         const name = Object.values(basicInfo)[i].topicName;
         // const rewardConfigData: { [key: string]: any } = sandbox.rewardConfigData; // stage/enemy/minable/other drops
 
@@ -919,6 +923,10 @@ async function loadSandboxes() {
         const itemDict = {};
         for (const item of Object.values(itemData)) {
             const itemId = item.itemId.toLowerCase();
+
+            if (!itemId.startsWith(`sandbox_1`))
+                continue;
+
             itemDict[itemId] = {
                 craft: sandbox.craftItemData[itemId] ?? null,
                 drink: sandbox.drinkMatData[itemId] ?? null,
@@ -948,9 +956,115 @@ async function loadSandboxes() {
 
     await loadCollection(collection[0], sandArr, T.SandboxActZod);
     for (let i = 0; i < numOfThemes; i++) {
+        if (i !== 0) continue;
         await loadCollection(`${collection[1]}/${i}`, sandStageArr[i], T.SandboxStageZod);
         await loadCollection(`${collection[2]}/${i}`, sandItemArr[i], T.SandboxItemZod);
         await loadCollection(`${collection[3]}/${i}`, sandWeatherArr[i], T.SandboxWeatherZod);
+    }
+}
+async function loadSandboxesV3() {
+    const collection = ["sandboxv3", "sandboxv3/stage", "sandboxv3/item", "sandboxv3/weather"];
+    logTime(`${collection.join(', ')}: starting`);
+
+    const sandboxTable = await fetchData('excel/sandbox_perm_table.json');
+    const basicInfo: { [key: string]: any } = sandboxTable.basicInfo;
+
+    const numOfThemes = Object.keys(basicInfo).length;
+
+    const sandArr: PreDoc[] = [];
+    const sandStageArr: PreDoc[][] = [];
+    const sandItemArr: PreDoc[][] = [];
+    const sandWeatherArr: PreDoc[][] = [];
+
+    for (let i = 0; i < numOfThemes; i++) {
+        if (i === 0) continue;
+
+        const sandboxIndex = i - 1;
+        const sandbox: { [key: string]: any } = Object.values(sandboxTable.detail.SANDBOX_V3)[sandboxIndex];
+        const name = Object.values(basicInfo)[sandboxIndex].topicName;
+
+        const stageDict = {};
+        const stageData: { [key: string]: any } = sandbox.stageData;
+        // const exploreStageData = sandbox.exploreStageData;
+        // const exploreStageDifficultyData = sandbox.exploreStageDifficultyData;
+
+        for (const excel of Object.values(stageData)) {
+            const story = sandbox.storyStageData[excel.stageId];
+
+            if (!story) continue
+
+            const substages = await Promise.all(
+                story.subStageIdList
+                    .filter(x => x && x !== '')
+                    .map(async x => {
+                        return {
+                            excel: sandbox.subStageData[x],
+                            levels: await fetchData(`levels/${sandbox.subStageData[x].levelId.toLowerCase()}.json`)
+                        }
+                    })
+            );
+
+            const data = { excel, story, substages };
+
+            stageDict[excel.stageId.toLowerCase()] = data;
+        }
+
+        // const itemTypeData: { [key: string]: any } = sandboxTable.itemTypeData;
+        // const trapTypeData: { [key: string]: any } = sandboxTable.trapTypeData;
+        // const shopGoodData
+        // const shopSellData
+        // const livestockData
+        // const trapData
+
+        const itemData: { [key: string]: any } = sandboxTable.itemData;
+        const processRecipeData: { [key: string]: any } = sandbox.processRecipeData;
+        const buildRecipeData: { [key: string]: any } = sandbox.buildRecipeData;
+        const itemDict = {};
+        for (const item of Object.values(itemData)) {
+            const itemId = item.itemId.toLowerCase();
+
+            if (!itemId.startsWith(`sandbox_2`))
+                continue;
+
+            itemDict[itemId] = {
+                extra: sandbox.itemExtraData[itemId],
+                cook: sandbox.cookbookData[itemId] ?? null,
+                spice: sandbox.cookSpiceData[itemId] ?? null,
+                process: Object.values(processRecipeData).filter(x => x.outputItemId === itemId),
+                build: Object.values(buildRecipeData).filter(x => x.outputItemId === itemId),
+                data: item
+            };
+        }
+
+        const weatherDict: { [key: string]: any } = sandbox.weatherData;
+
+        // const runeDatas
+
+        sandArr[sandboxIndex] = { keys: [sandboxIndex.toString()], value: { name, stageDict, itemDict, weatherDict } };
+    }
+
+    sandArr.forEach((theme, i) => {
+        sandStageArr[i] = Object.keys(theme.value.stageDict).map(key => {
+            const stage = theme.value.stageDict[key];
+            return { keys: [stage.excel.stageId, stage.excel.name, stage.excel.code], value: stage };
+        });
+        sandItemArr[i] = Object.keys(theme.value.itemDict).map(key => {
+            const item = theme.value.itemDict[key];
+            return { keys: [item.data.itemId, item.data.itemName], value: item };
+        });
+        sandWeatherArr[i] = Object.keys(theme.value.weatherDict).map(key => {
+            const weather = theme.value.weatherDict[key];
+            return { keys: [weather.weatherId, weather.name], value: weather };
+        });
+    });
+
+    await loadCollection(collection[0], sandArr, T.SandboxV3ActZod);
+    for (let i = 0; i < numOfThemes; i++) {
+        if (i === 0) continue;
+        const sandboxIndex = i - 1;
+        await loadCollection(`${collection[1]}/${sandboxIndex}`, sandStageArr[sandboxIndex], T.SandboxV3StageZod);
+        await loadCollection(`${collection[2]}/${sandboxIndex}`, sandItemArr[sandboxIndex], T.SandboxV3ItemZod);
+        await loadCollection(`${collection[3]}/${sandboxIndex}`, sandWeatherArr[sandboxIndex], T.SandboxV3WeatherZod);
     }
 }
 async function loadSkills() {

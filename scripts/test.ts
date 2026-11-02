@@ -77,6 +77,11 @@ const collections = [
         schema: T.SandboxActZod,
     },
     {
+        name: 'sandboxv3',
+        schema: T.SandboxV3ActZod,
+        array: false
+    },
+    {
         name: 'skill',
         schema: T.SkillZod,
     },

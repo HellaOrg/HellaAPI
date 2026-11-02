@@ -6,7 +6,7 @@
 
 > https://awedtan.ca/api/operator/hellagur
 
-An Arknights EN game data API. Data is fetched from [HellaAssets](https://github.com/HellaOrg/HellaAssets) and official game servers, lightly massaged into a nicer format, and stored in a MongoDB database. Made with Express and self-hosted (RIP Cyclic). Also an under construction personal project.
+An Arknights EN game data API. Data is fetched from [HellaAssets](https://github.com/HellaOrg/HellaAssets) and official game servers, massaged into a custom format, and stored in a MongoDB database. Made with Express.js.
 
 ## Usage
 
@@ -148,35 +148,39 @@ Requests that return very large amounts of data may take a long time. By excludi
 
 | Resource | Description | Valid Keys | [Return Type](https://github.com/HellaOrg/HellaAPI/tree/main/types) |
 |-|-|-|-|
-| [/archetype](https://awedtan.ca/api/archetype)                               | External archetype name | Internal archetype name       | `string`         |
-| [/base](https://awedtan.ca/api/base)                                         | RIIC base skills        | Base skill ID                 | `Base`           |
-| [/cc](https://awedtan.ca/api/cc)                                             | CC stages               | Stage ID/name                 | `CCStageLegacy`  |
-| [/ccb](https://awedtan.ca/api/ccb)                                           | CCB seasons             | Season ID                     | `CCSeason`       |
-| [/ccb/legacy](https://awedtan.ca/api/ccb/legacy)                             | CCB legacy stages       | Stage ID/name                 | `CCStageLegacy`  |
-| [/ccb/stage](https://awedtan.ca/api/ccb/stage)                               | CCB stages              | Stage ID/name                 | `CCStage`        |
-| [/define](https://awedtan.ca/api/define)                                     | In-game terms           | Term name                     | `Definition`     |
-| [/deploy](https://awedtan.ca/api/deploy)                                     | Traps/summons/equipment | Deployable ID/name            | `Deployable`     |
-| [/enemy](https://awedtan.ca/api/enemy)                                       | Enemies                 | Enemy ID/name/code            | `Enemy`          |
-| [/event](https://awedtan.ca/api/event)                                       | Game events             | Event ID                      | `GameEvent`      |
-| [/gacha](https://awedtan.ca/api/gacha)                                       | Gacha pools             | Pool ID                       | `GachaPool`      |
-| [/item](https://awedtan.ca/api/item)                                         | Items                   | Item ID/name                  | `Item`           |
-| [/module](https://awedtan.ca/api/module)                                     | Modules                 | Module ID                     | `Module`         |
-| [/operator](https://awedtan.ca/api/operator)                                 | Operators               | Operator ID/name              | `Operator`       |
-| [/paradox](https://awedtan.ca/api/paradox)                                   | Paradox Simulations     | Operator ID                   | `Paradox`        |
-| [/range](https://awedtan.ca/api/range)                                       | Operator attack ranges  | Range ID                      | `GridRange`      |
-| [/rogue](https://awedtan.ca/api/rogue)                                       | Integrated Strategies   | IS index (IS2=0, IS3=1, etc.) | `RogueTheme`     |
-| [/rogue/relic/{index}](https://awedtan.ca/api/rogue/relic/{index})           | IS relics               | IS relic ID/name              | `RogueRelic`     |
-| [/rogue/stage/{index}](https://awedtan.ca/api/rogue/stage/{index})           | IS stages               | IS stage ID/name              | `RogueStage`     |
-| [/rogue/toughstage/{index}](https://awedtan.ca/api/rogue/toughstage/{index}) | IS emergency stages     | IS stage ID/name              | `RogueStage`     |
-| [/rogue/variation/{index}](https://awedtan.ca/api/rogue/variation/{index})   | IS floor effects        | IS variation ID/name          | `RogueVariation` |
-| [/sandbox](https://awedtan.ca/api/sandbox)                                   | Reclamation Algorithm   | RA index (RA2=0, etc.)        | `SandboxAct`     |
-| [/sandbox/item/{index}](https://awedtan.ca/api/sandbox/item/{index})         | RA items                | RA item ID/name               | `SandboxItem`    |
-| [/sandbox/stage/{index}](https://awedtan.ca/api/sandbox/stage/{index})       | RA stages               | RA stage ID/name              | `SandboxStage`   |
-| [/sandbox/weather/{index}](https://awedtan.ca/api/sandbox/weather/{index})   | RA weather effects      | RA weather ID/name            | `SandboxWeather` |
-| [/skill](https://awedtan.ca/api/skill)                                       | Operator skills         | Skill ID                      | `Skill`          |
-| [/skin](https://awedtan.ca/api/skin)                                         | Operator skins          | Skin ID                       | `Skin`           |
-| [/stage](https://awedtan.ca/api/stage)                                       | Normal stages           | Stage ID/code                 | `Stage[]`        |
-| [/toughstage](https://awedtan.ca/api/toughstage)                             | Challenge stages        | Stage ID/code                 | `Stage[]`        |
+| [/archetype](https://awedtan.ca/api/archetype)                               | External archetype name    | Internal archetype name       | `string`           |
+| [/base](https://awedtan.ca/api/base)                                         | RIIC base skills           | Base skill ID                 | `Base`             |
+| [/cc](https://awedtan.ca/api/cc)                                             | CC stages                  | Stage ID/name                 | `CCStageLegacy`    |
+| [/ccb](https://awedtan.ca/api/ccb)                                           | CCB seasons                | Season ID                     | `CCSeason`         |
+| [/ccb/legacy](https://awedtan.ca/api/ccb/legacy)                             | CCB legacy stages          | Stage ID/name                 | `CCStageLegacy`    |
+| [/ccb/stage](https://awedtan.ca/api/ccb/stage)                               | CCB stages                 | Stage ID/name                 | `CCStage`          |
+| [/define](https://awedtan.ca/api/define)                                     | In-game terms              | Term name                     | `Definition`       |
+| [/deploy](https://awedtan.ca/api/deploy)                                     | Traps/summons/equipment    | Deployable ID/name            | `Deployable`       |
+| [/enemy](https://awedtan.ca/api/enemy)                                       | Enemies                    | Enemy ID/name/code            | `Enemy`            |
+| [/event](https://awedtan.ca/api/event)                                       | Game events                | Event ID                      | `GameEvent`        |
+| [/gacha](https://awedtan.ca/api/gacha)                                       | Gacha pools                | Pool ID                       | `GachaPool`        |
+| [/item](https://awedtan.ca/api/item)                                         | Items                      | Item ID/name                  | `Item`             |
+| [/module](https://awedtan.ca/api/module)                                     | Modules                    | Module ID                     | `Module`           |
+| [/operator](https://awedtan.ca/api/operator)                                 | Operators                  | Operator ID/name              | `Operator`         |
+| [/paradox](https://awedtan.ca/api/paradox)                                   | Paradox Simulations        | Operator ID                   | `Paradox`          |
+| [/range](https://awedtan.ca/api/range)                                       | Operator attack ranges     | Range ID                      | `GridRange`        |
+| [/rogue](https://awedtan.ca/api/rogue)                                       | Integrated Strategies      | IS index (IS2=0, IS3=1, etc.) | `RogueTheme`       |
+| [/rogue/relic/{index}](https://awedtan.ca/api/rogue/relic/{index})           | IS relics                  | IS relic ID/name              | `RogueRelic`       |
+| [/rogue/stage/{index}](https://awedtan.ca/api/rogue/stage/{index})           | IS stages                  | IS stage ID/name              | `RogueStage`       |
+| [/rogue/toughstage/{index}](https://awedtan.ca/api/rogue/toughstage/{index}) | IS emergency stages        | IS stage ID/name              | `RogueStage`       |
+| [/rogue/variation/{index}](https://awedtan.ca/api/rogue/variation/{index})   | IS floor effects           | IS variation ID/name          | `RogueVariation`   |
+| [/sandbox](https://awedtan.ca/api/sandbox)                                   | RA2: Tales Within The Sand | `0`                           | `SandboxAct`       |
+| [/sandbox/item/0](https://awedtan.ca/api/sandbox/item/0)                     | RA2 items                  | RA2 item ID/name              | `SandboxItem`      |
+| [/sandbox/stage/0](https://awedtan.ca/api/sandbox/stage/0)                   | RA2 stages                 | RA2 stage ID/name             | `SandboxStage`     |
+| [/sandbox/weather/0](https://awedtan.ca/api/sandbox/weather/0)               | RA2 weather effects        | RA2 weather ID/name           | `SandboxWeather`   |
+| [/sandboxv3](https://awedtan.ca/api/sandboxv3)                               | RA3: Relaunch Algorithm    | `0`                           | `SandboxV3Act`     |
+| [/sandboxv3/item/0](https://awedtan.ca/api/sandboxv3/item/0)                 | RA3 items                  | RA3 item ID/name              | `SandboxV3Item`    |
+| [/sandboxv3/stage/0](https://awedtan.ca/api/sandboxv3/stage/0)               | RA3 stages                 | RA3 stage ID/name             | `SandboxV3Stage`   |
+| [/sandboxv3/weather/0](https://awedtan.ca/api/sandboxv3/weather/0)           | RA3 weather effects        | RA3 weather ID/name           | `SandboxV3Weather` |
+| [/skill](https://awedtan.ca/api/skill)                                       | Operator skills            | Skill ID                      | `Skill`            |
+| [/skin](https://awedtan.ca/api/skin)                                         | Operator skins             | Skin ID                       | `Skin`             |
+| [/stage](https://awedtan.ca/api/stage)                                       | Normal stages              | Stage ID/code                 | `Stage[]`          |
+| [/toughstage](https://awedtan.ca/api/toughstage)                             | Challenge stages           | Stage ID/code                 | `Stage[]`          |
 | Non-standard resources |
 | [/about](https://awedtan.ca/api/about)                                       | API meta information |-|-|
 | [/new](https://awedtan.ca/api/new)                                           | Data added in most recent update |-|-|
