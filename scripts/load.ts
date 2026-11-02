@@ -980,7 +980,7 @@ async function loadSandboxesV3() {
         if (i === 0) continue;
 
         const sandboxIndex = i - 1;
-        const sandbox: { [key: string]: any } = Object.values(sandboxTable.detail.SANDBOX_V3)[0];
+        const sandbox: { [key: string]: any } = Object.values(sandboxTable.detail.SANDBOX_V3)[sandboxIndex];
         const name = Object.values(basicInfo)[sandboxIndex].topicName;
 
         const stageDict = {};
