@@ -6,7 +6,7 @@
 
 > https://awedtan.ca/api/operator/hellagur
 
-An Arknights EN game data API. Data is fetched from [HellaAssets](https://github.com/HellaOrg/HellaAssets) and official game servers, lightly massaged into a nicer format, and stored in a MongoDB database. Made with Express and self-hosted (RIP Cyclic). Also an under construction personal project.
+An Arknights EN game data API. Data is fetched from [HellaAssets](https://github.com/HellaOrg/HellaAssets) and official game servers, massaged into a custom format, and stored in a MongoDB database. Made with Express.js.
 
 ## Usage
 
