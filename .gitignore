@@ -2,3 +2,4 @@ HellaAssets
 node_modules
 .env
 *.log
+out

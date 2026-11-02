@@ -21,13 +21,13 @@ const EnemySpType = ['INCREASE_WHEN_ATTACK', 'INCREASE_WHEN_TAKEN_DAMAGE', 'INCR
 const EvolvePhase = ['PHASE_0', 'PHASE_2'];
 const FormulaItem = ['ADDITION'];
 const FormulaType = ['F_ASC', 'F_BUILDING', 'F_DIAMOND', 'F_EVOLVE', 'F_EXP', 'F_GOLD', 'F_SKILL'];
-const GachaGachaRuleType = ['ATTAIN', 'CLASSIC', 'CLASSIC_ATTAIN', 'CLASSIC_DOUBLE', 'DOUBLE', 'FESCLASSIC', 'LIMITED', 'LINKAGE', 'NORMAL', 'SINGLE', 'SPECIAL'];
+const GachaGachaRuleType = ['ATTAIN', 'BACKFLOW', 'CLASSIC', 'CLASSIC_ATTAIN', 'CLASSIC_DOUBLE', 'DOUBLE', 'FESCLASSIC', 'LIMITED', 'LINKAGE', 'NORMAL', 'SINGLE', 'SPECIAL'];
 const GameEventDisplayType = ['BRANCHLINE', 'MINISTORY', 'NONE', 'SIDESTORY'];
 const GameEventType = ['APRIL_FOOL', 'ARCADE', 'AUTOCHESS_SEASON', 'AUTOCHESS_VERIFY1', 'BLESS_ONLY', 'BOSS_RUSH', 'CHECKIN_ACCESS', 'CHECKIN_ALL_PLAYER', 'CHECKIN_ONLY', 'CHECKIN_VIDEO', 'CHECKIN_VS', 'COLLECTION', 'DEFAULT', 'ENEMY_DUEL', 'FLIP_ONLY', 'FLOAT_PARADE', 'GRID_GACHA', 'GRID_GACHA_V2', 'HALFIDLE_VERIFY1', 'INTERLOCK', 'LOGIN_ONLY', 'MAINLINE_BP', 'MAIN_BUFF', 'MINISTORY', 'MISSION_ONLY', 'MULTIPLAY', 'MULTIPLAY_V3', 'MULTIPLAY_VERIFY2', 'PRAY_ONLY', 'RECRUIT_ONLY', 'ROGUELIKE', 'SWITCH_ONLY', 'TEAM_QUEST', 'TYPE_ACT12SIDE', 'TYPE_ACT13SIDE', 'TYPE_ACT17D7', 'TYPE_ACT17SIDE', 'TYPE_ACT20SIDE', 'TYPE_ACT21SIDE', 'TYPE_ACT24SIDE', 'TYPE_ACT25SIDE', 'TYPE_ACT27SIDE', 'TYPE_ACT29SIDE', 'TYPE_ACT35SIDE', 'TYPE_ACT36SIDE', 'TYPE_ACT38SIDE', 'TYPE_ACT3D0', 'TYPE_ACT42D0', 'TYPE_ACT42SIDE', 'TYPE_ACT44SIDE', 'TYPE_ACT45SIDE', 'TYPE_ACT46SIDE', 'TYPE_ACT4D0', 'TYPE_ACT5D0', 'TYPE_ACT5D1', 'TYPE_ACT9D0', 'TYPE_MAINSS', 'UNIQUE_ONLY', 'VEC_BREAK', 'VEC_BREAK_V2', 'YEAR_5_GENERAL'];
 const GameEventRecType = ['CANNOT_COMPLETE', 'CAN_COMPLETE', 'SPECIAL'];
 const HeightType = ['HIGHLAND', 'LOWLAND'];
 const ItemClassifyType = ['CONSUME', 'MATERIAL', 'NONE', 'NORMAL'];
-const ItemItemType = ['ACTIVITY_COIN', 'ACTIVITY_ITEM', 'ACTIVITY_POTENTIAL', 'AP_BASE', 'AP_GAMEPLAY', 'AP_ITEM', 'AP_SUPPLY', 'CARD_EXP', 'CLASSIC_FES_PICK_TIER_5', 'CLASSIC_FES_PICK_TIER_6', 'CLASSIC_SHD', 'CLASSIC_TKT_GACHA', 'CLASSIC_TKT_GACHA_10', 'CRS_RUNE_COIN', 'CRS_SHOP_COIN', 'CRS_SHOP_COIN_V2', 'DIAMOND', 'DIAMOND_SHD', 'EMOTICON_SET', 'EPGS_COIN', 'ET_STAGE', 'EXCLUSIVE_TKT_GACHA', 'EXCLUSIVE_TKT_GACHA_10', 'EXP_PLAYER', 'EXTERMINATION_AGENT', 'FAVOR_ADD_ITEM', 'GOLD', 'HGG_SHD', 'ITEM_PACK', 'LGG_SHD', 'LIMITED_BUFF', 'LIMITED_TKT_GACHA_10', 'LINKAGE_TKT_GACHA_10', 'LMTGS_COIN', 'MATERIAL', 'MATERIAL_ISSUE_VOUCHER', 'MCARD_VOUCHER', 'MEDAL', 'NEW_PROGRESS', 'OPTIONAL_VOUCHER_PICK', 'RENAMING_CARD', 'REP_COIN', 'RETRO_COIN', 'RETURN_CREDIT', 'RETURN_PROGRESS', 'RL_COIN', 'SANDBOX_TOKEN', 'SOCIAL_PT', 'TKT_GACHA', 'TKT_GACHA_10', 'TKT_GACHA_PRSV', 'TKT_INST_FIN', 'TKT_RECRUIT', 'TKT_TRY', 'UNI_COLLECTION', 'VOUCHER_CGACHA', 'VOUCHER_ELITE_II_4', 'VOUCHER_ELITE_II_5', 'VOUCHER_ELITE_II_6', 'VOUCHER_FULL_POTENTIAL', 'VOUCHER_LEVELMAX_4', 'VOUCHER_LEVELMAX_5', 'VOUCHER_LEVELMAX_6', 'VOUCHER_MGACHA', 'VOUCHER_PICK', 'VOUCHER_SKILL_SPECIALLEVELMAX_4', 'VOUCHER_SKILL_SPECIALLEVELMAX_5', 'VOUCHER_SKILL_SPECIALLEVELMAX_6', 'VOUCHER_SKIN'];
+const ItemItemType = ['ACTIVITY_COIN', 'ACTIVITY_ITEM', 'ACTIVITY_POTENTIAL', 'AP_BASE', 'AP_GAMEPLAY', 'AP_ITEM', 'AP_SUPPLY', 'CARD_EXP', 'CLASSIC_FES_PICK_TIER_5', 'CLASSIC_FES_PICK_TIER_6', 'CLASSIC_SHD', 'CLASSIC_TKT_GACHA', 'CLASSIC_TKT_GACHA_10', 'CRS_RUNE_COIN', 'CRS_SHOP_COIN', 'CRS_SHOP_COIN_V2', 'DIAMOND', 'DIAMOND_SHD', 'EMOTICON_SET', 'EPGS_COIN', 'ET_STAGE', 'EXCLUSIVE_TKT_GACHA', 'EXCLUSIVE_TKT_GACHA_10', 'EXP_PLAYER', 'EXTERMINATION_AGENT', 'FAVOR_ADD_ITEM', 'GIFTPACKAGE_TKT', 'GOLD', 'HGG_SHD', 'ITEM_PACK', 'LGG_SHD', 'LIMITED_BUFF', 'LIMITED_TKT_GACHA_10', 'LINKAGE_TKT_GACHA_10', 'LMTGS_COIN', 'MATERIAL', 'MATERIAL_ISSUE_VOUCHER', 'MCARD_VOUCHER', 'MEDAL', 'NEW_PROGRESS', 'OPTIONAL_VOUCHER_PICK', 'PLOT_ITEM', 'RANDOM_VOUCHER_SKIN', 'RENAMING_CARD', 'REP_COIN', 'RETRO_COIN', 'RETURN_CREDIT', 'RETURN_PROGRESS', 'RL_COIN', 'SANDBOX_TOKEN', 'SO_CHAR_EXP', 'SOCIAL_PT', 'TKT_GACHA', 'TKT_GACHA_10', 'TKT_GACHA_PRSV', 'TKT_INST_FIN', 'TKT_RECRUIT', 'TKT_TRY', 'UNI_COLLECTION', 'VOUCHER_CGACHA', 'VOUCHER_ELITE_II_4', 'VOUCHER_ELITE_II_5', 'VOUCHER_ELITE_II_6', 'VOUCHER_FULL_POTENTIAL', 'VOUCHER_LEVELMAX_4', 'VOUCHER_LEVELMAX_5', 'VOUCHER_LEVELMAX_6', 'VOUCHER_MGACHA', 'VOUCHER_PICK', 'VOUCHER_SKILL_SPECIALLEVELMAX_4', 'VOUCHER_SKILL_SPECIALLEVELMAX_5', 'VOUCHER_SKILL_SPECIALLEVELMAX_6', 'VOUCHER_SKIN', 'VOUCHER_SKIN_V2'];
 const ItemRarity = ['TIER_1', 'TIER_2', 'TIER_3', 'TIER_4', 'TIER_5', 'TIER_6'];
 const LevelUpCostType = ['GOLD', 'MATERIAL'];
 const ModuleType = ['ADVANCED', 'INITIAL'];
@@ -118,6 +118,8 @@ const AttributesKeyFrameZod = z.strictObject({
         fearedImmune: z.boolean(),
         palsyImmune: z.boolean(),
         attractImmune: z.boolean(),
+        teleportImmune: z.boolean(),
+        groundBoundImmune: z.boolean(),
     }),
 });
 const EnemyAttributesZod = z.strictObject({
@@ -151,6 +153,8 @@ const EnemyAttributesZod = z.strictObject({
     fearedImmune: DefinedBooleanZod.optional(),
     palsyImmune: DefinedBooleanZod.optional(),
     attractImmune: DefinedBooleanZod.optional(),
+    teleportImmune: DefinedBooleanZod.optional().nullable(),
+    groundBoundImmune: DefinedBooleanZod.optional().nullable(),
 });
 const EnemySkillsZod = z.strictObject({
     prefabKey: z.string(),
@@ -522,6 +526,9 @@ export const BaseZod = z.strictObject({
     buffCategory: z.enum(BuffCategory),
     roomType: z.enum(RoomType),
     description: z.string(),
+    efficiency: z.number(),
+    targetGroupSortId: z.number(),
+    targets: z.array(z.string()),
 });
 export const CCStageLegacyZod = z.strictObject({
     const: z.strictObject({
@@ -615,7 +622,7 @@ export const GachaPoolZod = z.strictObject({
         CDPrimColor: z.string().nullable(),
         CDSecColor: z.string().nullable(),
         freeBackColor: z.string().nullable().optional(),
-        gachaRuleType: z.union([z.enum(GachaGachaRuleType), z.number()]),
+        gachaRuleType: z.enum(GachaGachaRuleType),
         dynMeta: z.union([
             z.strictObject({
                 chooseRuleConst: z.string(),
@@ -766,10 +773,11 @@ export const ItemZod = z.strictObject({
         obtainApproach: z.string().nullable(),
         hideInItemGet: z.boolean(),
         classifyType: z.enum(ItemClassifyType),
-        itemType: z.enum(ItemItemType).or(z.number()),
+        itemType: z.enum(ItemItemType),
         stageDropList: z.array(z.strictObject({
             stageId: z.string(),
             occPer: z.enum(OccPer),
+            sortId: z.number(),
         })),
         buildingProductList: z.array(z.strictObject({
             roomType: z.string(),
@@ -778,6 +786,11 @@ export const ItemZod = z.strictObject({
         voucherRelateList: z.array(z.strictObject({
             voucherId: z.string(),
             voucherItemType: z.enum(VoucherItemType),
+        })).nullable(),
+        shopRelateInfoList: z.array(z.strictObject({
+            shopType: z.string(),
+            shopGroup: z.number(),
+            startTs: z.number(),
         })).nullable(),
     }),
     formula: z.union([ManufactFormulaZod, WorkshopFormulaZod]).nullable(),

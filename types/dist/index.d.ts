@@ -1657,6 +1657,26 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 }>>;
+                teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                    m_defined: z.ZodBoolean;
+                    m_value: z.ZodNullable<z.ZodBoolean>;
+                }, "strict", z.ZodTypeAny, {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                }, {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                }>>>;
+                groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                    m_defined: z.ZodBoolean;
+                    m_value: z.ZodNullable<z.ZodBoolean>;
+                }, "strict", z.ZodTypeAny, {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                }, {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                }>>>;
             }, "strict", z.ZodTypeAny, {
                 maxHp: {
                     m_defined: boolean;
@@ -1778,6 +1798,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             }, {
                 maxHp: {
                     m_defined: boolean;
@@ -1899,6 +1927,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             }>;
             applyWay: z.ZodOptional<z.ZodObject<{
                 m_defined: z.ZodBoolean;
@@ -2196,6 +2232,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             };
             description: {
                 m_defined: boolean;
@@ -2393,6 +2437,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             };
             description: {
                 m_defined: boolean;
@@ -2595,6 +2647,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             };
             description: {
                 m_defined: boolean;
@@ -2797,6 +2857,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             };
             description: {
                 m_defined: boolean;
@@ -5009,6 +5077,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             };
             description: {
                 m_defined: boolean;
@@ -5806,6 +5882,14 @@ declare const StageDataZod: z.ZodObject<{
                     m_defined: boolean;
                     m_value: boolean | null;
                 } | undefined;
+                teleportImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
+                groundBoundImmune?: {
+                    m_defined: boolean;
+                    m_value: boolean | null;
+                } | null | undefined;
             };
             description: {
                 m_defined: boolean;
@@ -6286,6 +6370,9 @@ export declare const BaseZod: z.ZodObject<{
     buffCategory: z.ZodEnum<["FUNCTION", "OUTPUT", "RECOVERY"]>;
     roomType: z.ZodEnum<["CONTROL", "DORMITORY", "HIRE", "MANUFACTURE", "MEETING", "POWER", "TRADING", "TRAINING", "WORKSHOP"]>;
     description: z.ZodString;
+    efficiency: z.ZodNumber;
+    targetGroupSortId: z.ZodNumber;
+    targets: z.ZodArray<z.ZodString, "many">;
 }, "strict", z.ZodTypeAny, {
     description: string;
     sortId: number;
@@ -6297,6 +6384,9 @@ export declare const BaseZod: z.ZodObject<{
     textColor: string;
     buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
     roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+    efficiency: number;
+    targetGroupSortId: number;
+    targets: string[];
 }, {
     description: string;
     sortId: number;
@@ -6308,6 +6398,9 @@ export declare const BaseZod: z.ZodObject<{
     textColor: string;
     buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
     roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+    efficiency: number;
+    targetGroupSortId: number;
+    targets: string[];
 }>;
 export declare const CCStageLegacyZod: z.ZodObject<{
     const: z.ZodObject<{
@@ -7958,6 +8051,26 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -8079,6 +8192,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -8200,6 +8321,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -8497,6 +8626,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -8694,6 +8831,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -8896,6 +9041,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -9098,6 +9251,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -11310,6 +11471,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -12107,6 +12276,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -12912,6 +13089,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -13717,6 +13902,14 @@ export declare const CCStageLegacyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -15860,6 +16053,26 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -15981,6 +16194,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -16102,6 +16323,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -16399,6 +16628,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -16596,6 +16833,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -16798,6 +17043,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -17000,6 +17253,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -19212,6 +19473,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -20009,6 +20278,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -20808,6 +21085,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -21621,6 +21906,14 @@ export declare const CCStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -23780,6 +24073,26 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         }>>;
+                        teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
+                        groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: {
                             m_defined: boolean;
@@ -23901,6 +24214,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }, {
                         maxHp: {
                             m_defined: boolean;
@@ -24022,6 +24343,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }>;
                     applyWay: z.ZodOptional<z.ZodObject<{
                         m_defined: z.ZodBoolean;
@@ -24319,6 +24648,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -24516,6 +24853,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -24718,6 +25063,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -24920,6 +25273,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -27132,6 +27493,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -27929,6 +28298,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -28728,6 +29105,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -29541,6 +29926,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -30357,6 +30750,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -31173,6 +31574,14 @@ export declare const CCSeasonZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -32078,6 +32487,26 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -32199,6 +32628,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -32320,6 +32757,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -32617,6 +33062,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -32814,6 +33267,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -33014,6 +33475,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -33214,6 +33683,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -33417,6 +33894,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -33620,6 +34105,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -33825,6 +34318,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -34052,6 +34553,14 @@ export declare const EnemyZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -34193,7 +34702,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         CDPrimColor: z.ZodNullable<z.ZodString>;
         CDSecColor: z.ZodNullable<z.ZodString>;
         freeBackColor: z.ZodOptional<z.ZodNullable<z.ZodString>>;
-        gachaRuleType: z.ZodUnion<[z.ZodEnum<["ATTAIN", "CLASSIC", "CLASSIC_ATTAIN", "CLASSIC_DOUBLE", "DOUBLE", "FESCLASSIC", "LIMITED", "LINKAGE", "NORMAL", "SINGLE", "SPECIAL"]>, z.ZodNumber]>;
+        gachaRuleType: z.ZodEnum<["ATTAIN", "BACKFLOW", "CLASSIC", "CLASSIC_ATTAIN", "CLASSIC_DOUBLE", "DOUBLE", "FESCLASSIC", "LIMITED", "LINKAGE", "NORMAL", "SINGLE", "SPECIAL"]>;
         dynMeta: z.ZodNullable<z.ZodUnion<[z.ZodObject<{
             chooseRuleConst: z.ZodString;
             homeDescConst: z.ZodString;
@@ -34319,7 +34828,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "BACKFLOW" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -34400,7 +34909,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "BACKFLOW" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -34799,7 +35308,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "BACKFLOW" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -34930,7 +35439,7 @@ export declare const GachaPoolZod: z.ZodObject<{
         LMTGSID: string | null;
         CDPrimColor: string | null;
         CDSecColor: string | null;
-        gachaRuleType: number | "NORMAL" | "SPECIAL" | "ATTAIN" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
+        gachaRuleType: "NORMAL" | "SPECIAL" | "ATTAIN" | "BACKFLOW" | "CLASSIC" | "CLASSIC_ATTAIN" | "CLASSIC_DOUBLE" | "DOUBLE" | "FESCLASSIC" | "LIMITED" | "LINKAGE" | "SINGLE";
         dynMeta: (({
             chooseRuleConst: string;
             homeDescConst: string;
@@ -35241,15 +35750,18 @@ export declare const ItemZod: z.ZodObject<{
         obtainApproach: z.ZodNullable<z.ZodString>;
         hideInItemGet: z.ZodBoolean;
         classifyType: z.ZodEnum<["CONSUME", "MATERIAL", "NONE", "NORMAL"]>;
-        itemType: z.ZodUnion<[z.ZodEnum<["ACTIVITY_COIN", "ACTIVITY_ITEM", "ACTIVITY_POTENTIAL", "AP_BASE", "AP_GAMEPLAY", "AP_ITEM", "AP_SUPPLY", "CARD_EXP", "CLASSIC_FES_PICK_TIER_5", "CLASSIC_FES_PICK_TIER_6", "CLASSIC_SHD", "CLASSIC_TKT_GACHA", "CLASSIC_TKT_GACHA_10", "CRS_RUNE_COIN", "CRS_SHOP_COIN", "CRS_SHOP_COIN_V2", "DIAMOND", "DIAMOND_SHD", "EMOTICON_SET", "EPGS_COIN", "ET_STAGE", "EXCLUSIVE_TKT_GACHA", "EXCLUSIVE_TKT_GACHA_10", "EXP_PLAYER", "EXTERMINATION_AGENT", "FAVOR_ADD_ITEM", "GOLD", "HGG_SHD", "ITEM_PACK", "LGG_SHD", "LIMITED_BUFF", "LIMITED_TKT_GACHA_10", "LINKAGE_TKT_GACHA_10", "LMTGS_COIN", "MATERIAL", "MATERIAL_ISSUE_VOUCHER", "MCARD_VOUCHER", "MEDAL", "NEW_PROGRESS", "OPTIONAL_VOUCHER_PICK", "RENAMING_CARD", "REP_COIN", "RETRO_COIN", "RETURN_CREDIT", "RETURN_PROGRESS", "RL_COIN", "SANDBOX_TOKEN", "SOCIAL_PT", "TKT_GACHA", "TKT_GACHA_10", "TKT_GACHA_PRSV", "TKT_INST_FIN", "TKT_RECRUIT", "TKT_TRY", "UNI_COLLECTION", "VOUCHER_CGACHA", "VOUCHER_ELITE_II_4", "VOUCHER_ELITE_II_5", "VOUCHER_ELITE_II_6", "VOUCHER_FULL_POTENTIAL", "VOUCHER_LEVELMAX_4", "VOUCHER_LEVELMAX_5", "VOUCHER_LEVELMAX_6", "VOUCHER_MGACHA", "VOUCHER_PICK", "VOUCHER_SKILL_SPECIALLEVELMAX_4", "VOUCHER_SKILL_SPECIALLEVELMAX_5", "VOUCHER_SKILL_SPECIALLEVELMAX_6", "VOUCHER_SKIN"]>, z.ZodNumber]>;
+        itemType: z.ZodEnum<["ACTIVITY_COIN", "ACTIVITY_ITEM", "ACTIVITY_POTENTIAL", "AP_BASE", "AP_GAMEPLAY", "AP_ITEM", "AP_SUPPLY", "CARD_EXP", "CLASSIC_FES_PICK_TIER_5", "CLASSIC_FES_PICK_TIER_6", "CLASSIC_SHD", "CLASSIC_TKT_GACHA", "CLASSIC_TKT_GACHA_10", "CRS_RUNE_COIN", "CRS_SHOP_COIN", "CRS_SHOP_COIN_V2", "DIAMOND", "DIAMOND_SHD", "EMOTICON_SET", "EPGS_COIN", "ET_STAGE", "EXCLUSIVE_TKT_GACHA", "EXCLUSIVE_TKT_GACHA_10", "EXP_PLAYER", "EXTERMINATION_AGENT", "FAVOR_ADD_ITEM", "GIFTPACKAGE_TKT", "GOLD", "HGG_SHD", "ITEM_PACK", "LGG_SHD", "LIMITED_BUFF", "LIMITED_TKT_GACHA_10", "LINKAGE_TKT_GACHA_10", "LMTGS_COIN", "MATERIAL", "MATERIAL_ISSUE_VOUCHER", "MCARD_VOUCHER", "MEDAL", "NEW_PROGRESS", "OPTIONAL_VOUCHER_PICK", "PLOT_ITEM", "RANDOM_VOUCHER_SKIN", "RENAMING_CARD", "REP_COIN", "RETRO_COIN", "RETURN_CREDIT", "RETURN_PROGRESS", "RL_COIN", "SANDBOX_TOKEN", "SO_CHAR_EXP", "SOCIAL_PT", "TKT_GACHA", "TKT_GACHA_10", "TKT_GACHA_PRSV", "TKT_INST_FIN", "TKT_RECRUIT", "TKT_TRY", "UNI_COLLECTION", "VOUCHER_CGACHA", "VOUCHER_ELITE_II_4", "VOUCHER_ELITE_II_5", "VOUCHER_ELITE_II_6", "VOUCHER_FULL_POTENTIAL", "VOUCHER_LEVELMAX_4", "VOUCHER_LEVELMAX_5", "VOUCHER_LEVELMAX_6", "VOUCHER_MGACHA", "VOUCHER_PICK", "VOUCHER_SKILL_SPECIALLEVELMAX_4", "VOUCHER_SKILL_SPECIALLEVELMAX_5", "VOUCHER_SKILL_SPECIALLEVELMAX_6", "VOUCHER_SKIN", "VOUCHER_SKIN_V2"]>;
         stageDropList: z.ZodArray<z.ZodObject<{
             stageId: z.ZodString;
             occPer: z.ZodEnum<["ALMOST", "ALWAYS", "OFTEN", "SOMETIMES", "USUAL"]>;
+            sortId: z.ZodNumber;
         }, "strict", z.ZodTypeAny, {
             stageId: string;
+            sortId: number;
             occPer: "ALMOST" | "ALWAYS" | "OFTEN" | "SOMETIMES" | "USUAL";
         }, {
             stageId: string;
+            sortId: number;
             occPer: "ALMOST" | "ALWAYS" | "OFTEN" | "SOMETIMES" | "USUAL";
         }>, "many">;
         buildingProductList: z.ZodArray<z.ZodObject<{
@@ -35272,6 +35784,19 @@ export declare const ItemZod: z.ZodObject<{
             voucherId: string;
             voucherItemType: "MATERIAL_ISSUE_VOUCHER" | "OPTIONAL_VOUCHER_PICK";
         }>, "many">>;
+        shopRelateInfoList: z.ZodNullable<z.ZodArray<z.ZodObject<{
+            shopType: z.ZodString;
+            shopGroup: z.ZodNumber;
+            startTs: z.ZodNumber;
+        }, "strict", z.ZodTypeAny, {
+            startTs: number;
+            shopType: string;
+            shopGroup: number;
+        }, {
+            startTs: number;
+            shopType: string;
+            shopGroup: number;
+        }>, "many">>;
     }, "strict", z.ZodTypeAny, {
         name: string;
         usage: string | null;
@@ -35285,9 +35810,10 @@ export declare const ItemZod: z.ZodObject<{
         obtainApproach: string | null;
         hideInItemGet: boolean;
         classifyType: "NONE" | "NORMAL" | "CONSUME" | "MATERIAL";
-        itemType: number | "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN";
+        itemType: "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GIFTPACKAGE_TKT" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "PLOT_ITEM" | "RANDOM_VOUCHER_SKIN" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SO_CHAR_EXP" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN" | "VOUCHER_SKIN_V2";
         stageDropList: {
             stageId: string;
+            sortId: number;
             occPer: "ALMOST" | "ALWAYS" | "OFTEN" | "SOMETIMES" | "USUAL";
         }[];
         buildingProductList: {
@@ -35297,6 +35823,11 @@ export declare const ItemZod: z.ZodObject<{
         voucherRelateList: {
             voucherId: string;
             voucherItemType: "MATERIAL_ISSUE_VOUCHER" | "OPTIONAL_VOUCHER_PICK";
+        }[] | null;
+        shopRelateInfoList: {
+            startTs: number;
+            shopType: string;
+            shopGroup: number;
         }[] | null;
     }, {
         name: string;
@@ -35311,9 +35842,10 @@ export declare const ItemZod: z.ZodObject<{
         obtainApproach: string | null;
         hideInItemGet: boolean;
         classifyType: "NONE" | "NORMAL" | "CONSUME" | "MATERIAL";
-        itemType: number | "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN";
+        itemType: "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GIFTPACKAGE_TKT" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "PLOT_ITEM" | "RANDOM_VOUCHER_SKIN" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SO_CHAR_EXP" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN" | "VOUCHER_SKIN_V2";
         stageDropList: {
             stageId: string;
+            sortId: number;
             occPer: "ALMOST" | "ALWAYS" | "OFTEN" | "SOMETIMES" | "USUAL";
         }[];
         buildingProductList: {
@@ -35323,6 +35855,11 @@ export declare const ItemZod: z.ZodObject<{
         voucherRelateList: {
             voucherId: string;
             voucherItemType: "MATERIAL_ISSUE_VOUCHER" | "OPTIONAL_VOUCHER_PICK";
+        }[] | null;
+        shopRelateInfoList: {
+            startTs: number;
+            shopType: string;
+            shopGroup: number;
         }[] | null;
     }>;
     formula: z.ZodNullable<z.ZodUnion<[z.ZodObject<{
@@ -35548,9 +36085,10 @@ export declare const ItemZod: z.ZodObject<{
         obtainApproach: string | null;
         hideInItemGet: boolean;
         classifyType: "NONE" | "NORMAL" | "CONSUME" | "MATERIAL";
-        itemType: number | "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN";
+        itemType: "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GIFTPACKAGE_TKT" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "PLOT_ITEM" | "RANDOM_VOUCHER_SKIN" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SO_CHAR_EXP" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN" | "VOUCHER_SKIN_V2";
         stageDropList: {
             stageId: string;
+            sortId: number;
             occPer: "ALMOST" | "ALWAYS" | "OFTEN" | "SOMETIMES" | "USUAL";
         }[];
         buildingProductList: {
@@ -35560,6 +36098,11 @@ export declare const ItemZod: z.ZodObject<{
         voucherRelateList: {
             voucherId: string;
             voucherItemType: "MATERIAL_ISSUE_VOUCHER" | "OPTIONAL_VOUCHER_PICK";
+        }[] | null;
+        shopRelateInfoList: {
+            startTs: number;
+            shopType: string;
+            shopGroup: number;
         }[] | null;
     };
     formula: (({
@@ -35681,9 +36224,10 @@ export declare const ItemZod: z.ZodObject<{
         obtainApproach: string | null;
         hideInItemGet: boolean;
         classifyType: "NONE" | "NORMAL" | "CONSUME" | "MATERIAL";
-        itemType: number | "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN";
+        itemType: "MATERIAL" | "ACTIVITY_COIN" | "ACTIVITY_ITEM" | "ACTIVITY_POTENTIAL" | "AP_BASE" | "AP_GAMEPLAY" | "AP_ITEM" | "AP_SUPPLY" | "CARD_EXP" | "CLASSIC_FES_PICK_TIER_5" | "CLASSIC_FES_PICK_TIER_6" | "CLASSIC_SHD" | "CLASSIC_TKT_GACHA" | "CLASSIC_TKT_GACHA_10" | "CRS_RUNE_COIN" | "CRS_SHOP_COIN" | "CRS_SHOP_COIN_V2" | "DIAMOND" | "DIAMOND_SHD" | "EMOTICON_SET" | "EPGS_COIN" | "ET_STAGE" | "EXCLUSIVE_TKT_GACHA" | "EXCLUSIVE_TKT_GACHA_10" | "EXP_PLAYER" | "EXTERMINATION_AGENT" | "FAVOR_ADD_ITEM" | "GIFTPACKAGE_TKT" | "GOLD" | "HGG_SHD" | "ITEM_PACK" | "LGG_SHD" | "LIMITED_BUFF" | "LIMITED_TKT_GACHA_10" | "LINKAGE_TKT_GACHA_10" | "LMTGS_COIN" | "MATERIAL_ISSUE_VOUCHER" | "MCARD_VOUCHER" | "MEDAL" | "NEW_PROGRESS" | "OPTIONAL_VOUCHER_PICK" | "PLOT_ITEM" | "RANDOM_VOUCHER_SKIN" | "RENAMING_CARD" | "REP_COIN" | "RETRO_COIN" | "RETURN_CREDIT" | "RETURN_PROGRESS" | "RL_COIN" | "SANDBOX_TOKEN" | "SO_CHAR_EXP" | "SOCIAL_PT" | "TKT_GACHA" | "TKT_GACHA_10" | "TKT_GACHA_PRSV" | "TKT_INST_FIN" | "TKT_RECRUIT" | "TKT_TRY" | "UNI_COLLECTION" | "VOUCHER_CGACHA" | "VOUCHER_ELITE_II_4" | "VOUCHER_ELITE_II_5" | "VOUCHER_ELITE_II_6" | "VOUCHER_FULL_POTENTIAL" | "VOUCHER_LEVELMAX_4" | "VOUCHER_LEVELMAX_5" | "VOUCHER_LEVELMAX_6" | "VOUCHER_MGACHA" | "VOUCHER_PICK" | "VOUCHER_SKILL_SPECIALLEVELMAX_4" | "VOUCHER_SKILL_SPECIALLEVELMAX_5" | "VOUCHER_SKILL_SPECIALLEVELMAX_6" | "VOUCHER_SKIN" | "VOUCHER_SKIN_V2";
         stageDropList: {
             stageId: string;
+            sortId: number;
             occPer: "ALMOST" | "ALWAYS" | "OFTEN" | "SOMETIMES" | "USUAL";
         }[];
         buildingProductList: {
@@ -35693,6 +36237,11 @@ export declare const ItemZod: z.ZodObject<{
         voucherRelateList: {
             voucherId: string;
             voucherItemType: "MATERIAL_ISSUE_VOUCHER" | "OPTIONAL_VOUCHER_PICK";
+        }[] | null;
+        shopRelateInfoList: {
+            startTs: number;
+            shopType: string;
+            shopGroup: number;
         }[] | null;
     };
     formula: (({
@@ -38451,6 +39000,26 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -38572,6 +39141,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -38693,6 +39270,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -38990,6 +39575,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -39187,6 +39780,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -39389,6 +39990,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -39591,6 +40200,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -41803,6 +42420,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -42600,6 +43225,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -43399,6 +44032,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -44220,6 +44861,14 @@ export declare const ParadoxZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -46455,6 +47104,26 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -46576,6 +47245,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -46697,6 +47374,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -46994,6 +47679,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -47191,6 +47884,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -47393,6 +48094,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -47595,6 +48304,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -49807,6 +50524,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -50604,6 +51329,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -51403,6 +52136,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -52223,6 +52964,14 @@ export declare const RogueStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -54438,6 +55187,26 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         }>>;
+                        teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
+                        groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: {
                             m_defined: boolean;
@@ -54559,6 +55328,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }, {
                         maxHp: {
                             m_defined: boolean;
@@ -54680,6 +55457,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }>;
                     applyWay: z.ZodOptional<z.ZodObject<{
                         m_defined: z.ZodBoolean;
@@ -54977,6 +55762,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -55174,6 +55967,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -55376,6 +56177,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -55578,6 +56387,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -57790,6 +58607,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -58587,6 +59412,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -59386,6 +60219,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -60206,6 +61047,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -62391,6 +63240,26 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         }>>;
+                        teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
+                        groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: {
                             m_defined: boolean;
@@ -62512,6 +63381,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }, {
                         maxHp: {
                             m_defined: boolean;
@@ -62633,6 +63510,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }>;
                     applyWay: z.ZodOptional<z.ZodObject<{
                         m_defined: z.ZodBoolean;
@@ -62930,6 +63815,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -63127,6 +64020,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -63329,6 +64230,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -63531,6 +64440,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -65743,6 +66660,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -66540,6 +67465,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -67339,6 +68272,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -68159,6 +69100,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -69059,6 +70008,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -69880,6 +70837,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -70730,6 +71695,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -71551,6 +72524,14 @@ export declare const RogueThemeZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -73996,6 +74977,26 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -74117,6 +75118,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -74238,6 +75247,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -74535,6 +75552,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -74732,6 +75757,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -74934,6 +75967,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -75136,6 +76177,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -77348,6 +78397,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -78145,6 +79202,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -78944,6 +80009,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -79752,6 +80825,14 @@ export declare const SandboxStageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -82221,6 +83302,26 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         }>>;
+                        teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
+                        groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: {
                             m_defined: boolean;
@@ -82342,6 +83443,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }, {
                         maxHp: {
                             m_defined: boolean;
@@ -82463,6 +83572,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }>;
                     applyWay: z.ZodOptional<z.ZodObject<{
                         m_defined: z.ZodBoolean;
@@ -82760,6 +83877,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -82957,6 +84082,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -83159,6 +84292,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -83361,6 +84502,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -85573,6 +86722,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -86370,6 +87527,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -87169,6 +88334,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -87977,6 +89150,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -88788,6 +89969,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -89664,6 +90853,14 @@ export declare const SandboxActZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -92931,6 +94128,26 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         }>>;
+                        teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
+                        groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: {
                             m_defined: boolean;
@@ -93052,6 +94269,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }, {
                         maxHp: {
                             m_defined: boolean;
@@ -93173,6 +94398,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }>;
                     applyWay: z.ZodOptional<z.ZodObject<{
                         m_defined: z.ZodBoolean;
@@ -93470,6 +94703,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -93667,6 +94908,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -93869,6 +95118,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -94071,6 +95328,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -96283,6 +97548,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -97080,6 +98353,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -97879,6 +99160,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -98684,6 +99973,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -99532,6 +100829,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -100380,6 +101685,14 @@ export declare const SandboxV3StageZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -103609,6 +104922,26 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             }>>;
+                            teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                                m_defined: z.ZodBoolean;
+                                m_value: z.ZodNullable<z.ZodBoolean>;
+                            }, "strict", z.ZodTypeAny, {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            }, {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            }>>>;
+                            groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                                m_defined: z.ZodBoolean;
+                                m_value: z.ZodNullable<z.ZodBoolean>;
+                            }, "strict", z.ZodTypeAny, {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            }, {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            }>>>;
                         }, "strict", z.ZodTypeAny, {
                             maxHp: {
                                 m_defined: boolean;
@@ -103730,6 +105063,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         }, {
                             maxHp: {
                                 m_defined: boolean;
@@ -103851,6 +105192,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         }>;
                         applyWay: z.ZodOptional<z.ZodObject<{
                             m_defined: z.ZodBoolean;
@@ -104148,6 +105497,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -104345,6 +105702,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -104547,6 +105912,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -104749,6 +106122,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -106961,6 +108342,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -107758,6 +109147,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -108557,6 +109954,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -109362,6 +110767,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -110210,6 +111623,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -111058,6 +112479,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -111937,6 +113366,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -112921,6 +114358,14 @@ export declare const SandboxV3ActZod: z.ZodObject<{
                                 m_defined: boolean;
                                 m_value: boolean | null;
                             } | undefined;
+                            teleportImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
+                            groundBoundImmune?: {
+                                m_defined: boolean;
+                                m_value: boolean | null;
+                            } | null | undefined;
                         };
                         description: {
                             m_defined: boolean;
@@ -114137,11 +115582,11 @@ export declare const StageZod: z.ZodObject<{
                 id: z.ZodString;
                 dropType: z.ZodEnum<["ADDITIONAL", "COMPLETE", "CONDITION_DROP", "NORMAL", "ONCE", "SPECIAL"]>;
             }, "strict", z.ZodTypeAny, {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }, {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }>, "many">;
@@ -114151,12 +115596,12 @@ export declare const StageZod: z.ZodObject<{
                 id: z.ZodString;
                 dropType: z.ZodEnum<["ADDITIONAL", "COMPLETE", "CONDITION_DROP", "NORMAL", "ONCE", "SPECIAL"]>;
             }, "strict", z.ZodTypeAny, {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
             }, {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -114167,12 +115612,12 @@ export declare const StageZod: z.ZodObject<{
             passRewards: null;
             completeRewards: null;
             displayRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }[];
             displayDetailRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -114183,12 +115628,12 @@ export declare const StageZod: z.ZodObject<{
             passRewards: null;
             completeRewards: null;
             displayRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }[];
             displayDetailRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -114223,11 +115668,11 @@ export declare const StageZod: z.ZodObject<{
                 count: z.ZodNumber;
                 type: z.ZodEnum<["ACTIVITY_ITEM", "CARD_EXP", "CHAR", "CHARM", "DIAMOND", "ET_STAGE", "FURN", "GOLD", "MATERIAL", "PLOT_ITEM", "TKT_RECRUIT"]>;
             }, "strict", z.ZodTypeAny, {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }, {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }>, "many">;
@@ -114244,7 +115689,7 @@ export declare const StageZod: z.ZodObject<{
         }, "strict", z.ZodTypeAny, {
             stageId: string;
             rewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }[];
@@ -114255,7 +115700,7 @@ export declare const StageZod: z.ZodObject<{
         }, {
             stageId: string;
             rewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }[];
@@ -114334,12 +115779,12 @@ export declare const StageZod: z.ZodObject<{
             passRewards: null;
             completeRewards: null;
             displayRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }[];
             displayDetailRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -114361,7 +115806,7 @@ export declare const StageZod: z.ZodObject<{
         extraInfo: {
             stageId: string;
             rewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }[];
@@ -114434,12 +115879,12 @@ export declare const StageZod: z.ZodObject<{
             passRewards: null;
             completeRewards: null;
             displayRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }[];
             displayDetailRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -114461,7 +115906,7 @@ export declare const StageZod: z.ZodObject<{
         extraInfo: {
             stageId: string;
             rewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }[];
@@ -116114,6 +117559,26 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     }>>;
+                    teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
+                    groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                        m_defined: z.ZodBoolean;
+                        m_value: z.ZodNullable<z.ZodBoolean>;
+                    }, "strict", z.ZodTypeAny, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }, {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    }>>>;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: {
                         m_defined: boolean;
@@ -116235,6 +117700,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }, {
                     maxHp: {
                         m_defined: boolean;
@@ -116356,6 +117829,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 }>;
                 applyWay: z.ZodOptional<z.ZodObject<{
                     m_defined: z.ZodBoolean;
@@ -116653,6 +118134,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -116850,6 +118339,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -117052,6 +118549,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -117254,6 +118759,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -119466,6 +120979,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -120263,6 +121784,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -121062,6 +122591,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -121584,12 +123121,12 @@ export declare const StageZod: z.ZodObject<{
             passRewards: null;
             completeRewards: null;
             displayRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }[];
             displayDetailRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -121611,7 +123148,7 @@ export declare const StageZod: z.ZodObject<{
         extraInfo: {
             stageId: string;
             rewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }[];
@@ -121962,6 +123499,14 @@ export declare const StageZod: z.ZodObject<{
                         m_defined: boolean;
                         m_value: boolean | null;
                     } | undefined;
+                    teleportImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
+                    groundBoundImmune?: {
+                        m_defined: boolean;
+                        m_value: boolean | null;
+                    } | null | undefined;
                 };
                 description: {
                     m_defined: boolean;
@@ -122484,12 +124029,12 @@ export declare const StageZod: z.ZodObject<{
             passRewards: null;
             completeRewards: null;
             displayRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
             }[];
             displayDetailRewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 id: string;
                 dropType: "COMPLETE" | "ADDITIONAL" | "CONDITION_DROP" | "NORMAL" | "ONCE" | "SPECIAL";
                 occPercent: string;
@@ -122511,7 +124056,7 @@ export declare const StageZod: z.ZodObject<{
         extraInfo: {
             stageId: string;
             rewards: {
-                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN" | "PLOT_ITEM";
+                type: "MATERIAL" | "ACTIVITY_ITEM" | "CARD_EXP" | "DIAMOND" | "ET_STAGE" | "GOLD" | "PLOT_ITEM" | "TKT_RECRUIT" | "CHAR" | "CHARM" | "FURN";
                 count: number;
                 id: string;
             }[];
@@ -122713,6 +124258,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: z.ZodBoolean;
                     palsyImmune: z.ZodBoolean;
                     attractImmune: z.ZodBoolean;
+                    teleportImmune: z.ZodBoolean;
+                    groundBoundImmune: z.ZodBoolean;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: number;
                     atk: number;
@@ -122740,6 +124287,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 }, {
                     maxHp: number;
                     atk: number;
@@ -122767,6 +124316,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 }>;
             }, "strict", z.ZodTypeAny, {
                 data: {
@@ -122796,6 +124347,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }, {
@@ -122826,6 +124379,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }>, "many">;
@@ -122874,6 +124429,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -122914,6 +124471,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -123291,6 +124850,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: z.ZodBoolean;
                 palsyImmune: z.ZodBoolean;
                 attractImmune: z.ZodBoolean;
+                teleportImmune: z.ZodBoolean;
+                groundBoundImmune: z.ZodBoolean;
             }, "strict", z.ZodTypeAny, {
                 maxHp: number;
                 atk: number;
@@ -123318,6 +124879,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             }, {
                 maxHp: number;
                 atk: number;
@@ -123345,6 +124908,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             }>;
         }, "strict", z.ZodTypeAny, {
             data: {
@@ -123374,6 +124939,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }, {
@@ -123404,6 +124971,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }>, "many">>;
@@ -123510,6 +125079,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -123638,6 +125209,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -123710,6 +125283,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -123838,6 +125413,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -124628,6 +126205,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -124756,6 +126335,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -124970,6 +126551,8 @@ export declare const DeployableZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -125098,6 +126681,8 @@ export declare const DeployableZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -125432,6 +127017,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: z.ZodBoolean;
                     palsyImmune: z.ZodBoolean;
                     attractImmune: z.ZodBoolean;
+                    teleportImmune: z.ZodBoolean;
+                    groundBoundImmune: z.ZodBoolean;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: number;
                     atk: number;
@@ -125459,6 +127046,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 }, {
                     maxHp: number;
                     atk: number;
@@ -125486,6 +127075,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 }>;
             }, "strict", z.ZodTypeAny, {
                 data: {
@@ -125515,6 +127106,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }, {
@@ -125545,6 +127138,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }>, "many">;
@@ -125593,6 +127188,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -125633,6 +127230,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -126010,6 +127609,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: z.ZodBoolean;
                 palsyImmune: z.ZodBoolean;
                 attractImmune: z.ZodBoolean;
+                teleportImmune: z.ZodBoolean;
+                groundBoundImmune: z.ZodBoolean;
             }, "strict", z.ZodTypeAny, {
                 maxHp: number;
                 atk: number;
@@ -126037,6 +127638,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             }, {
                 maxHp: number;
                 atk: number;
@@ -126064,6 +127667,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             }>;
         }, "strict", z.ZodTypeAny, {
             data: {
@@ -126093,6 +127698,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }, {
@@ -126123,6 +127730,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }>, "many">>;
@@ -126229,6 +127838,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -126357,6 +127968,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -126429,6 +128042,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -126557,6 +128172,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -127327,6 +128944,9 @@ export declare const OperatorZod: z.ZodObject<{
             buffCategory: z.ZodEnum<["FUNCTION", "OUTPUT", "RECOVERY"]>;
             roomType: z.ZodEnum<["CONTROL", "DORMITORY", "HIRE", "MANUFACTURE", "MEETING", "POWER", "TRADING", "TRAINING", "WORKSHOP"]>;
             description: z.ZodString;
+            efficiency: z.ZodNumber;
+            targetGroupSortId: z.ZodNumber;
+            targets: z.ZodArray<z.ZodString, "many">;
         }, "strict", z.ZodTypeAny, {
             description: string;
             sortId: number;
@@ -127338,6 +128958,9 @@ export declare const OperatorZod: z.ZodObject<{
             textColor: string;
             buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
             roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+            efficiency: number;
+            targetGroupSortId: number;
+            targets: string[];
         }, {
             description: string;
             sortId: number;
@@ -127349,6 +128972,9 @@ export declare const OperatorZod: z.ZodObject<{
             textColor: string;
             buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
             roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+            efficiency: number;
+            targetGroupSortId: number;
+            targets: string[];
         }>;
     }, "strict", z.ZodTypeAny, {
         condition: {
@@ -127369,6 +128995,9 @@ export declare const OperatorZod: z.ZodObject<{
             textColor: string;
             buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
             roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+            efficiency: number;
+            targetGroupSortId: number;
+            targets: string[];
         };
     }, {
         condition: {
@@ -127389,6 +129018,9 @@ export declare const OperatorZod: z.ZodObject<{
             textColor: string;
             buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
             roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+            efficiency: number;
+            targetGroupSortId: number;
+            targets: string[];
         };
     }>, "many">;
     deploys: z.ZodNullable<z.ZodArray<z.ZodObject<{
@@ -127571,6 +129203,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: z.ZodBoolean;
                         palsyImmune: z.ZodBoolean;
                         attractImmune: z.ZodBoolean;
+                        teleportImmune: z.ZodBoolean;
+                        groundBoundImmune: z.ZodBoolean;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: number;
                         atk: number;
@@ -127598,6 +129232,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     }, {
                         maxHp: number;
                         atk: number;
@@ -127625,6 +129261,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     }>;
                 }, "strict", z.ZodTypeAny, {
                     data: {
@@ -127654,6 +129292,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }, {
@@ -127684,6 +129324,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }>, "many">;
@@ -127732,6 +129374,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -127772,6 +129416,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -128149,6 +129795,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: z.ZodBoolean;
                     palsyImmune: z.ZodBoolean;
                     attractImmune: z.ZodBoolean;
+                    teleportImmune: z.ZodBoolean;
+                    groundBoundImmune: z.ZodBoolean;
                 }, "strict", z.ZodTypeAny, {
                     maxHp: number;
                     atk: number;
@@ -128176,6 +129824,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 }, {
                     maxHp: number;
                     atk: number;
@@ -128203,6 +129853,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 }>;
             }, "strict", z.ZodTypeAny, {
                 data: {
@@ -128232,6 +129884,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }, {
@@ -128262,6 +129916,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }>, "many">>;
@@ -128368,6 +130024,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -128496,6 +130154,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[] | null;
@@ -128568,6 +130228,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -128696,6 +130358,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[] | null;
@@ -129486,6 +131150,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -129614,6 +131280,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[] | null;
@@ -129828,6 +131496,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -129956,6 +131626,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[] | null;
@@ -132762,6 +134434,26 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         }>>;
+                        teleportImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
+                        groundBoundImmune: z.ZodNullable<z.ZodOptional<z.ZodObject<{
+                            m_defined: z.ZodBoolean;
+                            m_value: z.ZodNullable<z.ZodBoolean>;
+                        }, "strict", z.ZodTypeAny, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }, {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        }>>>;
                     }, "strict", z.ZodTypeAny, {
                         maxHp: {
                             m_defined: boolean;
@@ -132883,6 +134575,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }, {
                         maxHp: {
                             m_defined: boolean;
@@ -133004,6 +134704,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     }>;
                     applyWay: z.ZodOptional<z.ZodObject<{
                         m_defined: z.ZodBoolean;
@@ -133301,6 +135009,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -133498,6 +135214,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -133700,6 +135424,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -133902,6 +135634,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -136114,6 +137854,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -136911,6 +138659,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -137710,6 +139466,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -138531,6 +140295,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -139083,6 +140855,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -139211,6 +140985,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -139385,6 +141161,9 @@ export declare const OperatorZod: z.ZodObject<{
             textColor: string;
             buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
             roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+            efficiency: number;
+            targetGroupSortId: number;
+            targets: string[];
         };
     }[];
     deploys: {
@@ -139446,6 +141225,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -139574,6 +141355,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[] | null;
@@ -140163,6 +141946,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
@@ -140715,6 +142506,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[];
@@ -140843,6 +142636,8 @@ export declare const OperatorZod: z.ZodObject<{
                 fearedImmune: boolean;
                 palsyImmune: boolean;
                 attractImmune: boolean;
+                teleportImmune: boolean;
+                groundBoundImmune: boolean;
             };
             level: number;
         }[] | null;
@@ -141017,6 +142812,9 @@ export declare const OperatorZod: z.ZodObject<{
             textColor: string;
             buffCategory: "FUNCTION" | "OUTPUT" | "RECOVERY";
             roomType: "TRAINING" | "CONTROL" | "DORMITORY" | "HIRE" | "MANUFACTURE" | "MEETING" | "POWER" | "TRADING" | "WORKSHOP";
+            efficiency: number;
+            targetGroupSortId: number;
+            targets: string[];
         };
     }[];
     deploys: {
@@ -141078,6 +142876,8 @@ export declare const OperatorZod: z.ZodObject<{
                         fearedImmune: boolean;
                         palsyImmune: boolean;
                         attractImmune: boolean;
+                        teleportImmune: boolean;
+                        groundBoundImmune: boolean;
                     };
                     level: number;
                 }[];
@@ -141206,6 +143006,8 @@ export declare const OperatorZod: z.ZodObject<{
                     fearedImmune: boolean;
                     palsyImmune: boolean;
                     attractImmune: boolean;
+                    teleportImmune: boolean;
+                    groundBoundImmune: boolean;
                 };
                 level: number;
             }[] | null;
@@ -141795,6 +143597,14 @@ export declare const OperatorZod: z.ZodObject<{
                             m_defined: boolean;
                             m_value: boolean | null;
                         } | undefined;
+                        teleportImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
+                        groundBoundImmune?: {
+                            m_defined: boolean;
+                            m_value: boolean | null;
+                        } | null | undefined;
                     };
                     description: {
                         m_defined: boolean;
