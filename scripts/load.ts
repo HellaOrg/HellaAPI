@@ -5,7 +5,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import * as T from "hella-types";
 import { Db, ObjectId } from 'mongodb';
 import { normalize } from 'path';
-import simpleGit from 'simple-git';
+import { simpleGit } from 'simple-git';
 import { promisify } from 'util';
 import * as zod from 'zod';
 import getDb from "../src/db";
@@ -449,7 +449,7 @@ async function loadCollection(collection: string, dataArr: PreDoc[], schema: zod
                     schema.parse(doc.value);
                 } catch (e: any) {
                     validate = false;
-                    schemaErrors.push({ key: doc.canon, error: e.errors });
+                    schemaErrors.push({ key: doc.canon, error: e.issues });
                     break;
                 }
             }

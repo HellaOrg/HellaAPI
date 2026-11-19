@@ -11,12 +11,14 @@ on:
       - main
     paths:
       - scripts/test.ts
+      - types/**/*.js
       - types/**/*.ts
   push:
     branches:
       - main
     paths:
       - scripts/test.ts
+      - types/**/*.js
       - types/**/*.ts
   schedule:
     - cron: "0 0 * * *"
@@ -53,4 +55,9 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+          npm run build:types
+          if [ -n "$(git status --porcelain -- types/dist)" ]; then
+            git status --short -- types/dist
+            exit 1
+          fi
           npm run test

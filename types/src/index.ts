@@ -1538,7 +1538,7 @@ export const DeployableZod = z.strictObject({
             })
         ),
         skills: z.array(DeploySkillZod),
-        displayTokenDict: z.record(z.boolean()).nullable(),
+        displayTokenDict: z.record(z.string(), z.boolean()).nullable(),
         talents: z.array(
             z.strictObject({
                 candidates: z.array(
