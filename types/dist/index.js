@@ -109,6 +109,7 @@ const AttributesKeyFrameZod = z.strictObject({
         tauntLevel: z.number(),
         massLevel: z.number(),
         baseForceLevel: z.number(),
+        blockVolume: z.number().optional(),
         stunImmune: z.boolean(),
         silenceImmune: z.boolean(),
         sleepImmune: z.boolean(),
@@ -138,6 +139,7 @@ const EnemyAttributesZod = z.strictObject({
     maxDeployCount: DefinedNumberZod,
     massLevel: DefinedNumberZod,
     baseForceLevel: DefinedNumberZod,
+    blockVolume: DefinedNumberZod.optional(),
     tauntLevel: DefinedNumberZod.optional(),
     epDamageResistance: DefinedNumberZod.optional(),
     epResistance: DefinedNumberZod.optional(),
@@ -152,7 +154,7 @@ const EnemyAttributesZod = z.strictObject({
     disarmedCombatImmune: DefinedBooleanZod.optional(),
     fearedImmune: DefinedBooleanZod.optional(),
     palsyImmune: DefinedBooleanZod.optional(),
-    attractImmune: DefinedBooleanZod.optional(),
+    attractImmune: DefinedBooleanZod.optional().nullable(),
     teleportImmune: DefinedBooleanZod.optional().nullable(),
     groundBoundImmune: DefinedBooleanZod.optional().nullable(),
 });
@@ -277,6 +279,10 @@ const StageCardZod = z.strictObject({
     skinId: z.string().nullable(),
     tmplId: z.string().nullable().optional(),
     overrideSkillBlackboard: z.array(BlackboardZod).nullable().optional(),
+    overrideTalents: z.array(z.strictObject({
+        prefabKey: z.string(),
+        blackboard: z.array(BlackboardZod),
+    })).nullable().optional(),
 });
 const StageInstZod = StageCardZod.extend({
     position: z.strictObject({
@@ -377,6 +383,7 @@ const StageDataZod = z.strictObject({
         costIncreaseTime: z.number(),
         moveMultiplier: z.number(),
         steeringEnabled: z.boolean(),
+        reachableCheckIgnoreStartTile: z.boolean().optional(),
         isTrainingLevel: z.boolean(),
         isHardTrainingLevel: z.boolean().optional(),
         isPredefinedCardsSelectable: z.boolean().optional(),
@@ -455,6 +462,7 @@ const StageDataZod = z.strictObject({
             tauntLevel: z.number(),
             massLevel: z.number(),
             baseForceLevel: z.number(),
+            blockVolume: z.number().optional(),
             stunImmune: z.boolean(),
             silenceImmune: z.boolean(),
             sleepImmune: z.boolean(),
@@ -464,6 +472,8 @@ const StageDataZod = z.strictObject({
             fearedImmune: z.boolean().optional(),
             palsyImmune: z.boolean().optional(),
             attractImmune: z.boolean().optional(),
+            teleportImmune: z.boolean().optional(),
+            groundBoundImmune: z.boolean().optional(),
         }),
         applyWay: z.enum(EnemyApplyWay),
         motion: z.enum(EnemyMotion),
@@ -657,9 +667,15 @@ export const GachaPoolZod = z.strictObject({
             })
         ]).nullable(),
         linkageRuleId: z.string().nullable(),
-        linkageParam: z.strictObject({
-            guaranteeTarget6Count: z.number(),
-        }).nullable(),
+        linkageParam: z.union([
+            z.strictObject({
+                guaranteeTarget6Count: z.number(),
+            }),
+            z.strictObject({
+                guaranteeTarget6Char: z.string(),
+                loopTarget6Count: z.number(),
+            }),
+        ]).nullable(),
         limitParam: z.strictObject({
             freeCount: z.number(),
             hasFreeChar: z.boolean(),
