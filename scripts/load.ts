@@ -267,6 +267,7 @@ async function fetchData(path: string): Promise<any> {
                     await new Promise(resolve => setTimeout(resolve, 5000 * ++attempt));
                     continue;
                 }
+                throw new Error(`Failed to fetch ${path}: ${res.status} ${res.statusText}`);
             }
         } catch (err) {
             attempt++;
@@ -776,7 +777,6 @@ async function loadParadoxes() {
 
     const handbookTable = await fetchData('excel/handbook_info_table.json');
     const stages: { [key: string]: any } = handbookTable.handbookStageData;
-
     const dataArr: PreDoc[] = await Promise.all(Object.values(stages).map(async excel => {
         const levels = await fetchData(`levels/${excel.levelId.toLowerCase()}.json`);
         G.paradoxDict[excel.charId] = { excel: excel, levels: levels };
