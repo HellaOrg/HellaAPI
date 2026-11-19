@@ -1,16 +1,17 @@
 {
   "name": "hella-types",
   "version": "0.5.0",
+  "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "author": "",
-  "license": "MIT",
-  "description": "",
   "scripts": {
     "build": "tsc"
   },
-  "dependencies": {
+  "peerDependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
     "typescript": "^7.0.2",
     "zod": "^4.6.7"
   },

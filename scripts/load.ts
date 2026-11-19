@@ -4,12 +4,13 @@ import 'dotenv/config';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import * as T from "hella-types";
 import { Db, ObjectId } from 'mongodb';
+import objectHash from 'object-hash';
 import { normalize } from 'path';
 import { simpleGit } from 'simple-git';
 import { promisify } from 'util';
 import * as zod from 'zod';
-import getDb from "../src/db";
-const objectHash = require('object-hash');
+import constants from '../src/constants.json' with { type: 'json' };
+import getDb from "../src/db.js";
 
 const logDate = (msg: string) => console.log(`[${new Date().toLocaleString()}] ${msg}`);
 const logTime = (msg: string) => console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
@@ -82,7 +83,7 @@ class G {
         'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/5ba509ad5a07f17b7e220a25f1ff66794dd79af1/en_US/gamedata' // last commit before removing en_US folder
     ];
     static cnGamedataUrl = 'https://raw.githubusercontent.com/Kengxxiao/ArknightsGameData/master/zh_CN/gamedata';
-    static gameConsts = (require('../src/constants.json')).gameConsts;
+    static gameConsts = constants.gameConsts;
 
     static db: Db;
     static index: number;

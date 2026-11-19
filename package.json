@@ -1,4 +1,8 @@
 {
+  "name": "hellaapi",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
   "scripts": {
     "start": "tsx src/index.ts",
     "load": "tsx scripts/load.ts",
@@ -8,21 +12,21 @@
     "build:types": "npm --prefix types run build"
   },
   "dependencies": {
-    "command-line-args": "^6.0.2",
     "cors": "^2.8.6",
     "dotenv": "^18.0.10",
     "express": "^5.3.0",
-    "hella-types": "file:types",
     "mongodb": "^7.9.0",
-    "object-hash": "^3.0.0",
     "safe-regex2": "^5.1.1",
-    "simple-git": "^4.1.0",
-    "tsx": "^4.23.15",
-    "typescript": "^7.0.2",
-    "zod": "^4.6.7"
+    "tsx": "^4.23.15"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "@types/node": "^26.6.6"
+    "@types/node": "^26.6.6",
+    "command-line-args": "^6.0.2",
+    "hella-types": "file:types",
+    "object-hash": "^3.0.0",
+    "simple-git": "^4.1.0",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.7"
   }
 }

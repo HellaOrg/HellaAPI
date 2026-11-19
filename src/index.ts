@@ -1,7 +1,7 @@
+import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
-import { BadRequestError, getCollections, getMatch, getMulti, getNewEn, getSearch, getSearchV2, getSingle } from './persistence';
-const cors = require('cors');
+import { BadRequestError, getCollections, getMatch, getMulti, getNewEn, getSearch, getSearchV2, getSingle } from './persistence.js';
 
 function handleError(req, res, e) {
     console.error(`[${req.originalUrl}] ${e}`);

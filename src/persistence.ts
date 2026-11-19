@@ -1,11 +1,9 @@
-import { Filter, FindOptions } from 'mongodb';
 import safeRegex from 'safe-regex2';
-import getDb from './db';
+import getDb from './db.js';
 
-export class BadRequestError extends Error {}
-
-export class ValidationError extends BadRequestError {}
-export class ParseError extends BadRequestError {}
+export class BadRequestError extends Error { }
+export class ValidationError extends BadRequestError { }
+export class ParseError extends BadRequestError { }
 
 export async function getCollections() {
     const collections = await (await getDb()).collections();

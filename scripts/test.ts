@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import * as T from 'hella-types';
-import getDb from "../src/db";
+import getDb from "../src/db.js";
 
 let db;
 const collections = [
